@@ -4,5 +4,5 @@ body {
 #map {
     width: 50vw;
     height: 50vw;
-    background-color: gray;
+    border-radius: 50%;
 }
