@@ -11,32 +11,57 @@
 //     for (var i = 0; i <)
 //
 // }
-$(document).ready(function () {
-    $('.btn-danger').click(shelterSelector);
+$(document).ready(function() {
+    var petObject = null;
+  $('.btn-danger').click(shelterSelector);
+/*
+displayPet - function to append the DOM to display the animal's profile
+@params response["petfinder"]["pets"]
+ */
+    var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
+    function displayPet(petObject) {
+        var petProfile = $("<div>");
+        var petPicture = $("<img>");
+        petPicture.attr("src",petObject["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
+        petProfile.append(petPicture);
+        for (var i = 0; i < petDetails.length; i++) {
+            //console.log(petObject[petDetails[i]]["$t"]);
+            petProfile.append(petObject[petDetails[i]]["$t"]);
+        }
+        $("body").append(petProfile);
+    }
 });
 
-function getRandomPet() {
-    var dataObject = {
-        format: "json",
-        key: "1db51d3f16936ba505cf7a0476dd8771",
-        animal: "dog",
-        output: "basic"
-        //callback: "\?"
-    };
-    var urlString = "http://api.petfinder.com/pet.getRandom?format=json" + "&" + dataObject["animal"] + "&" + dataObject["output"] + "&" + "callback=?";
+    $(".animalType").on("click", getRandomPet);
+    /*
+    * getRandomPet - Based on user click get a random dog or cat
+    * May need to transition this to shelter.getPet and randomize the results or something like that
+     */
+    function getRandomPet() {
+        console.log($(this)); //$(this) = button.animalType
+        var dataObject = {
+            format: "json",
+            key: "1db51d3f16936ba505cf7a0476dd8771",
+            animal: $(this).text(),
+            output: "basic"
+        };
+        var urlString = "http://api.petfinder.com/pet.getRandom?format=json" + "&" + dataObject["animal"] + "&" + dataObject["output"] + "&" + "callback=?";
         $.ajax({
             data: dataObject,
             dataType: "JSON",
             method: "GET",
             url: urlString, //"http://api.petfinder.com/pet.getRandom", // petFinder.php",
-            success: function(response) {
-                console.log(response["petfinder"]["pet"]);
+            success: function (response) {
+                console.log("Random pet", response["petfinder"]["pet"]);
+                petObject = response["petfinder"]["pet"];
+                displayPet(petObject);
             },
-            error: function(response) {
+            error: function (response) {
                 console.log(response);
             }
         });
-}
+    }
+
 //http://api.petfinder.com/pet.getRandom?key=1db51d3f16936ba505cf7a0476dd8771&animal=dog&output=basic
 
 var shelterArray = [];
