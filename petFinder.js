@@ -75,15 +75,23 @@ function displayMap(){
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
 function displayPet(petObject) {
     if (petObject.length !== 0) {
+        var petCarouselDiv = $("<div id= 'petCarousel' class = 'carousel slide'>");
+        var innerPetCarousel = $("<div class= 'carousel-inner'>");
+        var dummyDiv = $("<div class = 'item active'>").text("BLAH!");
+        petCarouselDiv.append(innerPetCarousel);
+        $(innerPetCarousel).append(dummyDiv);
+        $("#petInfo").append(petCarouselDiv);
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile = $("<div>");//.addClass("petProfile col-xs-4");
+            var petProfile= $("<div>").addClass("item");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
-            var petPicture = $("<img>");
+            var petPicture = $("<img>").addClass("img-fluid");
             if(petObject[i]["media"]["photos"] !== undefined) {
                 petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
                 petPictureHolder.append(petPicture);
                 petProfile.append(petPictureHolder);
             }
+            petProfile.append(petName, petAge, petContact, shelterName);
+            $(innerPetCarousel).append(petProfile);
             var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
             var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
             var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
@@ -95,14 +103,9 @@ function displayPet(petObject) {
                 click: walmartStuff
             });
             heartContainer.append(walmartButton);
-            // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
-          petProfile.addClass("carousel-item");
-          // var petProfileSlide =$(".carousel-inner").append(petProfile);
-          // petProfileSlide.appendTo("#petCarousel");
-          //   $("#petCarousel").appendTo("#petInfo");
-            petProfile.appendTo("#petInfo");
         }
+
     }
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
