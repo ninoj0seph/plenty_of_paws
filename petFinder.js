@@ -91,6 +91,12 @@ function displayPet(petObject) {
 
         $(".mainContent").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
     }
+    var nextShelterButton = $('<button>',{
+        text: 'Next',
+        class: "btn btn-danger btn-sm",
+        click: nextShelter
+    });
+    $('.mainContent').append(nextShelterButton)
 }
 
 /*
@@ -197,7 +203,16 @@ var shelterPets = function () {
     });
 };
 
-
+var resetEverything = function () {
+  petArray = [];
+  shelterArray = [];
+  userSelectedAnimal = null;
+};
+var nextShelter = function () {
+  petArray = [];
+  $('.mainContent').empty();
+  shelterPets();
+};
 
 /*
 * filterPetResults - take in the AJAX call response
