@@ -7,6 +7,9 @@ body {
     border-radius: 50%;
     /*background-color: gray;*/
 }
+.petProfile {
+    margin: 12px;
+}
 /* Animal picture class */
 .animalPicture {
     border-radius: 12px;

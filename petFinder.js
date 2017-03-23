@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('.btn-danger').click(shelterSelector);
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",getPets);
-    $('.btn-danger').click(shelterSelector);
+
     displayMap();
 
 });
@@ -56,17 +56,20 @@ displayPet - function to append the DOM to display the animal's profile
  */
     var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
     function displayPet(petObject) {
-        var petProfile = $("<div>");
-        var petPicture = $("<img>");
 
-
-        for (var i = 0; i < petDetails.length; i++) {
-            //console.log(petObject[petDetails[i]]["$t"]);
-            petPicture.attr("src",petObject[i]["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
-            petProfile.append(petObject[i][petDetails[i]]["$t"]);
+        var petPictureArray = [];
+        for (var j = 0; j < petObject.length; j++) {
+            var petProfile = $("<div>").addClass("petProfile");
+            var petPicture = $("<img>");
+            petPicture.attr("src", petObject[j]["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
             petProfile.append(petPicture);
+            for (var i = 0; i < petDetails.length; i++) {
+                // console.log(petObject[petDetails[i]]["$t"]);
+                // petPicture.attr("src", petObject[j]["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
+                petProfile.append(petObject[j][petDetails[i]]["$t"]);
+            }
+            $("body").append(petProfile);
         }
-        $("body").append(petProfile);
     }
 function displayRandomPet(petObject) {
     var petProfile = $("<div>");
