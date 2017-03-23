@@ -5,8 +5,12 @@ $(document).ready(function() {
     //$(".animalType").on("click", getRandomPet);
     $(".animalType").on("click",getPets);
     $(".animalType").on("click",assignAnimalType);
+    $(".animalType").on("click",newSearch);
 });
 
+var newSearch = function () {
+    $('#petInfo').empty();
+};
 /*
 *
 * @params
@@ -275,13 +279,16 @@ var resetEverything = function () {
 };
 var nextShelter = function () {
     petArray = [];
+    $('#petInfo').empty();
     if (shelterCount < 4){
         shelterCount++;
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
+        $("#petInfo").append("No more shelters in your area.");
+        resetEverything();
+        return;
     }
-  $('#petInfo').empty();
   displayMap();
   shelterPets();
 };
