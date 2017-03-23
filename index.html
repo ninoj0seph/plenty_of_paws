@@ -44,19 +44,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>I'm in/near </p>
-                    <input type="text" class ="userLocation" placeholder="Zip Code/City,State">
-                    <p>I'm looking to adopt a </p>
-                    <button type="button" class="btn btn-primary animalType userLocationSubmit" data-dismiss="modal">Dog</button>
-                    <button type="button" class="btn btn-primary animalType userLocationSubmit" data-dismiss="modal">Cat</button>
-
+                    <div class="modalContainer">
+                        <p>I'm in/near </p>
+                        <input type="text" class ="userLocation" placeholder="Zip Code/City,State">
+                        <p>I'm looking to adopt a </p>
+                        <button type="button" class="btn btn-primary animalType userLocationSubmit" data-dismiss="modal">Dog</button>
+                        <button type="button" class="btn btn-primary animalType userLocationSubmit" data-dismiss="modal">Cat</button>
+                    </div>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 </div>
-<div id="map"></div>
 <div class="mainContent container">
+    <div id="map" class="pull-right col-xs-8"></div>
 </div>
 </body>
 </html>
