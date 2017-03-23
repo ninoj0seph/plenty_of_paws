@@ -77,7 +77,7 @@ var petDetails = ["name","age","description"]; // media.photos.photo[i] for imag
 function displayPet(petObject) {
     if (petObject.length !== 0) {
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile = $("<div>");//.addClass("petProfile col-xs-4");
+            var petProfile = $("<div>").addClass("petProfile");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
             if(petObject[i]["media"]["photos"] !== undefined) {
@@ -91,7 +91,7 @@ function displayPet(petObject) {
             var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]);
             // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petAge, petContact, shelterName);
-          petProfile.addClass("carousel-item");
+          petProfile.addClass("carousel-item col-xs-6");
           // var petProfileSlide =$(".carousel-inner").append(petProfile);
           // petProfileSlide.appendTo("#petCarousel");
           //   $("#petCarousel").appendTo("#petInfo");
@@ -105,8 +105,8 @@ function displayPet(petObject) {
         }
 
     var nextShelterButton = $('<button>',{
-        text: 'Next',
-        class: "btn btn-danger btn-sm",
+        text: 'Next shelter',
+        class: "btn btn-danger nextButton",
         click: nextShelter
     });
     $('#petInfo').append(nextShelterButton);
