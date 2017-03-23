@@ -3,7 +3,10 @@ $(document).ready(function(){
     createMap();
 });
 function createMap(){
-    $("#map").googleMap();
+    $("#map").googleMap({
+        zoom: 14,
+        coords: [48.895,2.95]
+    });
     $("#map").addMarker({
         address: '15 avenue des champs Elysées 75008 Paris',
         //zoom: 13, // Initial zoom level (optional)

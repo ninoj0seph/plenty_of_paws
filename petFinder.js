@@ -1,19 +1,10 @@
-// Javascript file for petfinder api stuff
-//var animalType = $(".animalType").text();
-//console.log(".animalType").text();
 
-// $.getJSON('http://api.petfinder.com/my.method?format=json&key=12345&callback=?')
-//     .done(function(petApiData) { alert('Data retrieved!'; })
-//     .error(function(err) { alert('Error retrieving data!');
-//     });
-// var petDetails = ["age","animal","media" ]
-// function displayPet() {
-//     for (var i = 0; i <)
-//
-// }
 $(document).ready(function() {
     var petObject = null;
-  $('.btn-danger').click(shelterSelector);
+    $('.btn-danger').click(shelterSelector);
+    $(".animalType").on("click", getRandomPet);
+    $(".userLocationSubmit").on("click",shelterFinder);
+});
 /*
 displayPet - function to append the DOM to display the animal's profile
 @params response["petfinder"]["pets"]
@@ -30,9 +21,8 @@ displayPet - function to append the DOM to display the animal's profile
         }
         $("body").append(petProfile);
     }
-});
 
-    $(".animalType").on("click", getRandomPet);
+
     /*
     * getRandomPet - Based on user click get a random dog or cat
     * May need to transition this to shelter.getPet and randomize the results or something like that
@@ -64,21 +54,35 @@ displayPet - function to append the DOM to display the animal's profile
 
 //http://api.petfinder.com/pet.getRandom?key=1db51d3f16936ba505cf7a0476dd8771&animal=dog&output=basic
 
+/* shelter coordinates
+@params shelters found in shelter finder
+ */
+
+// function getShelterCoordinates(shelterObj) {
+//     for (var i = 0; i < shelterArray.length; i++)
+// }
+
 var shelterArray = [];
 var petArray = [];
+var shelterObj = null;
 var userShelter = null;
 var shelterNumber = null;
 var shelterFinder = function () {
+    var dataObject = {
+        format: "json",
+        key: "579d9f154b80d15e1daee8e8aca5ba7a",
+        location: $(".userLocation").val(),
+        output: "full"
+    };
+    var urlString = "http://api.petfinder.com/shelter.find?format=json" + "&" + dataObject["location"] + "&" + dataObject["output"] + "&" + "callback=?";
     $.ajax({
-        url: 'http://api.petfinder.com/shelter.find?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
+        url: urlString,
         type: 'GET',
-        data: {
-            location: 92705,
-            count: 5
-        },
+        data: dataObject,
         dataType: 'json',
         success: function (result) {
             console.log(result);
+            //shelterObj = result["petfinder"]["shelters"]
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i])
             }
