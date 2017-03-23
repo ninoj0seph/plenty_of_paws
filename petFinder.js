@@ -2,17 +2,20 @@
 $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
-    $(".animalType").on("click", getRandomPet);
-    $(".userLocationSubmit").on("click",getPets);
+    //$(".animalType").on("click", getRandomPet);
+    $(".animalType").on("click",getPets);
 });
 /*
- * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets)
+ * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
  * @params none (for the moment)
  */
+var userSelectedAninal = getPets();
 function getPets(){
-    console.log($(this).val());
+    console.log($(this).text());
+    var userSelectedAnimal = $(this).text();
     shelterFinder();
-}
+    return userSelectedAnimal;
+};
 /*
  * createMap - Makes map
  * @params obj that contains stuff
@@ -58,16 +61,21 @@ function displayMap(){
  @params response["petfinder"]["pets"]
  */
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
-function displayPet(petObject) {
+function displayPet(petObject,userSelectedAnimal) {
     for (var i = 0; i < petObject.length; i++) {
-        var petProfile = $("<div>").addClass("petProfile");
-        var petPicture = $("<img>");
-        petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-        petProfile.append(petPicture);
-        var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-        var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
-        petProfile.append(petName, petDescription);
-        $("body").append(petProfile);
+        if (petObject[i]["animal"]["$t"].toLowerCase() ===  "dog") {
+            var petProfile = $("<div>").addClass("petProfile");
+            var petPicture = $("<img>");
+            petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
+            petProfile.append(petPicture);
+            var petName = $("<div>").text(petObject[i]["name"]["$t"]);
+            var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
+            petProfile.append(petName, petDescription);
+            $("body").append(petProfile);
+        }
+        else {
+            console.log("No doges found");
+        }
     }
 }
 
@@ -149,10 +157,8 @@ var shelterFinder = function () {
 
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
-    for (var i = 0; i < shelterArray.length; i++) {
         var randomShelterID = Math.floor(Math.random()*shelterArray.length);
         return shelterArray[randomShelterID]["id"]["$t"];
-    }
 }
 var shelterPets = function () {
     $.ajax({
@@ -175,3 +181,5 @@ var shelterPets = function () {
         }
     });
 };
+
+
