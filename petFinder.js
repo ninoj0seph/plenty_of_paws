@@ -6,13 +6,18 @@ $(document).ready(function() {
     $(".animalType").on("click",getPets);
     $(".animalType").on("click",assignAnimalType);
 });
+
+/*
+*
+* @params
+ */
 var userSelectedAnimal = null;
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
 };
 /*
  * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
- * @params none (for the moment)
+ * @params
  */
 function getPets(){
     console.log($(this).text());
@@ -20,8 +25,8 @@ function getPets(){
     shelterFinder();
 };
 /*
- * createMap - Makes map
- * @params obj that contains stuff
+ * createMap - Makes map from the values of the latitude and longitude keys
+ * @params {object} obj
  */
 function createMap(obj){
     $("#map").googleMap({
@@ -71,13 +76,14 @@ function displayPet(petObject) {
             var petProfile = $("<div>").addClass("petProfile");
             var petPictureHolder = $("<div>");
             var petPicture = $("<img>");
-        petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-        petPictureHolder.append(petPicture);
-        petProfile.append(petPictureHolder);
-        var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-        var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
-        petProfile.append(petName, petDescription);
-        $(".mainContent").append(petProfile);
+            petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
+            petPictureHolder.append(petPicture);
+            petProfile.append(petPictureHolder);
+            var petName = $("<div>").text(petObject[i]["name"]["$t"]);
+            var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
+            petProfile.append(petName, petDescription);
+            $(".mainContent").append(petProfile);
+        }
         else {
             console.log("No doges found");
         }
@@ -133,8 +139,9 @@ function getRandomPet() {
 var shelterArray = [];
 var petArray = [];
 /*
- * shelterFinder - function for finding a shelter based on the user submitted location. Also updats the shelter list
+ * shelterFinder - function for finding a shelter based on the user submitted location. Also updates the shelter list
  * @params - none
+ * dataObject @type
  */
 var shelterFinder = function () {
     var dataObject = {
