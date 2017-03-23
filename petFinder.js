@@ -78,7 +78,7 @@ function displayPet(petObject) {
         var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
         petProfile.append(petName, petDescription);
         $(".mainContent").append(petProfile);
-        else {
+        } else {
             console.log("No doges found");
         }
     }
@@ -158,6 +158,7 @@ var shelterFinder = function () {
             }
             shelterPets(shelterArray);
             displayMap();
+            suggestion.getItemInformation();
         }
     });
 };
@@ -186,4 +187,61 @@ var shelterPets = function () {
     });
 };
 
+var server = new serverConstructor();
+var suggestion = new suggestionConstructor()
+// suggestion.getItemInformation();
+
+function suggestionConstructor() {
+    this.items = {
+        dog : ['food','treats','carrier','toy','collar+leash'],
+        cat : ['food,','bowl','litter+box','scratching+post','bedding']
+    };
+
+    this.getItemInformation = function () {
+        for(var i = 0; i  <  suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
+            server.checkWalmart(userSelectedAnimal.toLowerCase(), suggestion.items[userSelectedAnimal.toLowerCase()][i]);
+        }
+    };
+
+    this.findNearestStoreFromShelter = function () {
+        server.walmartLocator(33.83529333,-117.914505);
+    };
+}
+
+function serverConstructor() {
+    this.checkWalmart = function (passedAnimal, passedItem) {
+        $.ajax({
+            "url": "http://api.walmartlabs.com/v1/search?query=" + passedAnimal + "+" + passedItem + " +&format=json&apiKey=5pw9whbkctdk92vckbgewxky",
+            "dataType": "jsonp",
+            "method": "get",
+            "success": function (walmartItemInfo) {
+                console.log(walmartItemInfo.items);
+                walmartItemInfo.items.sort(function (a, b) {
+                    return parseFloat(a.customerRating) - parseFloat(b.customerRating);
+                });
+                suggestion.items[passedAnimal][suggestion.items[passedAnimal].indexOf(passedItem)] = (function () {
+                    var keys = ["name","largeImage","customerRating","addToCartUrl","stock","salePrice"], tempObj = {};
+                    for(var x = 0; x  < keys.length; x++) {
+                        tempObj[keys[x]] = walmartItemInfo.items[walmartItemInfo.items.length - 1][keys[x]];
+                    }
+                    return tempObj;
+                })();
+            },
+            "error": function () {
+                console.log('network timeout');
+            }
+        });
+    };
+
+    this.walmartLocator = function (lat, long) {
+        $.ajax({
+            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ lat + "&lon=" + long + "&apiKey=5pw9whbkctdk92vckbgewxky",
+            "dataType" : "jsonp",
+            "method" : "get",
+            "success" : function (walmartLocation) {
+                suggestion.stores = walmartLocation;
+            }
+        });
+    }
+}
 
