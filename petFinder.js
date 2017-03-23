@@ -68,16 +68,17 @@ function displayPet(petObject) {
     for (var i = 0; i < petObject.length; i++) {
         console.log(userSelectedAnimal);
         if (petObject[i]["animal"]["$t"] ===  userSelectedAnimal) {
-            var petProfile = $("<div>").addClass("petProfile");
-            var petPictureHolder = $("<div>");
+            var petProfile = $("<div>").addClass("petProfile col-xs-4");
+            var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
-        petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-        petPictureHolder.append(petPicture);
-        petProfile.append(petPictureHolder);
-        var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-        var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
-        petProfile.append(petName, petDescription);
-        $(".mainContent").append(petProfile);
+            petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
+            petPictureHolder.append(petPicture);
+            petProfile.append(petPictureHolder);
+            var petName = $("<div>").text(petObject[i]["name"]["$t"]);
+            var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
+            petProfile.append(petName, petDescription);
+            $(".mainContent").append(petProfile);
+        }
         else {
             console.log("No doges found");
         }
