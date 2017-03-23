@@ -3,8 +3,9 @@ $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
     //$(".animalType").on("click", getRandomPet);
-    $(".animalType").on("click",getPets);
     $(".animalType").on("click",assignAnimalType);
+    $(".animalType").on("click",getPets);
+    //$("#homeModal").on("click", resetEverything);
     $(".animalType").on("click",newSearch);
 });
 
@@ -12,13 +13,13 @@ var newSearch = function () {
     $('#petInfo').empty();
 };
 /*
-*
+* assignAnimalType - gets the text of the button pressed to know the animal
 * @params
  */
 var userSelectedAnimal = null;
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
-};
+}
 /*
  * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
  * @params
@@ -27,7 +28,7 @@ function getPets(){
     console.log($(this).text());
     //var userSelectedAnimal = $(this).text();
     shelterFinder();
-};
+}
 /*
  * createMap - Makes map from the values of the latitude and longitude keys
  * @params {object} obj
@@ -76,7 +77,7 @@ var petDetails = ["name","age","description"]; // media.photos.photo[i] for imag
 function displayPet(petObject) {
     if (petObject.length !== 0) {
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile = $("<div>").addClass("petProfile col-xs-4");
+            var petProfile = $("<div>");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
             if(petObject[i]["media"]["photos"] !== undefined) {
@@ -90,7 +91,10 @@ function displayPet(petObject) {
             var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]);
             // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petAge, petContact, shelterName);
-            $("#petInfo").append(petProfile);
+          petProfile.addClass("carousel-item");
+          var petProfileSlide =$(".carousel-inner").append(petProfile);
+          petProfileSlide.appendTo("#petCarousel");
+            $("#petCarousel").appendTo("#petInfo");
         }
     }
     else {
@@ -211,9 +215,14 @@ var shelterPets = function () {
             }
             displayPet(petArray);
         }
+        // complete: function(result) {
+        //
+        // }
     });
 };
-
+/*
+* instantiation of serverConstructor
+ */
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
 // suggestion.getItemInformation();
