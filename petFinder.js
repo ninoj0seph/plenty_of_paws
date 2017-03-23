@@ -6,9 +6,12 @@ $(document).ready(function() {
     $(".animalType").on("click",assignAnimalType);
     $(".animalType").on("click",getPets);
     //$("#homeModal").on("click", resetEverything);
-
+    $(".animalType").on("click",newSearch);
 });
 
+var newSearch = function () {
+    $('#petInfo').empty();
+};
 /*
 * assignAnimalType - gets the text of the button pressed to know the animal
 * @params
@@ -77,31 +80,33 @@ function displayPet(petObject) {
             var petProfile = $("<div>");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
-            petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-            petPictureHolder.append(petPicture);
-            petProfile.append(petPictureHolder);
+            if(petObject[i]["media"]["photos"] !== undefined) {
+                petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
+                petPictureHolder.append(petPicture);
+                petProfile.append(petPictureHolder);
+            }
             var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-            var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
-            petProfile.append(petName, petDescription);
-            petProfile.addClass("carousel-item");
-
-            //$(".mainContent").append(petProfile);
-            var petProfileSlide =$(".carousel-inner").append(petProfile);
-            petProfileSlide.appendTo("#petCarousel");
-            console.log("Ey?");
-            $("#petCarousel").appendTo(".mainContainer");
+            var petAge = $("<div>").text(petObject[i]["age"]["$t"]);
+            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]);
+            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]);
+            // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
+            petProfile.append(petName, petAge, petContact, shelterName);
+          petProfile.addClass("carousel-item");
+          var petProfileSlide =$(".carousel-inner").append(petProfile);
+          petProfileSlide.appendTo("#petCarousel");
+            $("#petCarousel").appendTo("#petInfo");
         }
     }
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
-        $(".mainContent").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
+        $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
         }
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",
         click: nextShelter
     });
-    $('.mainContent').append(nextShelterButton);
+    $('#petInfo').append(nextShelterButton);
 }
 
 
@@ -153,6 +158,7 @@ function getRandomPet() {
 
 var shelterArray = [];
 var petArray = [];
+var shelterCount = 0;
 /*
  * shelterFinder - function for finding a shelter based on the user submitted location. Also updates the shelter list
  * @params - none
@@ -187,8 +193,8 @@ var shelterFinder = function () {
 
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
-        var randomShelterID = Math.floor(Math.random()*shelterArray.length);
-        return shelterArray[randomShelterID]["id"]["$t"];
+        var randomShelterID = shelterArray[shelterCount];
+        return shelterArray[shelterCount]["id"]["$t"];
 }
 var shelterPets = function () {
     $.ajax({
@@ -200,9 +206,11 @@ var shelterPets = function () {
         dataType: 'json',
         success: function (result) {
             console.log("shelterPets", result);
-            for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
-                if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
-                    petArray.push(result.petfinder.pets.pet[i]);
+            if(result.petfinder.pets.pet !== undefined) {
+                for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
+                    if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
+                        petArray.push(result.petfinder.pets.pet[i]);
+                    }
                 }
             }
             displayPet(petArray);
@@ -276,9 +284,20 @@ var resetEverything = function () {
   petArray = [];
   shelterArray = [];
   userSelectedAnimal = null;
+  shelterCount = 0;
 };
 var nextShelter = function () {
-  petArray = [];
-  $('.mainContent').empty();
+    petArray = [];
+    $('#petInfo').empty();
+    if (shelterCount < 4){
+        shelterCount++;
+    }
+    else if(shelterCount >= 4){
+        shelterCount = 0;
+        $("#petInfo").append("No more shelters in your area.");
+        resetEverything();
+        return;
+    }
+  displayMap();
   shelterPets();
 };
