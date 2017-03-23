@@ -8,13 +8,13 @@ $(document).ready(function() {
 });
 
 /*
-*
+* assignAnimalType - gets the text of the button pressed to know the animal
 * @params
  */
 var userSelectedAnimal = null;
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
-};
+}
 /*
  * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
  * @params
@@ -23,7 +23,7 @@ function getPets(){
     console.log($(this).text());
     //var userSelectedAnimal = $(this).text();
     shelterFinder();
-};
+}
 /*
  * createMap - Makes map from the values of the latitude and longitude keys
  * @params {object} obj
@@ -194,6 +194,9 @@ var shelterPets = function () {
             }
             displayPet(petArray);
         }
+        // complete: function(result) {
+        //
+        // }
     });
 };
 
