@@ -84,7 +84,7 @@ function displayRandomPet(petObject) {
     for (var i = 0; i < petDetails.length; i++) {
         petProfile.append(petObject[petDetails[i]]["$t"]);
     }
-    $("body").append(petProfile);
+    $(".mainContent.container").append(petProfile);
 }
 /*
  * getRandomPet - Based on user click get a random dog or cat
@@ -166,9 +166,6 @@ var shelterPets = function () {
             console.log("shelterPets",result);
             for(var i = 0; i < result.petfinder.pets.pet.length; i++) {
                 petArray.push(result.petfinder.pets.pet[i])
-            }
-            for(var j = 0; j < petArray.length; j++){
-                $('.table tbody').append(petArray[j].name.$t);
             }
             displayPet(result.petfinder.pets.pet);
             return petArray;
