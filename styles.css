@@ -30,7 +30,7 @@ body {
 .petProfile {
     margin: 5%;
 }
-.mainContent {
+.mainContent  {
     height: 90vh;
     margin: 0 auto;
     width: 80vw;
@@ -143,8 +143,8 @@ input input:before {
 /*}*/
 .carousel{
     padding-top: 20px;
-    width: auto;
-    overflow: hidden;
-    height: auto;
+    width: 500px;
+    /*overflow: hidden;*/
+    height: 100%;
     /* position: relative; */
 }
