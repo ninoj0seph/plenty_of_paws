@@ -75,9 +75,11 @@ function displayPet(petObject) {
             var petProfile = $("<div>").addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
-            petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-            petPictureHolder.append(petPicture);
-            petProfile.append(petPictureHolder);
+            if(petObject[i]["media"]["photos"] !== undefined) {
+                petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
+                petPictureHolder.append(petPicture);
+                petProfile.append(petPictureHolder);
+            }
             var petName = $("<div>").text(petObject[i]["name"]["$t"]);
             var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petDescription);
@@ -192,9 +194,11 @@ var shelterPets = function () {
         dataType: 'json',
         success: function (result) {
             console.log("shelterPets", result);
-            for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
-                if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
-                    petArray.push(result.petfinder.pets.pet[i]);
+            if(result.petfinder.pets.pet !== undefined) {
+                for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
+                    if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
+                        petArray.push(result.petfinder.pets.pet[i]);
+                    }
                 }
             }
             displayPet(petArray);
