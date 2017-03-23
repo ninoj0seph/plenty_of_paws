@@ -1,9 +1,11 @@
 
 $(document).ready(function() {
     var petObject = null;
+    $('#homeModal').modal('show');
     $('.btn-danger').click(shelterSelector);
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",getPets);
+    $('.btn-danger').click(shelterSelector);
 });
 /*
 * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets)
@@ -12,7 +14,7 @@ $(document).ready(function() {
 function getPets(){
     shelterFinder();
     shelterPets();
-
+    displayMap();
 }
 /*
 * createMap - Makes map
@@ -20,7 +22,7 @@ function getPets(){
  */
 function createMap(obj){
     $("#map").googleMap({
-        zoom: 8,
+        zoom: 14,
         coords: [obj.latitude,obj.longitude] // Map center (optional)
     });
     $("#map").addMarker({
@@ -35,7 +37,7 @@ function createMap(obj){
 * return - coordObj
  */
 function infoForMap(){
-    var index = 1;
+    var index = 0;
     var coordObj = {};
     coordObj.address = {};
     coordObj.latitude = parseFloat(shelterArray[index].latitude['$t']);
@@ -51,7 +53,6 @@ function infoForMap(){
 * @params - none
  */
 function displayMap(){
-    // infoForMap();
     var coordinates = infoForMap();
     createMap(coordinates);
 }
@@ -87,8 +88,6 @@ function displayRandomPet(petObject) {
     }
     $("body").append(petProfile);
 }
-
-
     /*
     * getRandomPet - Based on user click get a random dog or cat
     * May need to transition this to shelter.getPet and randomize the results or something like that
@@ -211,5 +210,3 @@ var shelterSelector = function () {
     shelterPets();
     $('.table tbody').empty();
 };
-
-// shelter
