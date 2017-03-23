@@ -50,14 +50,13 @@ function createMap(obj){
  * return - coordObj
  */
 function infoForMap(){
-    var index = 0;
     var coordObj = {};
     coordObj.address = {};
-    coordObj.latitude = parseFloat(shelterArray[index].latitude['$t']);
-    coordObj.longitude = parseFloat(shelterArray[index].longitude['$t']);
-    coordObj.address.name = shelterArray[index].name['$t'];
-    coordObj.address.city = shelterArray[index].city['$t'];
-    coordObj.address.state = shelterArray[index].state['$t'];
+    coordObj.latitude = parseFloat(shelterArray[shelterCount].latitude['$t']);
+    coordObj.longitude = parseFloat(shelterArray[shelterCount].longitude['$t']);
+    coordObj.address.name = shelterArray[shelterCount].name['$t'];
+    coordObj.address.city = shelterArray[shelterCount].city['$t'];
+    coordObj.address.state = shelterArray[shelterCount].state['$t'];
     coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
     return coordObj;
 }
@@ -83,7 +82,6 @@ function displayPet(petObject) {
         $(innerPetCarousel).append(dummyDiv);
         $("#petInfo").append(petCarouselDiv);
         for (var i = 0; i < petObject.length; i++) {
-
             var petProfile= $("<div>").addClass("item");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>").addClass("img-fluid");
@@ -92,19 +90,29 @@ function displayPet(petObject) {
                 petPictureHolder.append(petPicture);
                 petProfile.append(petPictureHolder);
             }
-            var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-            var petAge = $("<div>").text(petObject[i]["age"]["$t"]);
-            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]);
-            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]);
             petProfile.append(petName, petAge, petContact, shelterName);
             $(innerPetCarousel).append(petProfile);
+            var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
+            var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
+            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
+            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
+            var heartContainer = $("<div>").addClass('heartContainer');
+            var imgUrl = 'images/heart_icon.svg';
+            var walmartButton = $('<img>',{
+                src: imgUrl,
+                click: walmartStuff
+            });
+            heartContainer.append(walmartButton);
+            petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
         }
 
     }
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
+
         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
         }
+
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",
@@ -112,6 +120,11 @@ function displayPet(petObject) {
     });
     $('#petInfo').append(nextShelterButton);
 }
+var walmartStuff = function () {
+    suggestion.getItemInformation();
+    // suggestion.findNearestStoreFromShelter();
+    server.walmartLocator(infoForMap());
+};
 
 
 /*
@@ -191,6 +204,10 @@ var shelterFinder = function () {
             shelterPets(shelterArray);
             displayMap();
             suggestion.getItemInformation();
+            //suggestion.findNearestStoreFromShelter();
+            setTimeout(function () {
+                server.walmartLocator(infoForMap());
+            },1500);
         }
     });
 };
@@ -229,25 +246,19 @@ var shelterPets = function () {
  */
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
-// suggestion.getItemInformation();
 
 function suggestionConstructor() {
     this.items = {
-        dog : ['food','treats','carrier','toy','collar+leash'],
-        cat : ['food,','bowl','litter+box','scratching+post','bedding']
+        dog: ['food', 'treats', 'carrier', 'toy', 'collar+leash'],
+        cat: ['food,', 'bowl', 'litter+box', 'scratching+post', 'bedding']
     };
 
     this.getItemInformation = function () {
-        for(var i = 0; i  <  suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
+        for (var i = 0; i < suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
             server.checkWalmart(userSelectedAnimal.toLowerCase(), suggestion.items[userSelectedAnimal.toLowerCase()][i]);
         }
     };
-
-    this.findNearestStoreFromShelter = function () {
-        server.walmartLocator(33.83529333,-117.914505);
-    };
 }
-
 function serverConstructor() {
     this.checkWalmart = function (passedAnimal, passedItem) {
         $.ajax({
@@ -255,7 +266,6 @@ function serverConstructor() {
             "dataType": "jsonp",
             "method": "get",
             "success": function (walmartItemInfo) {
-                console.log(walmartItemInfo.items);
                 walmartItemInfo.items.sort(function (a, b) {
                     return parseFloat(a.customerRating) - parseFloat(b.customerRating);
                 });
@@ -273,13 +283,23 @@ function serverConstructor() {
         });
     };
 
-    this.walmartLocator = function (lat, long) {
+    this.walmartLocator = function (coordinates) {
         $.ajax({
-            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ lat + "&lon=" + long + "&apiKey=5pw9whbkctdk92vckbgewxky",
+            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ coordinates.latitude + "&lon=" + coordinates.longitude + "&apiKey=5pw9whbkctdk92vckbgewxky",
             "dataType" : "jsonp",
             "method" : "get",
             "success" : function (walmartLocation) {
-                suggestion.stores = walmartLocation;
+                console.log(walmartLocation);
+                $(function() {
+                    $("#map").googleMap();
+                    for(var i = 0; i < 10; i++){
+                        $("#map").addMarker({
+                            coords: [parseFloat(walmartLocation[i].coordinates[1]), parseFloat(walmartLocation[i].coordinates[0])],
+                            title: walmartLocation[i].name,
+                            text:  walmartLocation[i].streetAddress + " " + walmartLocation[i].city + " " + walmartLocation[i].stateProvCode + " " + walmartLocation[i].zip
+                        });
+                    }
+                });
             }
         });
     }
