@@ -2,11 +2,8 @@
 $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
-
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",getPets);
-
-
 });
 /*
 * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets)
@@ -141,10 +138,6 @@ function displayRandomPet(petObject) {
 
 var shelterArray = [];
 var petArray = [];
-var shelterObj = null;
-var userShelter = null;
-var shelterId = null;
-var shelterNumber = null;
 /*
 * shelterFinder - function for finding a shelter based on the user submitted location. Also updats the shelter list
 * @params - none
@@ -168,7 +161,6 @@ function shelterFinder() {
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i])
             }
-            return shelterArray;
         }
     });
 };
