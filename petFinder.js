@@ -159,6 +159,10 @@ var shelterFinder = function () {
             shelterPets(shelterArray);
             displayMap();
             suggestion.getItemInformation();
+            //suggestion.findNearestStoreFromShelter();
+            setTimeout(function () {
+                server.walmartLocator(infoForMap());
+            },1500);
         }
     });
 };
@@ -189,25 +193,19 @@ var shelterPets = function () {
 
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
-// suggestion.getItemInformation();
 
 function suggestionConstructor() {
     this.items = {
-        dog : ['food','treats','carrier','toy','collar+leash'],
-        cat : ['food,','bowl','litter+box','scratching+post','bedding']
+        dog: ['food', 'treats', 'carrier', 'toy', 'collar+leash'],
+        cat: ['food,', 'bowl', 'litter+box', 'scratching+post', 'bedding']
     };
 
     this.getItemInformation = function () {
-        for(var i = 0; i  <  suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
+        for (var i = 0; i < suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
             server.checkWalmart(userSelectedAnimal.toLowerCase(), suggestion.items[userSelectedAnimal.toLowerCase()][i]);
         }
     };
-
-    this.findNearestStoreFromShelter = function () {
-        server.walmartLocator(33.83529333,-117.914505);
-    };
 }
-
 function serverConstructor() {
     this.checkWalmart = function (passedAnimal, passedItem) {
         $.ajax({
@@ -215,7 +213,6 @@ function serverConstructor() {
             "dataType": "jsonp",
             "method": "get",
             "success": function (walmartItemInfo) {
-                console.log(walmartItemInfo.items);
                 walmartItemInfo.items.sort(function (a, b) {
                     return parseFloat(a.customerRating) - parseFloat(b.customerRating);
                 });
@@ -233,13 +230,23 @@ function serverConstructor() {
         });
     };
 
-    this.walmartLocator = function (lat, long) {
+    this.walmartLocator = function (coordinates) {
         $.ajax({
-            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ lat + "&lon=" + long + "&apiKey=5pw9whbkctdk92vckbgewxky",
+            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ coordinates.latitude + "&lon=" + coordinates.longitude + "&apiKey=5pw9whbkctdk92vckbgewxky",
             "dataType" : "jsonp",
             "method" : "get",
             "success" : function (walmartLocation) {
-                suggestion.stores = walmartLocation;
+                console.log(walmartLocation);
+                $(function() {
+                    $("#map").googleMap();
+                    for(var i = 0; i < 10; i++){
+                        $("#map").addMarker({
+                            coords: [parseFloat(walmartLocation[i].coordinates[1]), parseFloat(walmartLocation[i].coordinates[0])],
+                            title: walmartLocation[i].name,
+                            text:  walmartLocation[i].streetAddress + " " + walmartLocation[i].city + " " + walmartLocation[i].stateProvCode + " " + walmartLocation[i].zip
+                        });
+                    }
+                });
             }
         });
     }
