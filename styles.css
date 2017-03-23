@@ -9,6 +9,8 @@ p {
 
 /* Modal */
 .navbar, .modal-content {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
     border-radius: 0 !important;
 }
 .btn.btn-default {
@@ -55,7 +57,7 @@ p {
 }
 /* Nav */
 img.pawLogo{
-    height: 60%;
+    height: 70%;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -81,6 +83,11 @@ img.pawLogo{
 }
 .navbar-default .navbar-nav>li>a:hover {
     color: #777;
+}
+.compName {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
 }
 /* Main */
 #map {
@@ -109,6 +116,60 @@ img.pawLogo{
     -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 }
+/* Next button */
+.nextButton {
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    padding: 3% 7%;
+    width: 15vw;
+    margin-left: 15%;
+    text-transform: uppercase;
+}
+.btn.btn-danger {
+    background-color: #02A8F3;
+    border-color: #02A8F3;
+}
+.btn.btn-danger:hover {
+    color: #FFF;
+    background-color: #006591;
+    border-color: #006591;
+    transition-duration: 1s;
+}
+.btn-danger .danger,.btn-danger.focus, .btn-danger:focus {
+    color: #FFF;
+    background-color: #006591;
+    border-color: #006591;
+}
+/* Heart */
+.heartContainer {
+    background-color: #2F3E9E;
+    border-radius: 4px;
+    height: 5vw;
+    position: relative;
+    padding: 2% 4%;
+    margin: 0 auto;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+}
+.heartContainer:hover {
+    background-color: #e91e63;
+}
+
+.heartContainer > img {
+    width: 3.5vw;
+    position: absolute;
+    top: 18%;
+    left: 42%;
+}
+.heartSpin {
+    -webkit-animation: rotate-center 0.6s ease-in-out both;
+    -moz-animation: rotate-center 0.6s ease-in-out both;
+    animation: rotate-center 0.6s ease-in-out both;
+}
+
+
 
 /* Animal picture class */
 .animalPicture {
@@ -118,8 +179,8 @@ img.pawLogo{
 }
 .imgContainer {
     margin: 0 auto;
-    width: 30vw;
-    height: 30vw;
+    width: 20vw;
+    height: 20vw;
     position: relative;
     border-radius: 50%;
     overflow: hidden;
@@ -127,6 +188,7 @@ img.pawLogo{
     -moz-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
     box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
 }
+
 /* Styling for search bar input */
 .form-control.userLocation {
     margin: 2% 0;
@@ -141,24 +203,23 @@ img.pawLogo{
     width: 24vw;
     text-transform: uppercase;
 }
-/*@media (min-width: 768px){*/
-    /*#map {*/
-        /*width: 35vw;*/
-        /*height: 35vw;*/
-    /*}*/
-/*}*/
-@media (min-width: 400px){
-    .buttonContainer, .form-control.userLocation {
-        width: 100%;
-    }
-.carousel{
+.carousel {
     padding-top: 20px;
     width: 500px;
     /*overflow: hidden;*/
     height: 100%;
     /* position: relative; */
 }
-
+/*@media (min-width: 768px){*/
+    /*#map {*/
+        /*width: 35vw;*/
+        /*height: 35vw;*/
+    /*}*/
+/*}*/
+@media (min-width: 400px) {
+    .buttonContainer, .form-control.userLocation, .mainContent {
+        width: 100%;
+    }
 .walmart{
     border: 1px solid black;
     height: 50%;
