@@ -12,7 +12,6 @@ $(document).ready(function() {
 function getPets(){
     shelterFinder();
     shelterPets();
-
 }
 /*
 * createMap - Makes map
