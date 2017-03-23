@@ -3,12 +3,17 @@ $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
     //$(".animalType").on("click", getRandomPet);
-    $(".animalType").on("click",getPets);
     $(".animalType").on("click",assignAnimalType);
+    $(".animalType").on("click",getPets);
+    //$("#homeModal").on("click", resetEverything);
+    $(".animalType").on("click",newSearch);
 });
 
+var newSearch = function () {
+    $('#petInfo').empty();
+};
 /*
-*
+* assignAnimalType - gets the text of the button pressed to know the animal
 * @params
  */
 var userSelectedAnimal = null;
@@ -48,11 +53,11 @@ function infoForMap(){
     var index = 0;
     var coordObj = {};
     coordObj.address = {};
-    coordObj.latitude = parseFloat(shelterArray[index].latitude['$t']);
-    coordObj.longitude = parseFloat(shelterArray[index].longitude['$t']);
-    coordObj.address.name = shelterArray[index].name['$t'];
-    coordObj.address.city = shelterArray[index].city['$t'];
-    coordObj.address.state = shelterArray[index].state['$t'];
+    coordObj.latitude = parseFloat(shelterArray[shelterCount].latitude['$t']);
+    coordObj.longitude = parseFloat(shelterArray[shelterCount].longitude['$t']);
+    coordObj.address.name = shelterArray[shelterCount].name['$t'];
+    coordObj.address.city = shelterArray[shelterCount].city['$t'];
+    coordObj.address.state = shelterArray[shelterCount].state['$t'];
     coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
     return coordObj;
 }
@@ -72,7 +77,7 @@ var petDetails = ["name","age","description"]; // media.photos.photo[i] for imag
 function displayPet(petObject) {
     if (petObject.length !== 0) {
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile = $("<div>").addClass("petProfile col-xs-6");
+            var petProfile = $("<div>");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
             if(petObject[i]["media"]["photos"] !== undefined) {
@@ -81,21 +86,30 @@ function displayPet(petObject) {
                 petProfile.append(petPictureHolder);
             }
             var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-            var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
-            petProfile.append(petName, petDescription);
-            $(".mainContent").append(petProfile);
+            var petAge = $("<div>").text(petObject[i]["age"]["$t"]);
+            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]);
+            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]);
+            // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
+            petProfile.append(petName, petAge, petContact, shelterName);
+          petProfile.addClass("carousel-item");
+          // var petProfileSlide =$(".carousel-inner").append(petProfile);
+          // petProfileSlide.appendTo("#petCarousel");
+          //   $("#petCarousel").appendTo("#petInfo");
+            petProfile.appendTo("#petInfo");
         }
     }
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
-        $(".mainContent").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
-    }
+
+        $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
+        }
+
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",
         click: nextShelter
     });
-    $('.mainContent').append(nextShelterButton);
+    $('#petInfo').append(nextShelterButton);
 }
 
 
@@ -147,6 +161,7 @@ function getRandomPet() {
 
 var shelterArray = [];
 var petArray = [];
+var shelterCount = 0;
 /*
  * shelterFinder - function for finding a shelter based on the user submitted location. Also updates the shelter list
  * @params - none
@@ -175,14 +190,18 @@ var shelterFinder = function () {
             shelterPets(shelterArray);
             displayMap();
             suggestion.getItemInformation();
+            //suggestion.findNearestStoreFromShelter();
+            setTimeout(function () {
+                server.walmartLocator(infoForMap());
+            },1500);
         }
     });
 };
 
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
-    var randomShelterID = Math.floor(Math.random()*shelterArray.length);
-    return shelterArray[randomShelterID]["id"]["$t"];
+        var randomShelterID = shelterArray[shelterCount];
+        return shelterArray[shelterCount]["id"]["$t"];
 }
 var shelterPets = function () {
     $.ajax({
@@ -203,29 +222,29 @@ var shelterPets = function () {
             }
             displayPet(petArray);
         }
+        // complete: function(result) {
+        //
+        // }
     });
 };
+/*
+* instantiation of serverConstructor
+ */
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
-// suggestion.getItemInformation();
 
 function suggestionConstructor() {
     this.items = {
-        dog : ['food','treats','carrier','toy','collar+leash'],
-        cat : ['food,','bowl','litter+box','scratching+post','bedding']
+        dog: ['food', 'treats', 'carrier', 'toy', 'collar+leash'],
+        cat: ['food,', 'bowl', 'litter+box', 'scratching+post', 'bedding']
     };
 
     this.getItemInformation = function () {
-        for(var i = 0; i  <  suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
+        for (var i = 0; i < suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
             server.checkWalmart(userSelectedAnimal.toLowerCase(), suggestion.items[userSelectedAnimal.toLowerCase()][i]);
         }
     };
-
-    this.findNearestStoreFromShelter = function () {
-        server.walmartLocator(33.83529333,-117.914505);
-    };
 }
-
 function serverConstructor() {
     this.checkWalmart = function (passedAnimal, passedItem) {
         $.ajax({
@@ -233,7 +252,6 @@ function serverConstructor() {
             "dataType": "jsonp",
             "method": "get",
             "success": function (walmartItemInfo) {
-                console.log(walmartItemInfo.items);
                 walmartItemInfo.items.sort(function (a, b) {
                     return parseFloat(a.customerRating) - parseFloat(b.customerRating);
                 });
@@ -251,24 +269,45 @@ function serverConstructor() {
         });
     };
 
-    this.walmartLocator = function (lat, long) {
+    this.walmartLocator = function (coordinates) {
         $.ajax({
-            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ lat + "&lon=" + long + "&apiKey=5pw9whbkctdk92vckbgewxky",
+            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ coordinates.latitude + "&lon=" + coordinates.longitude + "&apiKey=5pw9whbkctdk92vckbgewxky",
             "dataType" : "jsonp",
             "method" : "get",
             "success" : function (walmartLocation) {
-                suggestion.stores = walmartLocation;
+                console.log(walmartLocation);
+                $(function() {
+                    $("#map").googleMap();
+                    for(var i = 0; i < 10; i++){
+                        $("#map").addMarker({
+                            coords: [parseFloat(walmartLocation[i].coordinates[1]), parseFloat(walmartLocation[i].coordinates[0])],
+                            title: walmartLocation[i].name,
+                            text:  walmartLocation[i].streetAddress + " " + walmartLocation[i].city + " " + walmartLocation[i].stateProvCode + " " + walmartLocation[i].zip
+                        });
+                    }
+                });
             }
         });
     }
 }
 var resetEverything = function () {
-    petArray = [];
-    shelterArray = [];
-    userSelectedAnimal = null;
+  petArray = [];
+  shelterArray = [];
+  userSelectedAnimal = null;
+  shelterCount = 0;
 };
 var nextShelter = function () {
     petArray = [];
-    $('.mainContent').empty();
-    shelterPets();
+    $('#petInfo').empty();
+    if (shelterCount < 4){
+        shelterCount++;
+    }
+    else if(shelterCount >= 4){
+        shelterCount = 0;
+        $("#petInfo").append("No more shelters in your area.");
+        resetEverything();
+        return;
+    }
+  displayMap();
+  shelterPets();
 };

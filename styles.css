@@ -137,8 +137,17 @@ img.pawLogo{
         /*height: 35vw;*/
     /*}*/
 /*}*/
+<<<<<<< HEAD
 @media (min-width: 400px){
     .buttonContainer, .form-control.userLocation {
         width: 100%;
     }
+=======
+.carousel{
+    padding-top: 20px;
+    width: auto;
+    overflow: hidden;
+    height: auto;
+    /* position: relative; */
+>>>>>>> 99fe94787b38a2315b546017353ab3d1320f5eb7
 }
