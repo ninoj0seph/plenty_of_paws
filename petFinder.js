@@ -81,8 +81,11 @@ function displayPet(petObject) {
                 petProfile.append(petPictureHolder);
             }
             var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-            var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
-            petProfile.append(petName, petDescription);
+            var petAge = $("<div>").text(petObject[i]["age"]["$t"]);
+            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]);
+            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]);
+            // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
+            petProfile.append(petName, petAge, petContact, shelterName);
             $("#petInfo").append(petProfile);
         }
     }
@@ -147,6 +150,7 @@ function getRandomPet() {
 
 var shelterArray = [];
 var petArray = [];
+var shelterCount = 0;
 /*
  * shelterFinder - function for finding a shelter based on the user submitted location. Also updates the shelter list
  * @params - none
@@ -181,8 +185,8 @@ var shelterFinder = function () {
 
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
-        var randomShelterID = Math.floor(Math.random()*shelterArray.length);
-        return shelterArray[randomShelterID]["id"]["$t"];
+        var randomShelterID = shelterArray[shelterCount];
+        return shelterArray[shelterCount]["id"]["$t"];
 }
 var shelterPets = function () {
     $.ajax({
@@ -267,9 +271,16 @@ var resetEverything = function () {
   petArray = [];
   shelterArray = [];
   userSelectedAnimal = null;
+  shelterCount = 0;
 };
 var nextShelter = function () {
-  petArray = [];
+    petArray = [];
+    if (shelterCount < 4){
+        shelterCount++;
+    }
+    else if(shelterCount >= 4){
+        shelterCount = 0;
+    }
   $('#petInfo').empty();
   displayMap();
   shelterPets();
