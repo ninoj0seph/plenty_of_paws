@@ -11,7 +11,7 @@ $(document).ready(function() {
  */
 function getPets(){
     shelterFinder();
-    shelterPets();
+    shelterPets(shelterArray);
 }
 /*
 * createMap - Makes map
@@ -161,12 +161,19 @@ var shelterFinder = function () {
         }
     });
 };
+
+function getRandomShelterBasedOnAreaCode(shelterArray) {
+    for (var i = 0; i < shelterArray.length; i++) {
+        var randomShelterID = Math.floor(Math.random()*shelterArray.length);
+        return shelterArray[randomShelterID]["id"]["$t"];
+    }
+}
 var shelterPets = function () {
     $.ajax({
         url: 'http://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
-            id: "CA1506" //shelterArray[shelterId].id.$t
+            id: getRandomShelterBasedOnAreaCode(shelterArray)
         },
         dataType: 'json',
         success: function (result) {
