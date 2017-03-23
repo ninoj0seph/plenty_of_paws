@@ -13,7 +13,7 @@ $(document).ready(function() {
  */
 function getPets(){
     shelterFinder();
-    shelterPets();
+    shelterPets(shelterArray);
     displayMap();
 }
 /*
@@ -62,17 +62,18 @@ displayPet - function to append the DOM to display the animal's profile
  */
     var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
     function displayPet(petObject) {
-        for (var j = 0; j < petObject.length; j++) {
+        for (var i = 0; i < petObject.length; i++) {
             var petProfile = $("<div>").addClass("petProfile");
             var petPicture = $("<img>");
-            petPicture.attr("src", petObject[j]["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
+            petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
             petProfile.append(petPicture);
-            for (var i = 0; i < petDetails.length; i++) {
-                petProfile.append(petObject[j][petDetails[i]]["$t"]);
-            }
+            var petName = $("<div>").text(petObject[i]["name"]["$t"]);
+            var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
+            petProfile.append(petName, petDescription);
             $("body").append(petProfile);
         }
     }
+
 /*
 * displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
 * @params - petObject
@@ -160,12 +161,19 @@ var shelterFinder = function () {
         }
     });
 };
+
+function getRandomShelterBasedOnAreaCode(shelterArray) {
+    for (var i = 0; i < shelterArray.length; i++) {
+        var randomShelterID = Math.floor(Math.random()*shelterArray.length);
+        return shelterArray[randomShelterID]["id"]["$t"];
+    }
+}
 var shelterPets = function () {
     $.ajax({
         url: 'http://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
-            id: "CA1506" //shelterArray[shelterId].id.$t
+            id: getRandomShelterBasedOnAreaCode(shelterArray)
         },
         dataType: 'json',
         success: function (result) {
