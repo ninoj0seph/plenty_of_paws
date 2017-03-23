@@ -67,7 +67,7 @@ function displayPet(petObject) {
         var petName = $("<div>").text(petObject[i]["name"]["$t"]);
         var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
         petProfile.append(petName, petDescription);
-        $("body").append(petProfile);
+        $(".mainContent").append(petProfile);
     }
 }
 
@@ -84,7 +84,7 @@ function displayRandomPet(petObject) {
     for (var i = 0; i < petDetails.length; i++) {
         petProfile.append(petObject[petDetails[i]]["$t"]);
     }
-    $(".mainContent.container").append(petProfile);
+    $(".mainContent").append(petProfile);
 }
 /*
  * getRandomPet - Based on user click get a random dog or cat
