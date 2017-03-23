@@ -1,13 +1,15 @@
 body {
     margin: 0;
 }
-.modal-fullscreen {
-    border-radius: 0 !important;
+#homeModal {
+    padding: 0 !important;
+    display: block;
 }
 .modal.in .modal-dialog {
     width: 100%;
     height: 100vh;
     margin: 0;
+    padding: 0;
 }
 .modal-content {
     height: 100%;
@@ -107,31 +109,6 @@ input input:before {
     top: 50%;
     width: 36px
 }
-
-/*input button {*/
-    /*background-image: url(../images/icons.svg);*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: 144px 40px;*/
-    /*-webkit-transform: translate(0,-50%);*/
-    /*-moz-transform: translate(0,-50%);*/
-    /*-ms-transform: translate(0,-50%);*/
-    /*-o-transform: translate(0,-50%);*/
-    /*transform: translate(0,-50%);*/
-    /*background-color: #fff;*/
-    /*background-position: -116px 0;*/
-    /*border: 0;*/
-    /*color: transparent;*/
-    /*cursor: text;*/
-    /*height: 28px;*/
-    /*opacity: 0;*/
-    /*padding: 0;*/
-    /*position: absolute;*/
-    /*right: 22px;*/
-    /*text-indent: -200%;*/
-    /*top: 50%;*/
-    /*transition: opacity .2s;*/
-    /*width: 28px*/
-/*}*/
 
 .search button.active {
     cursor: pointer;

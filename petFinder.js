@@ -91,7 +91,7 @@ function displayPet(petObject) {
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",
-        click: nextShelter
+        click: nextShelter()
     });
     $('.mainContent').append(nextShelterButton);
 }
