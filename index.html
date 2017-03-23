@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <title>Adoption Home</title>
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfXhvdIGOf0mubh1Z5zC3G9WScA_hGPFY"></script>
     <script src="jquery.googlemap.js"></script>
     <script src ="petFinder.js"></script>
@@ -14,12 +16,49 @@
     <!--<script src="googlemaps.js"></script>-->
 
 </head>
-<body>
+<body onload="showModal()">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#homeModal" class="btn" data-toggle="modal">Home</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container">
+    <div class="col-xs-12 modal fade" id="homeModal" tabindex="-1" role="dialog" aria-labelledby="homeModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>I'm looking to adopt a </p>
+                    <button type="button" class="btn btn-primary animalType" data-dismiss="modal">Dog</button>
+                    <button type="button" class="btn btn-primary animalType" data-dismiss="modal">Cat</button>
+                    <button type="button" class="btn btn-primary userLocationSubmit" data-dismiss="modal">Search!</button>
+                    <input type="text" class ="userLocation" placeholder="Zip Code/City,State">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
 <div id="map"></div>
-<button class="animalType">dog</button>
-<button class="animalType">cat</button>
-<input type="text" class = "userLocation" placeholder = "Zip Code/City,State">
-<button class = "userLocationSubmit">Search!</button>
+<!--<button class="animalType">dog</button>-->
+<!--<button class="animalType">cat</button>-->
+<!--<input type="text" class = "userLocation" placeholder = "Zip Code/City,State">-->
+<!--<button class = "userLocationSubmit">Search!</button>-->
 <button class="next">Next</button>
 </body>
 </html>

@@ -1,13 +1,17 @@
 body {
     font-size: 22px;
+    margin: 0;
 }
 #map {
-    width: 50vw;
-    height: 50vw;
+    width: 30vw;
+    height: 30vw;
     border-radius: 50%;
 }
 .hidingClass {
     display: none;
+}
+.petProfile {
+    margin: 12px;
 }
 /* Animal picture class */
 .animalPicture {
