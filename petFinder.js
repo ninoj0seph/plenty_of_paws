@@ -2,10 +2,11 @@
 $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
-    $('.btn-danger').click(shelterSelector);
+
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",getPets);
-    $('.btn-danger').click(shelterSelector);
+
+
 });
 /*
 * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets)
@@ -13,7 +14,8 @@ $(document).ready(function() {
  */
 function getPets(){
     shelterFinder();
-    shelterPets(shelterArray);
+    getRandomShelterBasedOnAreaCode(shelterArray);
+    shelterPets(getRandomShelterBasedOnAreaCode(shelterArray));
     displayMap();
 }
 /*
@@ -56,6 +58,15 @@ function displayMap(){
     var coordinates = infoForMap();
     createMap(coordinates);
 }
+/*
+* getRandomShelterBasedOnAreaCode - function to select a random shelter out of the array of shelters returned by the shelterFinder function
+* @params shelterArray
+ */
+function getRandomShelterBasedOnAreaCode(shelterArray) {
+    var randomShelterID = Math.floor(Math.random()*shelterArray.length);
+    return shelterArray[randomShelterID]["id"]["$t"];
+}
+var randomShelter = getRandomShelterBasedOnAreaCode(shelterArray);
 /*
 displayPet - function to append the DOM to display the animal's profile
 @params response["petfinder"]["pets"]
@@ -138,7 +149,7 @@ var shelterNumber = null;
 * shelterFinder - function for finding a shelter based on the user submitted location. Also updats the shelter list
 * @params - none
  */
-var shelterFinder = function () {
+function shelterFinder() {
     var dataObject = {
         format: "json",
         key: "579d9f154b80d15e1daee8e8aca5ba7a",
@@ -157,29 +168,23 @@ var shelterFinder = function () {
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i])
             }
-            updateShelterList()
+            return shelterArray;
         }
     });
 };
 
-function getRandomShelterBasedOnAreaCode(shelterArray) {
-    for (var i = 0; i < shelterArray.length; i++) {
-        var randomShelterID = Math.floor(Math.random()*shelterArray.length);
-        return shelterArray[randomShelterID]["id"]["$t"];
-    }
-}
-var shelterPets = function () {
+var shelterPets = function (randomShelter) {
     $.ajax({
         url: 'http://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
-            id: getRandomShelterBasedOnAreaCode(shelterArray)
+            id: randomShelter
         },
         dataType: 'json',
         success: function (result) {
             console.log("shelterPets",result);
             for(var i = 0; i < result.petfinder.pets.pet.length; i++) {
-                petArray.push(result.petfinder.pets.pet[i])
+                petArray.push(result.petfinder.pets.pet[i]);
             }
             for(var j = 0; j < petArray.length; j++){
                 $('.table tbody').append(petArray[j].name.$t);
@@ -189,32 +194,4 @@ var shelterPets = function () {
         }
     });
 };
-var updateShelterList = function () {
-    for(var i = 0; i < shelterArray.length; i++){
-        shelterNumber = i;
-        $('.shelter-list-container > .list-body').append(shelterChooser(shelterArray[i]));
-    }
-};
-var shelterChooser = function (shelter) {
 
-    var row = $('<tr>', {
-        class: 'list-row'
-    });
-    var shelterName = $('<td>',{
-        text: shelterArray[shelterNumber].name.$t
-    });
-    var selectRow = $('<td>');
-    var selectButton = $('<button>',{
-        text: 'select',
-        class: "btn btn-danger btn-sm",
-        click: shelterSelector
-    });
-    $(selectRow).append(selectButton);
-    $(row).append(shelterName, selectRow);
-    $('.table tbody').append(row)
-};
-var shelterSelector = function () {
-    shelterId = event.target.parentElement.parentElement.rowIndex-1;
-    shelterPets();
-    $('.table tbody').empty();
-};
