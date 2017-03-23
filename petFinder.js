@@ -83,19 +83,19 @@ function displayPet(petObject) {
             var petName = $("<div>").text(petObject[i]["name"]["$t"]);
             var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petDescription);
-            $(".mainContent").append(petProfile);
+            $("#petInfo").append(petProfile);
         }
     }
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
-        $(".mainContent").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
+        $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
         }
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",
         click: nextShelter
     });
-    $('.mainContent').append(nextShelterButton);
+    $('#petInfo').append(nextShelterButton);
 }
 
 
@@ -270,6 +270,7 @@ var resetEverything = function () {
 };
 var nextShelter = function () {
   petArray = [];
-  $('.mainContent').empty();
+  $('#petInfo').empty();
+  displayMap();
   shelterPets();
 };
