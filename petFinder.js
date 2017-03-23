@@ -13,8 +13,8 @@ var newSearch = function () {
     $('#petInfo').empty();
 };
 /*
-* assignAnimalType - gets the text of the button pressed to know the animal
-* @params
+ * assignAnimalType - gets the text of the button pressed to know the animal
+ * @params
  */
 var userSelectedAnimal = null;
 function assignAnimalType() {
@@ -90,8 +90,7 @@ function displayPet(petObject) {
                 petPictureHolder.append(petPicture);
                 petProfile.append(petPictureHolder);
             }
-            petProfile.append(petName, petAge, petContact, shelterName);
-            $(innerPetCarousel).append(petProfile);
+
             var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
             var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
             var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
@@ -104,6 +103,7 @@ function displayPet(petObject) {
             });
             heartContainer.append(walmartButton);
             petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
+            $(innerPetCarousel).append(petProfile);
         }
 
     }
@@ -111,7 +111,7 @@ function displayPet(petObject) {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
 
         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
-        }
+    }
 
     var nextShelterButton = $('<button>',{
         text: 'Next',
@@ -214,8 +214,8 @@ var shelterFinder = function () {
 
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
-        var randomShelterID = shelterArray[shelterCount];
-        return shelterArray[shelterCount]["id"]["$t"];
+    var randomShelterID = shelterArray[shelterCount];
+    return shelterArray[shelterCount]["id"]["$t"];
 }
 var shelterPets = function () {
     $.ajax({
@@ -242,7 +242,7 @@ var shelterPets = function () {
     });
 };
 /*
-* instantiation of serverConstructor
+ * instantiation of serverConstructor
  */
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
@@ -305,10 +305,10 @@ function serverConstructor() {
     }
 }
 var resetEverything = function () {
-  petArray = [];
-  shelterArray = [];
-  userSelectedAnimal = null;
-  shelterCount = 0;
+    petArray = [];
+    shelterArray = [];
+    userSelectedAnimal = null;
+    shelterCount = 0;
 };
 var nextShelter = function () {
     petArray = [];
@@ -322,6 +322,6 @@ var nextShelter = function () {
         resetEverything();
         return;
     }
-  displayMap();
-  shelterPets();
+    displayMap();
+    shelterPets();
 };
