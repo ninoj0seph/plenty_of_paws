@@ -3,10 +3,21 @@ $(document).ready(function() {
     var petObject = null;
     $('.btn-danger').click(shelterSelector);
     $(".animalType").on("click", getRandomPet);
-    $(".userLocationSubmit").on("click",shelterFinder);
-    shelterFinder();
+    $(".userLocationSubmit").on("click",getPets);
     $('.btn-danger').click(shelterSelector);
+    displayMap();
+
 });
+
+function getPets(){
+    shelterFinder();
+    shelterPets();
+
+}
+/*
+* createMap - Makes map
+* @params obj that contains stuff
+ */
 function createMap(obj){
     $("#map").googleMap({
         zoom: 8,
@@ -18,6 +29,9 @@ function createMap(obj){
         text: obj.address.text
     });
 }
+/*
+* infoForMap - gets latitude and longitude information
+ */
 function infoForMap(){
     var index = 1;
     var coordObj = {};
@@ -44,14 +58,27 @@ displayPet - function to append the DOM to display the animal's profile
     function displayPet(petObject) {
         var petProfile = $("<div>");
         var petPicture = $("<img>");
-        petPicture.attr("src",petObject["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
-        petProfile.append(petPicture);
+
+
         for (var i = 0; i < petDetails.length; i++) {
             //console.log(petObject[petDetails[i]]["$t"]);
-            petProfile.append(petObject[petDetails[i]]["$t"]);
+            petPicture.attr("src",petObject[i]["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
+            petProfile.append(petObject[i][petDetails[i]]["$t"]);
+            petProfile.append(petPicture);
         }
         $("body").append(petProfile);
     }
+function displayRandomPet(petObject) {
+    var petProfile = $("<div>");
+    var petPicture = $("<img>");
+    petPicture.attr("src",petObject["media"]["photos"]["photo"][0]["$t"]).addClass("animalPicture");
+    petProfile.append(petPicture);
+    for (var i = 0; i < petDetails.length; i++) {
+        //console.log(petObject[petDetails[i]]["$t"]);
+        petProfile.append(petObject[petDetails[i]]["$t"]);
+    }
+    $("body").append(petProfile);
+}
 
 
     /*
@@ -75,7 +102,7 @@ displayPet - function to append the DOM to display the animal's profile
             success: function (response) {
                 console.log("Random pet", response["petfinder"]["pet"]);
                 petObject = response["petfinder"]["pet"];
-                displayPet(petObject);
+                displayRandomPet(petObject);
             },
             error: function (response) {
                 console.log(response);
@@ -127,17 +154,18 @@ var shelterPets = function () {
         url: 'http://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
-            id: shelterArray[shelterId].id.$t
+            id: "CA1506" //shelterArray[shelterId].id.$t
         },
         dataType: 'json',
         success: function (result) {
-            console.log(result);
+            console.log("shelterPets",result);
             for(var i = 0; i < result.petfinder.pets.pet.length; i++) {
                 petArray.push(result.petfinder.pets.pet[i])
             }
             for(var j = 0; j < petArray.length; j++){
                 $('.table tbody').append(petArray[j].name.$t);
             }
+            displayPet(result.petfinder.pets.pet);
             return petArray;
         }
     });
@@ -172,10 +200,4 @@ var shelterSelector = function () {
     $('.table tbody').empty();
 };
 
-// var shelterCoordinatesObject= {};
-// function getShelterCoordinates(shelterArray) {
-//     for (var i = 0; i < shelterArray.length; i++) {
-//         shelterCoordinatesObject.coordinates = [shelterArray[i].latitude["$t"],shelterArray[i].longitude["$t"]];
-//     }
-//     console.log(shelterCoordinatesObject);
-// }
+// shelter
