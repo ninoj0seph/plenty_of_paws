@@ -100,8 +100,10 @@ function displayPet(petObject) {
     }
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
+
         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
         }
+
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",

@@ -1,16 +1,79 @@
 body {
     margin: 0;
 }
+/* Modal */
+.navbar, .modal-content {
+    border-radius: 0 !important;
+}
+.btn.btn-default {
+    color: #FFF;
+    background-color: #3E50B4;
+    border-color: #3E50B4;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+}
+.btn.btn-default:hover {
+    color: #FFF;
+    background-color: #202b71;
+    border-color: #202b71;
+    transition-duration: 1s;
+}
+#homeModal {
+    padding: 0 !important;
+    display: block;
+}
+.modal-content {
+    background: url('images/puppy.jpg')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 .modal.in .modal-dialog {
     width: 100%;
     height: 100vh;
     margin: 0;
+    padding: 0;
 }
 .modal-content {
     height: 100%;
     min-height: 100%;
-    /*border-radius: 0 !important;*/
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
 }
+.modalContainer {
+    width: 50vw;
+    margin: 0 auto;
+}
+/* Nav */
+img.pawLogo{
+    height: 60%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.navbar, .navbar-default {
+    border-radius: 0;
+}
+.navbar-header {
+    position: relative;
+}
+.navbar.navbar-default {
+    background-color: #3E50B4;
+    border-color: #3E50B4;
+}
+.navbar-default .navbar-nav>li {
+    text-transform: uppercase;
+}
+.navbar-default .navbar-nav>li>a {
+    color: #C4C9E8 !important;
+}
+.navbar-default .navbar-nav>li>a:hover {
+    color: #777;
+}
+/* Main */
 #map {
     width: 20vw;
     height: 20vw;
@@ -23,9 +86,6 @@ body {
 /* Style of tooltip on map */
 #map .h1 h1 {
     font-size: 1.5em;
-}
-.hidingClass {
-    display: none;
 }
 .petProfile {
     margin: 5%;
@@ -44,7 +104,7 @@ body {
 .animalPicture {
     display: inline;
     margin: 0 auto;
-    width: 125%;
+    width: 140%;
 }
 .imgContainer {
     margin: 0 auto;
@@ -58,82 +118,18 @@ body {
     box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
 }
 /* Styling for search bar input */
-input {
-    font-size: 2.4rem;
-    background: #fff;
-    border: 0;
-    box-sizing: inherit;
-    display: block;
-    height: 60px;
-    line-height: 60px;
-    padding: 0 16px 0 72px;
-    width: 100%
+.form-control.userLocation {
+    margin: 2% 0;
+    padding: 5%;
 }
-
-/* Styling for dog and cat buttons */
-.userLocationSubmit {
-    font-size: 1.4rem;
-    border-radius: 2px;
-    box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.24);
-    color: #fff;
-    display: inline-block;
-    height: 36px;
-    line-height: 2.57143;
-    min-width: 88px;
-    padding: 0 16px;
-    text-align: center;
+.buttonContainer {
+    width: 50vw;
+    margin: 0 auto;
+}
+.btn.userLocationSubmit {
+    padding: 3% 7%;
+    width: 24vw;
     text-transform: uppercase;
-    transition: .2s;
-    white-space: nowrap
-}
-
-/* Styling for search icon */
-input input:before {
-    background-image: url("images/search_icon.png");
-    background-repeat: no-repeat;
-    background-size: 144px 40px;
-    -webkit-transform: translate(0,-50%);
-    -moz-transform: translate(0,-50%);
-    -ms-transform: translate(0,-50%);
-    -o-transform: translate(0,-50%);
-    transform: translate(0,-50%);
-    background-position: 0 0;
-    content: '';
-    height: 36px;
-    left: 18px;
-    position: absolute;
-    top: 50%;
-    width: 36px
-}
-
-/*input button {*/
-    /*background-image: url(../images/icons.svg);*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: 144px 40px;*/
-    /*-webkit-transform: translate(0,-50%);*/
-    /*-moz-transform: translate(0,-50%);*/
-    /*-ms-transform: translate(0,-50%);*/
-    /*-o-transform: translate(0,-50%);*/
-    /*transform: translate(0,-50%);*/
-    /*background-color: #fff;*/
-    /*background-position: -116px 0;*/
-    /*border: 0;*/
-    /*color: transparent;*/
-    /*cursor: text;*/
-    /*height: 28px;*/
-    /*opacity: 0;*/
-    /*padding: 0;*/
-    /*position: absolute;*/
-    /*right: 22px;*/
-    /*text-indent: -200%;*/
-    /*top: 50%;*/
-    /*transition: opacity .2s;*/
-    /*width: 28px*/
-/*}*/
-
-.search button.active {
-    cursor: pointer;
-    opacity: .2
 }
 /*@media (min-width: 768px){*/
     /*#map {*/
@@ -141,10 +137,17 @@ input input:before {
         /*height: 35vw;*/
     /*}*/
 /*}*/
+<<<<<<< HEAD
+@media (min-width: 400px){
+    .buttonContainer, .form-control.userLocation {
+        width: 100%;
+    }
+=======
 .carousel{
     padding-top: 20px;
     width: auto;
     overflow: hidden;
     height: auto;
     /* position: relative; */
+>>>>>>> 99fe94787b38a2315b546017353ab3d1320f5eb7
 }
