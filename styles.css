@@ -51,7 +51,7 @@ body {
 }
 /* Nav */
 img.pawLogo{
-    height: 60%;
+    height: 70%;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -74,6 +74,11 @@ img.pawLogo{
 }
 .navbar-default .navbar-nav>li>a:hover {
     color: #777;
+}
+.compName {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
 }
 /* Main */
 #map {
@@ -129,11 +134,32 @@ img.pawLogo{
 /* Heart */
 .heartContainer {
     background-color: #2F3E9E;
-    border-radius: 50%;
-    width: 5vw;
+    border-radius: 4px;
     height: 5vw;
     position: relative;
+    padding: 2% 4%;
+    margin: 0 auto;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
 }
+.heartContainer:hover {
+    background-color: #e91e63;
+}
+
+.heartContainer > img {
+    width: 3.5vw;
+    position: absolute;
+    top: 18%;
+    left: 42%;
+}
+.heartSpin {
+    -webkit-animation: rotate-center 0.6s ease-in-out both;
+    -moz-animation: rotate-center 0.6s ease-in-out both;
+    animation: rotate-center 0.6s ease-in-out both;
+}
+
+
 
 /* Animal picture class */
 .animalPicture {

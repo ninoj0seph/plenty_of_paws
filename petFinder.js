@@ -84,13 +84,20 @@ function displayPet(petObject) {
                 petPictureHolder.append(petPicture);
                 petProfile.append(petPictureHolder);
             }
-            var petName = $("<div>").text(petObject[i]["name"]["$t"]);
-            var petAge = $("<div>").text(petObject[i]["age"]["$t"]);
-            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]);
-            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]);
+            var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
+            var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
+            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
+            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
+            var heartContainer = $("<div>").addClass('heartContainer');
+            var imgUrl = 'images/heart_icon.svg';
+            var walmartButton = $('<img>',{
+                src: imgUrl,
+                click: walmartStuff
+            });
+            heartContainer.append(walmartButton);
             // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
-            petProfile.append(petName, petAge, petContact, shelterName);
-          petProfile.addClass("carousel-item col-xs-6");
+            petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
+            petProfile.addClass("carousel-item col-xs-6");
           // var petProfileSlide =$(".carousel-inner").append(petProfile);
           // petProfileSlide.appendTo("#petCarousel");
           //   $("#petCarousel").appendTo("#petInfo");
@@ -108,14 +115,7 @@ function displayPet(petObject) {
         class: "btn btn-danger nextButton",
         click: nextShelter
     });
-    var heartContainer = $("<div>").addClass('heartContainer');
-    var imgUrl = 'images/heart_icon.svg';
-    var walmartButton = $('<img>',{
-        src: imgUrl,
-        click: walmartStuff
-    });
-    heartContainer.append(walmartButton);
-    $('#petInfo').append(nextShelterButton, heartContainer);
+    $('#petInfo').append(nextShelterButton);
 }
 var walmartStuff = function () {
     suggestion.getItemInformation();
