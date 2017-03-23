@@ -1,9 +1,14 @@
 
 $(document).ready(function() {
     var petObject = null;
+<<<<<<< HEAD
     $('.btn-danger').click(shelterSelector);
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",shelterFinder);
+=======
+    shelterFinder();
+  $('.btn-danger').click(shelterSelector);
+>>>>>>> eeca5accfc53ff36d4dc17cfcc775fce92e7da6f
 });
 /*
 displayPet - function to append the DOM to display the animal's profile
@@ -64,8 +69,12 @@ displayPet - function to append the DOM to display the animal's profile
 
 var shelterArray = [];
 var petArray = [];
+<<<<<<< HEAD
 var shelterObj = null;
 var userShelter = null;
+=======
+var shelterId = null;
+>>>>>>> eeca5accfc53ff36d4dc17cfcc775fce92e7da6f
 var shelterNumber = null;
 var shelterFinder = function () {
     var dataObject = {
@@ -86,6 +95,7 @@ var shelterFinder = function () {
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i])
             }
+            updateShelterList()
         }
     });
 };
@@ -94,7 +104,7 @@ var shelterPets = function () {
         url: 'http://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
-            id: shelterArray[userShelter].id.$t
+            id: shelterArray[shelterId].id.$t
         },
         dataType: 'json',
         success: function (result) {
@@ -102,6 +112,10 @@ var shelterPets = function () {
             for(var i = 0; i < result.petfinder.pets.pet.length; i++) {
                 petArray.push(result.petfinder.pets.pet[i])
             }
+            for(var j = 0; j < petArray.length; j++){
+                $('.table tbody').append(petArray[j].name.$t);
+            }
+            return petArray;
         }
     });
 };
@@ -112,7 +126,6 @@ var updateShelterList = function () {
     }
 };
 var shelterChooser = function (shelter) {
-    userShelter = shelter;
 
     var row = $('<tr>', {
         class: 'list-row'
@@ -123,12 +136,20 @@ var shelterChooser = function (shelter) {
     var selectRow = $('<td>');
     var selectButton = $('<button>',{
         text: 'select',
-        class: "btn btn-danger btn-sm"
+        class: "btn btn-danger btn-sm",
+        click: shelterSelector
     });
     $(selectRow).append(selectButton);
     $(row).append(shelterName, selectRow);
     $('.table tbody').append(row)
 };
 var shelterSelector = function () {
+    shelterId = event.target.parentElement.parentElement.rowIndex-1;
+    shelterPets();
     $('.table tbody').empty();
+};
+var petListDisplay = function () {
+    for(var j = 0; j < petArray.length; j++){
+        $('.table tbody').append(petArray[j].name.$t);
+    }
 };

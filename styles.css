@@ -4,9 +4,9 @@ body {
 #map {
     width: 50vw;
     height: 50vw;
+    border-radius: 50%;
     background-color: gray;
 }
-
 /* Animal picture class */
 .animalPicture {
     border-radius: 12px;
