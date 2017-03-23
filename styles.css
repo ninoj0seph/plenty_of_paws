@@ -20,7 +20,7 @@ body {
     /*border-radius: 50%;*/
 }
 /* Style of tooltip on map */
-.h1, h1 {
+#map .h1 h1 {
     font-size: 1.5em;
 }
 .hidingClass {
