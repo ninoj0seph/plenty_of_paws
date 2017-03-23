@@ -88,7 +88,14 @@ function displayPet(petObject) {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
         $(".mainContent").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
         }
-    }
+    var nextShelterButton = $('<button>',{
+        text: 'Next',
+        class: "btn btn-danger btn-sm",
+        click: nextShelter
+    });
+    $('.mainContent').append(nextShelterButton);
+}
+
 
 /*
  * displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
@@ -194,7 +201,16 @@ var shelterPets = function () {
     });
 };
 
-
+var resetEverything = function () {
+  petArray = [];
+  shelterArray = [];
+  userSelectedAnimal = null;
+};
+var nextShelter = function () {
+  petArray = [];
+  $('.mainContent').empty();
+  shelterPets();
+};
 
 /*
 * filterPetResults - take in the AJAX call response
