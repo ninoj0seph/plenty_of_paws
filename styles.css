@@ -126,6 +126,15 @@ img.pawLogo{
     background-color: #006591;
     border-color: #006591;
 }
+/* Heart */
+.heartContainer {
+    background-color: #2F3E9E;
+    border-radius: 50%;
+    width: 5vw;
+    height: 5vw;
+    position: relative;
+}
+
 /* Animal picture class */
 .animalPicture {
     display: inline;
