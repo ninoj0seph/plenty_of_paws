@@ -53,11 +53,11 @@ function infoForMap(){
     var index = 0;
     var coordObj = {};
     coordObj.address = {};
-    coordObj.latitude = parseFloat(shelterArray[index].latitude['$t']);
-    coordObj.longitude = parseFloat(shelterArray[index].longitude['$t']);
-    coordObj.address.name = shelterArray[index].name['$t'];
-    coordObj.address.city = shelterArray[index].city['$t'];
-    coordObj.address.state = shelterArray[index].state['$t'];
+    coordObj.latitude = parseFloat(shelterArray[shelterCount].latitude['$t']);
+    coordObj.longitude = parseFloat(shelterArray[shelterCount].longitude['$t']);
+    coordObj.address.name = shelterArray[shelterCount].name['$t'];
+    coordObj.address.city = shelterArray[shelterCount].city['$t'];
+    coordObj.address.state = shelterArray[shelterCount].state['$t'];
     coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
     return coordObj;
 }
@@ -92,9 +92,10 @@ function displayPet(petObject) {
             // var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petAge, petContact, shelterName);
           petProfile.addClass("carousel-item");
-          var petProfileSlide =$(".carousel-inner").append(petProfile);
-          petProfileSlide.appendTo("#petCarousel");
-            $("#petCarousel").appendTo("#petInfo");
+          // var petProfileSlide =$(".carousel-inner").append(petProfile);
+          // petProfileSlide.appendTo("#petCarousel");
+          //   $("#petCarousel").appendTo("#petInfo");
+            petProfile.appendTo("#petInfo");
         }
     }
     else {
