@@ -100,6 +100,7 @@ img.pawLogo{
     margin: 5%;
 }
 .mainContent  {
+    position: relative;
     height: 90vh;
     margin: 0 auto;
     width: 80vw;
