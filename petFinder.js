@@ -14,7 +14,7 @@ $(document).ready(function() {
 var userSelectedAnimal = null;
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
-};
+}
 /*
  * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
  * @params
@@ -23,7 +23,7 @@ function getPets(){
     console.log($(this).text());
     //var userSelectedAnimal = $(this).text();
     shelterFinder();
-};
+}
 /*
  * createMap - Makes map from the values of the latitude and longitude keys
  * @params {object} obj
@@ -72,12 +72,14 @@ var petDetails = ["name","age","description"]; // media.photos.photo[i] for imag
 function displayPet(petObject) {
     if (petObject.length !== 0) {
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile = $("<div>").addClass("petProfile col-xs-4");
+            var petProfile = $("<div>").addClass("petProfile col-xs-6");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
-            petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-            petPictureHolder.append(petPicture);
-            petProfile.append(petPictureHolder);
+            if(petObject[i]["media"]["photos"] !== undefined) {
+                petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
+                petPictureHolder.append(petPicture);
+                petProfile.append(petPictureHolder);
+            }
             var petName = $("<div>").text(petObject[i]["name"]["$t"]);
             var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petDescription);
@@ -87,11 +89,11 @@ function displayPet(petObject) {
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
         $(".mainContent").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
-        }
+    }
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",
-        click: nextShelter()
+        click: nextShelter
     });
     $('.mainContent').append(nextShelterButton);
 }
@@ -172,14 +174,15 @@ var shelterFinder = function () {
             }
             shelterPets(shelterArray);
             displayMap();
+            suggestion.getItemInformation();
         }
     });
 };
 
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
-        var randomShelterID = Math.floor(Math.random()*shelterArray.length);
-        return shelterArray[randomShelterID]["id"]["$t"];
+    var randomShelterID = Math.floor(Math.random()*shelterArray.length);
+    return shelterArray[randomShelterID]["id"]["$t"];
 }
 var shelterPets = function () {
     $.ajax({
@@ -191,29 +194,81 @@ var shelterPets = function () {
         dataType: 'json',
         success: function (result) {
             console.log("shelterPets", result);
-            for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
-                if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
-                    petArray.push(result.petfinder.pets.pet[i]);
+            if(result.petfinder.pets.pet !== undefined) {
+                for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
+                    if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
+                        petArray.push(result.petfinder.pets.pet[i]);
+                    }
                 }
             }
             displayPet(petArray);
         }
     });
 };
+var server = new serverConstructor();
+var suggestion = new suggestionConstructor()
+// suggestion.getItemInformation();
 
+function suggestionConstructor() {
+    this.items = {
+        dog : ['food','treats','carrier','toy','collar+leash'],
+        cat : ['food,','bowl','litter+box','scratching+post','bedding']
+    };
+
+    this.getItemInformation = function () {
+        for(var i = 0; i  <  suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
+            server.checkWalmart(userSelectedAnimal.toLowerCase(), suggestion.items[userSelectedAnimal.toLowerCase()][i]);
+        }
+    };
+
+    this.findNearestStoreFromShelter = function () {
+        server.walmartLocator(33.83529333,-117.914505);
+    };
+}
+
+function serverConstructor() {
+    this.checkWalmart = function (passedAnimal, passedItem) {
+        $.ajax({
+            "url": "http://api.walmartlabs.com/v1/search?query=" + passedAnimal + "+" + passedItem + " +&format=json&apiKey=5pw9whbkctdk92vckbgewxky",
+            "dataType": "jsonp",
+            "method": "get",
+            "success": function (walmartItemInfo) {
+                console.log(walmartItemInfo.items);
+                walmartItemInfo.items.sort(function (a, b) {
+                    return parseFloat(a.customerRating) - parseFloat(b.customerRating);
+                });
+                suggestion.items[passedAnimal][suggestion.items[passedAnimal].indexOf(passedItem)] = (function () {
+                    var keys = ["name","largeImage","customerRating","addToCartUrl","stock","salePrice"], tempObj = {};
+                    for(var x = 0; x  < keys.length; x++) {
+                        tempObj[keys[x]] = walmartItemInfo.items[walmartItemInfo.items.length - 1][keys[x]];
+                    }
+                    return tempObj;
+                })();
+            },
+            "error": function () {
+                console.log('network timeout');
+            }
+        });
+    };
+
+    this.walmartLocator = function (lat, long) {
+        $.ajax({
+            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ lat + "&lon=" + long + "&apiKey=5pw9whbkctdk92vckbgewxky",
+            "dataType" : "jsonp",
+            "method" : "get",
+            "success" : function (walmartLocation) {
+                suggestion.stores = walmartLocation;
+            }
+        });
+    }
+}
 var resetEverything = function () {
-  petArray = [];
-  shelterArray = [];
-  userSelectedAnimal = null;
+    petArray = [];
+    shelterArray = [];
+    userSelectedAnimal = null;
 };
 var nextShelter = function () {
-  petArray = [];
-  $('.mainContent').empty();
-  shelterPets();
+    petArray = [];
+    $('.mainContent').empty();
+    shelterPets();
 };
-
-/*
-* filterPetResults - take in the AJAX call response
- */
-// function filterPetResults(petObj)
-
