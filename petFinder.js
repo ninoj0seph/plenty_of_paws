@@ -74,7 +74,7 @@ var petDetails = ["name","age","description"]; // media.photos.photo[i] for imag
 function displayPet(petObject) {
     if (petObject.length !== 0) {
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile = $("<div>").addClass("petProfile col-xs-4");
+            var petProfile = $("<div>");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
             petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
@@ -83,7 +83,13 @@ function displayPet(petObject) {
             var petName = $("<div>").text(petObject[i]["name"]["$t"]);
             var petDescription = $("<div>").text(petObject[i]["description"]["$t"]);
             petProfile.append(petName, petDescription);
-            $(".mainContent").append(petProfile);
+            petProfile.addClass("carousel-item");
+
+            //$(".mainContent").append(petProfile);
+            var petProfileSlide =$(".carousel-inner").append(petProfile);
+            petProfileSlide.appendTo("#petCarousel");
+            console.log("Ey?");
+            $("#petCarousel").appendTo(".mainContainer");
         }
     }
     else {
@@ -206,7 +212,9 @@ var shelterPets = function () {
         // }
     });
 };
-
+/*
+* instantiation of serverConstructor
+ */
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
 // suggestion.getItemInformation();
