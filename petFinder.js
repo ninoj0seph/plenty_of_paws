@@ -3,8 +3,10 @@ $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
     //$(".animalType").on("click", getRandomPet);
-    $(".animalType").on("click",getPets);
     $(".animalType").on("click",assignAnimalType);
+    $(".animalType").on("click",getPets);
+    //$("#homeModal").on("click", resetEverything);
+
 });
 
 /*
