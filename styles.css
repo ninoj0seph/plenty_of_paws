@@ -5,7 +5,9 @@ body {
     width: 50vw;
     height: 50vw;
     border-radius: 50%;
-    /*background-color: gray;*/
+}
+.hidingClass {
+    display: none;
 }
 /* Animal picture class */
 .animalPicture {
