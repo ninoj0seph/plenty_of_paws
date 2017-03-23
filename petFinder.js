@@ -2,10 +2,8 @@
 $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
-    $('.btn-danger').click(shelterSelector);
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",getPets);
-    $('.btn-danger').click(shelterSelector);
 });
 /*
 * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets)
@@ -130,9 +128,6 @@ function displayRandomPet(petObject) {
 
 var shelterArray = [];
 var petArray = [];
-var shelterObj = null;
-var userShelter = null;
-var shelterId = null;
 var shelterNumber = null;
 /*
 * shelterFinder - function for finding a shelter based on the user submitted location. Also updats the shelter list
@@ -195,26 +190,4 @@ var updateShelterList = function () {
         $('.shelter-list-container > .list-body').append(shelterChooser(shelterArray[i]));
     }
 };
-var shelterChooser = function (shelter) {
 
-    var row = $('<tr>', {
-        class: 'list-row'
-    });
-    var shelterName = $('<td>',{
-        text: shelterArray[shelterNumber].name.$t
-    });
-    var selectRow = $('<td>');
-    var selectButton = $('<button>',{
-        text: 'select',
-        class: "btn btn-danger btn-sm",
-        click: shelterSelector
-    });
-    $(selectRow).append(selectButton);
-    $(row).append(shelterName, selectRow);
-    $('.table tbody').append(row)
-};
-var shelterSelector = function () {
-    shelterId = event.target.parentElement.parentElement.rowIndex-1;
-    shelterPets();
-    $('.table tbody').empty();
-};
