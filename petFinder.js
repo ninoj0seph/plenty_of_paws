@@ -72,10 +72,8 @@ var petDetails = ["name","age","description"]; // media.photos.photo[i] for imag
 function displayPet(petObject) {
     if (petObject.length !== 0) {
         for (var i = 0; i < petObject.length; i++) {
-            console.log(userSelectedAnimal);
-            //if (petObject[i]["animal"]["$t"] ===  userSelectedAnimal) {
-            var petProfile = $("<div>").addClass("petProfile");
-            var petPictureHolder = $("<div>");
+            var petProfile = $("<div>").addClass("petProfile col-xs-4");
+            var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>");
             petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
             petPictureHolder.append(petPicture);
@@ -88,16 +86,16 @@ function displayPet(petObject) {
     }
     else {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
-
         $(".mainContent").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
-    }
+        }
     var nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger btn-sm",
         click: nextShelter
     });
-    $('.mainContent').append(nextShelterButton)
+    $('.mainContent').append(nextShelterButton);
 }
+
 
 /*
  * displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
