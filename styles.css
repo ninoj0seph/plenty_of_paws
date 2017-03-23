@@ -27,3 +27,83 @@ body {
 .animalPicture {
     border-radius: 12px;
 }
+/* Styling for search bar input */
+input {
+    font-size: 24px;
+    font-size: 2.4rem;
+    background: #fff;
+    border: 0;
+    box-sizing: inherit;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 16px 0 72px;
+    width: 100%
+}
+
+/* Styling for dog and cat buttons */
+.userLocationSubmit {
+    font-size: 14px;
+    font-size: 1.4rem;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,.12),0 2px 2px rgba(0,0,0,.24);
+    color: #fff;
+    display: inline-block;
+    height: 36px;
+    line-height: 2.57143;
+    min-width: 88px;
+    padding: 0 16px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: .2s;
+    white-space: nowrap
+}
+
+/* Styling for search icon */
+input input:before {
+    background-image: url("images/search_icon.png");
+    background-repeat: no-repeat;
+    background-size: 144px 40px;
+    -webkit-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    -ms-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    background-position: 0 0;
+    content: '';
+    height: 36px;
+    left: 18px;
+    position: absolute;
+    top: 50%;
+    width: 36px
+}
+
+/*input button {*/
+    /*background-image: url(../images/icons.svg);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 144px 40px;*/
+    /*-webkit-transform: translate(0,-50%);*/
+    /*-moz-transform: translate(0,-50%);*/
+    /*-ms-transform: translate(0,-50%);*/
+    /*-o-transform: translate(0,-50%);*/
+    /*transform: translate(0,-50%);*/
+    /*background-color: #fff;*/
+    /*background-position: -116px 0;*/
+    /*border: 0;*/
+    /*color: transparent;*/
+    /*cursor: text;*/
+    /*height: 28px;*/
+    /*opacity: 0;*/
+    /*padding: 0;*/
+    /*position: absolute;*/
+    /*right: 22px;*/
+    /*text-indent: -200%;*/
+    /*top: 50%;*/
+    /*transition: opacity .2s;*/
+    /*width: 28px*/
+/*}*/
+
+.search button.active {
+    cursor: pointer;
+    opacity: .2
+}
