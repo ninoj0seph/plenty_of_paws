@@ -1,3 +1,4 @@
+
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
 var animal = 'cat';
@@ -49,3 +50,4 @@ function serverConstructor() {
         });
     }
 }
+
