@@ -11,8 +11,6 @@ $(document).ready(function() {
  */
 function getPets(){
     shelterFinder();
-    shelterPets(shelterArray);
-    displayMap();
 }
 /*
 * createMap - Makes map
@@ -137,7 +135,8 @@ var shelterFinder = function () {
         format: "json",
         key: "579d9f154b80d15e1daee8e8aca5ba7a",
         location: $(".userLocation").val(),
-        output: "full"
+        output: "full",
+        count: 5
     };
     var urlString = "http://api.petfinder.com/shelter.find?format=json" + "&" + dataObject["location"] + "&" + dataObject["output"] + "&" + "callback=?";
     $.ajax({
@@ -151,6 +150,8 @@ var shelterFinder = function () {
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i])
             }
+            shelterPets(shelterArray);
+            displayMap();
         }
     });
 };
