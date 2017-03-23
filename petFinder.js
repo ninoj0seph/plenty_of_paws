@@ -50,7 +50,6 @@ function createMap(obj){
  * return - coordObj
  */
 function infoForMap(){
-    var index = 0;
     var coordObj = {};
     coordObj.address = {};
     coordObj.latitude = parseFloat(shelterArray[shelterCount].latitude['$t']);
