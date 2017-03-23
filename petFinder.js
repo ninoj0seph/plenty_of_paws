@@ -1,15 +1,41 @@
 
 $(document).ready(function() {
     var petObject = null;
-<<<<<<< HEAD
     $('.btn-danger').click(shelterSelector);
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",shelterFinder);
-=======
     shelterFinder();
   $('.btn-danger').click(shelterSelector);
->>>>>>> eeca5accfc53ff36d4dc17cfcc775fce92e7da6f
 });
+function createMap(obj){
+    $("#map").googleMap({
+        zoom: 8,
+        coords: [obj.latitude,obj.longitude] // Map center (optional)
+    });
+    $("#map").addMarker({
+        coords: [obj.latitude,obj.longitude],
+        title: obj.address.name,
+        text: obj.address.text
+    });
+}
+function infoForMap(){
+    var index = 1;
+    var coordObj = {};
+    coordObj.address = {};
+    coordObj.latitude = parseFloat(shelterArray[index].latitude['$t']);
+    coordObj.longitude = parseFloat(shelterArray[index].longitude['$t']);
+    coordObj.address.name = shelterArray[index].name['$t'];
+    coordObj.address.city = shelterArray[index].city['$t'];
+    coordObj.address.state = shelterArray[index].state['$t'];
+    coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
+    return coordObj;
+}
+
+function displayMap(){
+    // infoForMap();
+    var coordinates = infoForMap();
+    createMap(coordinates);
+}
 /*
 displayPet - function to append the DOM to display the animal's profile
 @params response["petfinder"]["pets"]
@@ -69,12 +95,9 @@ displayPet - function to append the DOM to display the animal's profile
 
 var shelterArray = [];
 var petArray = [];
-<<<<<<< HEAD
 var shelterObj = null;
 var userShelter = null;
-=======
 var shelterId = null;
->>>>>>> eeca5accfc53ff36d4dc17cfcc775fce92e7da6f
 var shelterNumber = null;
 var shelterFinder = function () {
     var dataObject = {
