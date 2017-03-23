@@ -50,7 +50,6 @@ function createMap(obj){
  * return - coordObj
  */
 function infoForMap(){
-    var index = 0;
     var coordObj = {};
     coordObj.address = {};
     coordObj.latitude = parseFloat(shelterArray[shelterCount].latitude['$t']);
@@ -109,8 +108,20 @@ function displayPet(petObject) {
         class: "btn btn-danger btn-sm",
         click: nextShelter
     });
-    $('#petInfo').append(nextShelterButton);
+    var heartContainer = $("<div>").addClass('heartContainer');
+    var imgUrl = 'images/heart_icon.svg';
+    var walmartButton = $('<img>',{
+        src: imgUrl,
+        click: walmartStuff
+    });
+    heartContainer.append(walmartButton);
+    $('#petInfo').append(nextShelterButton, heartContainer);
 }
+var walmartStuff = function () {
+    suggestion.getItemInformation();
+    // suggestion.findNearestStoreFromShelter();
+    server.walmartLocator(infoForMap());
+};
 
 
 /*
