@@ -5,7 +5,7 @@ $(document).ready(function() {
     $(".animalType").on("click", getRandomPet);
     $(".userLocationSubmit").on("click",shelterFinder);
     shelterFinder();
-  $('.btn-danger').click(shelterSelector);
+    $('.btn-danger').click(shelterSelector);
 });
 function createMap(obj){
     $("#map").googleMap({
@@ -171,8 +171,11 @@ var shelterSelector = function () {
     shelterPets();
     $('.table tbody').empty();
 };
-var petListDisplay = function () {
-    for(var j = 0; j < petArray.length; j++){
-        $('.table tbody').append(petArray[j].name.$t);
-    }
-};
+
+// var shelterCoordinatesObject= {};
+// function getShelterCoordinates(shelterArray) {
+//     for (var i = 0; i < shelterArray.length; i++) {
+//         shelterCoordinatesObject.coordinates = [shelterArray[i].latitude["$t"],shelterArray[i].longitude["$t"]];
+//     }
+//     console.log(shelterCoordinatesObject);
+// }
