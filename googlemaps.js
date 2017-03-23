@@ -2,6 +2,7 @@
 $(document).ready(function(){
     shelterFinder();
 });
+
 function getRandomPet() {
     var dataObject = {
         format: "json",
@@ -45,7 +46,7 @@ var shelterFinder = function () {
 };
 function createMap(obj){
     $("#map").googleMap({
-        zoom: 8,
+        zoom: 14,
         coords: [obj.latitude,obj.longitude] // Map center (optional)
     });
     $("#map").addMarker({
@@ -68,7 +69,6 @@ function infoForMap(){
 }
 
 function displayMap(){
-    // infoForMap();
     var coordinates = infoForMap();
     createMap(coordinates);
 }
