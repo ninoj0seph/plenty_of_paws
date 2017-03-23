@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     shelterFinder();
 });
@@ -47,10 +46,10 @@ var shelterFinder = function () {
 function createMap(obj){
     $("#map").googleMap({
         zoom: 14,
-        coords: [obj.latitude,obj.longitude] // Map center (optional)
+        coords: [obj.coordinates[0],obj.coordinates[1]] // Map center (optional)
     });
     $("#map").addMarker({
-        coords: [obj.latitude,obj.longitude],
+        coords: [obj.coordinates[0].obj.coordinates[1]],
         title: obj.address.name,
         text: obj.address.text
     });
@@ -59,8 +58,7 @@ function infoForMap(){
     var index = 1;
     var coordObj = {};
     coordObj.address = {};
-    coordObj.latitude = parseFloat(shelterArray[index].latitude['$t']);
-    coordObj.longitude = parseFloat(shelterArray[index].longitude['$t']);
+    coordObj.coordinates = [parseFloat(shelterArray[index].latitude['$t']),parseFloat(shelterArray[index].longitude['$t'])];
     coordObj.address.name = shelterArray[index].name['$t'];
     coordObj.address.city = shelterArray[index].city['$t'];
     coordObj.address.state = shelterArray[index].state['$t'];
