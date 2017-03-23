@@ -77,7 +77,7 @@ function displayPet(petObject) {
     if (petObject.length !== 0) {
         var petCarouselDiv = $("<div id= 'petCarousel' class = 'carousel slide'>");
         var innerPetCarousel = $("<div class= 'carousel-inner'>");
-        var dummyDiv = $("<div class = 'item active'>").text("BLAH!");
+        var dummyDiv = $("<div class = 'item active'>");
         petCarouselDiv.append(innerPetCarousel);
         $(innerPetCarousel).append(dummyDiv);
         $("#petInfo").append(petCarouselDiv);
