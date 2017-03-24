@@ -145,6 +145,7 @@ img.pawLogo{
 /*width: 35vw;*/
 /*height: 35vw;*/
 /*}*/
+
 /*}*/
 
 @media (min-width: 400px) {
@@ -152,10 +153,30 @@ img.pawLogo{
         width: 100%;
     }
 }
-    .carousel{
-        padding-top: 20px;
-        width: 500px;
-        /*overflow: hidden;*/
-        height: 100%;
-        /* position: relative; */
-    }
+.carousel{
+    padding-top: 20px;
+    width: 500px;
+    /*overflow: hidden;*/
+    height: 100%;
+    /* position: relative; */
+}
+a.right.carousel-control, a.left.carousel-control {
+    background-image: none;
+}
+.walmart{
+    border: 1px solid black;
+    height: 50%;
+    width: 100%;
+    background-color: #0B76E9;
+}
+
+.walmart div{
+    width: 20%;
+    display: inline-block;
+    background-color: #ffc220;
+}
+
+.walmart.img{
+    width: 50%;
+    height: 50%;
+}

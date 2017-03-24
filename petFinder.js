@@ -266,16 +266,15 @@ function serverConstructor() {
             "dataType": "jsonp",
             "method": "get",
             "success": function (walmartItemInfo) {
+                console.log(walmartItemInfo);
                 walmartItemInfo.items.sort(function (a, b) {
                     return parseFloat(a.customerRating) - parseFloat(b.customerRating);
                 });
-                suggestion.items[passedAnimal][suggestion.items[passedAnimal].indexOf(passedItem)] = (function () {
-                    var keys = ["name","largeImage","customerRating","addToCartUrl","stock","salePrice"], tempObj = {};
-                    for(var x = 0; x  < keys.length; x++) {
-                        tempObj[keys[x]] = walmartItemInfo.items[walmartItemInfo.items.length - 1][keys[x]];
-                    }
-                    return tempObj;
-                })();
+                var keys = ["name","mediumImage","customerRating", "stock" , "salePrice"];
+                for(var i = 0; i  < keys.length; i++){
+                    keys[i] = i === 1 ? "<img src='" + walmartItemInfo.items[walmartItemInfo.items.length - 1][keys[i]] + "'>" : "<span>" + walmartItemInfo.items[walmartItemInfo.items.length - 1][keys[i]] + "</span>";
+                }
+                $(".walmart").append("<a href=" + walmartItemInfo.items[walmartItemInfo.items.length - 1].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div>");
             },
             "error": function () {
                 console.log('network timeout');
@@ -289,7 +288,6 @@ function serverConstructor() {
             "dataType" : "jsonp",
             "method" : "get",
             "success" : function (walmartLocation) {
-                console.log(walmartLocation);
                 $(function() {
                     $("#map").googleMap();
                     for(var i = 0; i < 10; i++){
@@ -302,7 +300,7 @@ function serverConstructor() {
                 });
             }
         });
-    }
+    };
 }
 var resetEverything = function () {
     petArray = [];
