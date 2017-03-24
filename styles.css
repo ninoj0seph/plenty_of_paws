@@ -215,7 +215,7 @@ img.pawLogo{
 /*width: 35vw;*/
 /*height: 35vw;*/
 /*}*/
-<<<<<<< HEAD
+
 
 /*}*/
 
@@ -234,13 +234,10 @@ img.pawLogo{
 a.right.carousel-control, a.left.carousel-control {
     background-image: none;
 }
-=======
-@media (min-width: 400px) {
-    .buttonContainer, .form-control.userLocation, .mainContent {
-        width: 100%;
-    }
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+    color: #0daef7;
 }
->>>>>>> b03e2dab280be97e3b5a29200f678ea9d35dc461
 .walmart{
     border: 1px solid black;
     height: 50%;
