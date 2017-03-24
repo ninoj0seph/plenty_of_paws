@@ -10,6 +10,7 @@ $(document).ready(function() {
 
 var newSearch = function () {
     $('#petInfo').empty();
+    nextShelterButton.remove();
 };
 /*
  * assignAnimalType - gets the text of the button pressed to know the animal
