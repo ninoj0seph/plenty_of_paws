@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    font-family: 'Dosis', Helvetica, sans-serif;
+    font-size: 1.5em;
 }
 /* Modal */
 .modalContainer p {
@@ -105,6 +107,7 @@ img.pawLogo{
     margin: 5%;
 }
 .mainContent  {
+    position: relative;
     height: 90vh;
     margin: 0 auto;
     width: 80vw;
@@ -168,9 +171,6 @@ img.pawLogo{
 /* Carousel */
 .carousel-inner{
     font-size: 1.5em;
-}
-.carousel-control.left, .carousel-control.right {
-    background-image: none !important;
 }
 
 /* Animal picture class */

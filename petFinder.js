@@ -16,6 +16,7 @@ var newSearch = function () {
  * @params
  */
 var userSelectedAnimal = null;
+var nextShelterButton = null;
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
 }
@@ -112,12 +113,12 @@ function displayPet(petObject) {
         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
     }
 
-    var nextShelterButton = $('<button>',{
+    nextShelterButton = $('<button>',{
         text: 'Next',
         class: "btn btn-danger nextButton",
         click: nextShelter
     });
-    $('#petInfo').append(nextShelterButton);
+    $('.mainContent').append(nextShelterButton);
 }
 var walmartStuff = function () {
     suggestion.getItemInformation();
@@ -309,6 +310,7 @@ var resetEverything = function () {
 };
 var nextShelter = function () {
     petArray = [];
+    nextShelterButton.remove();
     $('#petInfo').empty();
     if (shelterCount < 4){
         shelterCount++;
