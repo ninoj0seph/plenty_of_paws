@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
@@ -13,10 +12,11 @@ var newSearch = function () {
     $('#petInfo').empty();
 };
 /*
-* assignAnimalType - gets the text of the button pressed to know the animal
-* @params
+ * assignAnimalType - gets the text of the button pressed to know the animal
+ * @params
  */
 var userSelectedAnimal = null;
+var nextShelterButton = null;
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
 }
@@ -77,14 +77,14 @@ function displayMap(){
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
 function displayPet(petObject) {
     if (petObject.length !== 0) {
-        var petCarouselDiv = $("<div id= 'petCarousel' class = 'carousel slide'>");
+        var petCarouselDiv = $("<div id='petCarousel' class='carousel slide col-xs-6'>");
         var innerPetCarousel = $("<div class= 'carousel-inner'>");
-        var dummyDiv = $("<div class = 'item active'>").text("BLAH!");
+        var dummyDiv = $("<div class = 'item active'>").text("Click Arrow to Begin!");
         petCarouselDiv.append(innerPetCarousel);
         $(innerPetCarousel).append(dummyDiv);
         $("#petInfo").append(petCarouselDiv);
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile= $("<div>").addClass("item");//.addClass("petProfile col-xs-4");
+            var petProfile= $("<div>").addClass("item petProfile");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>").addClass("img-fluid");
             if(petObject[i]["media"]["photos"] !== undefined) {
@@ -92,8 +92,7 @@ function displayPet(petObject) {
                 petPictureHolder.append(petPicture);
                 petProfile.append(petPictureHolder);
             }
-            petProfile.append(petName, petAge, petContact, shelterName);
-            $(innerPetCarousel).append(petProfile);
+
             var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
             var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
             var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
@@ -106,6 +105,7 @@ function displayPet(petObject) {
             });
             heartContainer.append(walmartButton);
             petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
+            $(innerPetCarousel).append(petProfile);
         }
 
     }
@@ -113,14 +113,14 @@ function displayPet(petObject) {
         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
 
         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
-        }
+    }
 
-    var nextShelterButton = $('<button>',{
+    nextShelterButton = $('<button>',{
         text: 'Next',
-        class: "btn btn-danger btn-sm",
+        class: "btn btn-danger nextButton",
         click: nextShelter
     });
-    $('#petInfo').append(nextShelterButton);
+    $('.mainContent').append(nextShelterButton);
 }
 var walmartStuff = function () {
     suggestion.getItemInformation();
@@ -214,8 +214,8 @@ var shelterFinder = function () {
 };
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
-        var randomShelterID = shelterArray[shelterCount];
-        return shelterArray[shelterCount]["id"]["$t"];
+    var randomShelterID = shelterArray[shelterCount];
+    return shelterArray[shelterCount]["id"]["$t"];
 }
 var shelterPets = function () {
     $.ajax({
@@ -239,7 +239,7 @@ var shelterPets = function () {
     });
 };
 /*
-* instantiation of serverConstructor
+ * instantiation of serverConstructor
  */
 var server = new serverConstructor();
 var suggestion = new suggestionConstructor()
@@ -298,13 +298,14 @@ function serverConstructor() {
     };
 }
 var resetEverything = function () {
-  petArray = [];
-  shelterArray = [];
-  userSelectedAnimal = null;
-  shelterCount = 0;
+    petArray = [];
+    shelterArray = [];
+    userSelectedAnimal = null;
+    shelterCount = 0;
 };
 var nextShelter = function () {
     petArray = [];
+    nextShelterButton.remove();
     $('#petInfo').empty();
     if (shelterCount < 4){
         shelterCount++;
@@ -315,6 +316,6 @@ var nextShelter = function () {
         resetEverything();
         return;
     }
-  displayMap();
-  shelterPets();
+    displayMap();
+    shelterPets();
 };
