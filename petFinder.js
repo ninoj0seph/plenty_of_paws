@@ -50,13 +50,15 @@ function createMap(obj){
  * return - coordObj
  */
 function infoForMap(){
-    var coordObj = {};
-    coordObj.address = {};
-    coordObj.latitude = parseFloat(shelterArray[shelterCount].latitude['$t']);
-    coordObj.longitude = parseFloat(shelterArray[shelterCount].longitude['$t']);
-    coordObj.address.name = shelterArray[shelterCount].name['$t'];
-    coordObj.address.city = shelterArray[shelterCount].city['$t'];
-    coordObj.address.state = shelterArray[shelterCount].state['$t'];
+    var coordObj = {
+        address : {
+            state : shelterArray[shelterCount].state['$t'],
+            city : shelterArray[shelterCount].city['$t'],
+            name : shelterArray[shelterCount].name['$t']
+        },
+        latitude : parseFloat(shelterArray[shelterCount].latitude['$t']),
+        longitude : parseFloat(shelterArray[shelterCount].longitude['$t'])
+    };
     coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
     return coordObj;
 }
@@ -197,7 +199,6 @@ var shelterFinder = function () {
         dataType: 'json',
         success: function (result) {
             console.log(result);
-            //shelterObj = result["petfinder"]["shelters"]
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i]);
             }
@@ -211,7 +212,6 @@ var shelterFinder = function () {
         }
     });
 };
-
 
 function getRandomShelterBasedOnAreaCode(shelterArray) {
     var randomShelterID = shelterArray[shelterCount];
@@ -236,9 +236,6 @@ var shelterPets = function () {
             }
             displayPet(petArray);
         }
-        // complete: function(result) {
-        //
-        // }
     });
 };
 /*
@@ -249,8 +246,8 @@ var suggestion = new suggestionConstructor()
 
 function suggestionConstructor() {
     this.items = {
-        dog: ['food', 'treats', 'carrier', 'toy', 'collar+leash'],
-        cat: ['food,', 'bowl', 'litter+box', 'scratching+post', 'bedding']
+        dog: ['food', 'treats', 'toy', 'collar+leash'],
+        cat: ['food,', 'bowl', 'litter+box', 'scratching+post']
     };
 
     this.getItemInformation = function () {
@@ -266,15 +263,13 @@ function serverConstructor() {
             "dataType": "jsonp",
             "method": "get",
             "success": function (walmartItemInfo) {
-                console.log(walmartItemInfo);
-                walmartItemInfo.items.sort(function (a, b) {
-                    return parseFloat(a.customerRating) - parseFloat(b.customerRating);
-                });
-                var keys = ["name","mediumImage","customerRating", "stock" , "salePrice"];
-                for(var i = 0; i  < keys.length; i++){
-                    keys[i] = i === 1 ? "<img src='" + walmartItemInfo.items[walmartItemInfo.items.length - 1][keys[i]] + "'>" : "<span>" + walmartItemInfo.items[walmartItemInfo.items.length - 1][keys[i]] + "</span>";
+                var randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length);
+                var keys = ["mediumImage","name", "stock" , "salePrice"];
+                keys[0] = "<img src='" + walmartItemInfo.items[randomProduct][keys[0]] + "'>";
+                for(var i = 1; i  < keys.length; i++){
+                    keys[i] = "<span>" + walmartItemInfo.items[randomProduct][keys[i]] + "</span>";
                 }
-                $(".walmart").append("<a href=" + walmartItemInfo.items[walmartItemInfo.items.length - 1].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div>");
+                $(".walmart").append("<a href=" + walmartItemInfo.items[randomProduct].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div>");
             },
             "error": function () {
                 console.log('network timeout');
