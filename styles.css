@@ -88,6 +88,7 @@ img.pawLogo{
     text-align: center;
     font-weight: bold;
     font-size: 2em;
+    color: #02a8f3;
 }
 /* Main */
 #map {
@@ -193,6 +194,7 @@ img.pawLogo{
 .form-control.userLocation {
     margin: 2% 0;
     padding: 5%;
+    font-size: 2em;
 }
 .buttonContainer {
     width: 50vw;
@@ -202,6 +204,7 @@ img.pawLogo{
     padding: 3% 7%;
     width: 24vw;
     text-transform: uppercase;
+    font-size: 2em;
 }
 .carousel {
     padding-top: 20px;
@@ -236,7 +239,7 @@ a.right.carousel-control, a.left.carousel-control {
 }
 
 .glyphicon-chevron-left, .glyphicon-chevron-right {
-    color: #0daef7;
+    color: #02a8f3;
 }
 .walmart{
     border: 1px solid black;
