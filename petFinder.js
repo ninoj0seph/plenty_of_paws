@@ -99,6 +99,7 @@ function displayPet(petObject) {
             var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
             var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
             var heartContainer = $("<div>").addClass('heartContainer');
+            $(heartContainer).on("click",walmartStuff);
             var imgUrl = 'images/heart_icon.svg';
             var walmartButton = $('<img>',{
                 src: imgUrl,
@@ -126,7 +127,7 @@ function displayPet(petObject) {
 var walmartStuff = function () {
     suggestion.getItemInformation();
     // suggestion.findNearestStoreFromShelter();
-    server.walmartLocator(infoForMap());
+    return server.walmartLocator(infoForMap());
 };
 
 
@@ -240,7 +241,7 @@ var shelterPets = function () {
  * instantiation of serverConstructor
  */
 var server = new serverConstructor();
-var suggestion = new suggestionConstructor()
+var suggestion = new suggestionConstructor();
 
 function suggestionConstructor() {
     this.items = {
