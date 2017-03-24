@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
@@ -17,6 +16,7 @@ var newSearch = function () {
  * @params
  */
 var userSelectedAnimal = null;
+var nextShelterButton = null;
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
 }
@@ -77,12 +77,16 @@ function displayPet(petObject) {
     if (petObject.length !== 0) {
         var petCarouselDiv = $("<div id= 'petCarousel' class = 'carousel slide'>");
         var innerPetCarousel = $("<div class= 'carousel-inner'>");
+<<<<<<< HEAD
         var dummyDiv = $("<div class = 'item active'>");
+=======
+        var dummyDiv = $("<div class = 'item active'>").text("Click Arrow to Begin!");
+>>>>>>> b03e2dab280be97e3b5a29200f678ea9d35dc461
         petCarouselDiv.append(innerPetCarousel);
         $(innerPetCarousel).append(dummyDiv);
         $("#petInfo").append(petCarouselDiv);
         for (var i = 0; i < petObject.length; i++) {
-            var petProfile= $("<div>").addClass("item");//.addClass("petProfile col-xs-4");
+            var petProfile= $("<div>").addClass("item petProfile");//.addClass("petProfile col-xs-4");
             var petPictureHolder = $("<div>").addClass("imgContainer");
             var petPicture = $("<img>").addClass("img-fluid");
             if(petObject[i]["media"]["photos"] !== undefined) {
@@ -113,12 +117,12 @@ function displayPet(petObject) {
         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
     }
 
-    var nextShelterButton = $('<button>',{
+    nextShelterButton = $('<button>',{
         text: 'Next',
-        class: "btn btn-danger btn-sm",
+        class: "btn btn-danger nextButton",
         click: nextShelter
     });
-    $('#petInfo').append(nextShelterButton);
+    $('.mainContent').append(nextShelterButton);
 }
 var walmartStuff = function () {
     suggestion.getItemInformation();
@@ -310,6 +314,7 @@ var resetEverything = function () {
 };
 var nextShelter = function () {
     petArray = [];
+    nextShelterButton.remove();
     $('#petInfo').empty();
     if (shelterCount < 4){
         shelterCount++;
