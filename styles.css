@@ -91,17 +91,11 @@ img.pawLogo{
 }
 /* Main */
 #map {
-    width: 20vw;
-    height: 20vw;
-    border-radius: 50%;
-    margin: 5%;
+    width: 100%;
+    height: 25vw;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
-}
-/* Style of tooltip on map */
-#map .h1 h1 {
-    font-size: 1.5em;
 }
 .petProfile {
     margin: 5%;
@@ -116,7 +110,7 @@ img.pawLogo{
     font-size: 1.2em;
     text-align: center;
     position: relative;
-    height: 90vh;
+    height: 100%;
     margin: 0 auto;
     padding: 12px;
     width: 80vw;
@@ -130,15 +124,14 @@ img.pawLogo{
     -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    padding: 3% 7%;
+    padding: 5% 7%;
     width: 15vw;
-    float: right;
-    margin-right: 10%;
     text-transform: uppercase;
 }
 .btn.btn-danger {
     background-color: #02A8F3;
     border-color: #02A8F3;
+    margin-bottom: 3%;
 }
 .btn.btn-danger:hover {
     color: #FFF;
@@ -166,18 +159,16 @@ img.pawLogo{
 .heartContainer:hover {
     background-color: #e91e63;
 }
-
 .heartContainer > img {
     width: 3.5vw;
     position: absolute;
     top: 18%;
-    left: 42%;
+    left: 46%;
 }
 /* Carousel */
 .carousel-inner{
     font-size: 1.5em;
 }
-
 /* Animal picture class */
 .animalPicture {
     display: inline;
@@ -195,7 +186,6 @@ img.pawLogo{
     -moz-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
     box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
 }
-
 /* Styling for search bar input */
 .form-control.userLocation {
     margin: 2% 0;
@@ -214,15 +204,12 @@ img.pawLogo{
 }
 .carousel{
     padding-top: 20px;
-    width: 500px;
-    /*overflow: hidden;*/
+    margin: 0 auto;
     height: 100%;
-    /* position: relative; */
 }
 a.right.carousel-control, a.left.carousel-control {
     background-image: none;
 }
-
 .glyphicon-chevron-left, .glyphicon-chevron-right {
     color: #02a8f3;
 }
@@ -237,30 +224,30 @@ a.right.carousel-control, a.left.carousel-control {
     border-radius: 4px;
     box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.75);
 }
-
 .walmart div{
     width: 20%;
     display: inline-block;
     background-color: #ffffff;
     margin-top: 12px;
 }
-
 .walmart.img{
     width: 50%;
     height: 50%;
 }
-/*@media (min-width: 768px){*/
-/*#map {*/
-/*width: 35vw;*/
-/*height: 35vw;*/
-/*}*/
-
-@media (min-width: 700px){
-
-}
-@media (min-width: 400px) {
-    .buttonContainer, .form-control.userLocation {
+@media (max-width: 600px) {
+    .mainContent {
+        width: 100vw;
+    }
+    .buttonContainer, .form-control.userLocation, #map, #petCarousel {
         width: 100%;
     }
+    #map {
+        border-radius: 0;
+        margin: 0;
+    }
+    .nextButton {
+        float: none;
+        width: 50vw;
+        margin: 0;
+    }
 }
-

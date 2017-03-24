@@ -79,7 +79,7 @@ function displayMap(){
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
 function displayPet(petObject) {
     if (petObject.length !== 0) {
-        var petCarouselDiv = $("<div id='petCarousel' class='carousel slide col-xs-6'>");
+        var petCarouselDiv = $("<div id='petCarousel' class='carousel slide col-xs-12'>");
         var innerPetCarousel = $("<div class= 'carousel-inner'>");
         var dummyDiv = $("<div class = 'item active'>").text("Click Arrow to Begin!");
         petCarouselDiv.append(innerPetCarousel);
