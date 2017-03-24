@@ -11,6 +11,8 @@ $(document).ready(function() {
 
 var newSearch = function () {
     $('#petInfo').empty();
+    shelterArray = [];
+    petArray = [];
     nextShelterButton.remove();
 };
 /*
