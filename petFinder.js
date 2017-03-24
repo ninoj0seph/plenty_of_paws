@@ -90,8 +90,7 @@ function displayPet(petObject) {
                 petPictureHolder.append(petPicture);
                 petProfile.append(petPictureHolder);
             }
-            petProfile.append(petName, petAge, petContact, shelterName);
-            $(innerPetCarousel).append(petProfile);
+
             var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
             var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
             var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
@@ -104,6 +103,7 @@ function displayPet(petObject) {
             });
             heartContainer.append(walmartButton);
             petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
+            $(innerPetCarousel).append(petProfile);
         }
 
     }

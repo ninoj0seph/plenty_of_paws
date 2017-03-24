@@ -88,6 +88,7 @@ img.pawLogo{
     text-align: center;
     font-weight: bold;
     font-size: 2em;
+    color: #02a8f3;
 }
 /* Main */
 #map {
@@ -195,6 +196,7 @@ img.pawLogo{
 .form-control.userLocation {
     margin: 2% 0;
     padding: 5%;
+    font-size: 2em;
 }
 .buttonContainer {
     width: 50vw;
@@ -204,6 +206,7 @@ img.pawLogo{
     padding: 3% 7%;
     width: 24vw;
     text-transform: uppercase;
+    font-size: 2em;
 }
 .carousel {
     padding-top: 20px;
@@ -213,15 +216,32 @@ img.pawLogo{
     /* position: relative; */
 }
 /*@media (min-width: 768px){*/
-    /*#map {*/
-        /*width: 35vw;*/
-        /*height: 35vw;*/
-    /*}*/
+/*#map {*/
+/*width: 35vw;*/
+/*height: 35vw;*/
 /*}*/
+
+
+/*}*/
+
 @media (min-width: 400px) {
-    .buttonContainer, .form-control.userLocation, .mainContent {
+    .buttonContainer, .form-control.userLocation {
         width: 100%;
     }
+}
+.carousel{
+    padding-top: 20px;
+    width: 500px;
+    /*overflow: hidden;*/
+    height: 100%;
+    /* position: relative; */
+}
+a.right.carousel-control, a.left.carousel-control {
+    background-image: none;
+}
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+    color: #02a8f3;
 }
 .walmart{
     border: 1px solid black;
