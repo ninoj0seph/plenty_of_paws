@@ -6,6 +6,7 @@ $(document).ready(function() {
     $(".animalType").on("click",getPets);
     //$("#homeModal").on("click", resetEverything);
     $(".animalType").on("click",newSearch);
+    $(".walmart").hide();
 });
 
 var newSearch = function () {
@@ -125,9 +126,11 @@ function displayPet(petObject) {
     $('.mainContent').append(nextShelterButton);
 }
 var walmartStuff = function () {
+    $(".walmart").show();
+    $(".walmart div").remove();
     suggestion.getItemInformation();
     // suggestion.findNearestStoreFromShelter();
-    return server.walmartLocator(infoForMap());
+    server.walmartLocator(infoForMap());
 };
 
 
