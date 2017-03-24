@@ -1,13 +1,11 @@
 body {
     margin: 0;
 }
-
-p {
-    font-size: 22px;
-    font-weight: bold;
-}
-
 /* Modal */
+.modalContainer p {
+    font-size: 2em;
+    font-family: 'Baloo Bhaina',Helvetica,sans-serif;
+}
 .navbar, .modal-content {
     -webkit-border-radius: 0 !important;
     -moz-border-radius: 0 !important;
@@ -167,8 +165,13 @@ img.pawLogo{
     -moz-animation: rotate-center 0.6s ease-in-out both;
     animation: rotate-center 0.6s ease-in-out both;
 }
-
-
+/* Carousel */
+.carousel-inner{
+    font-size: 1.5em;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none !important;
+}
 
 /* Animal picture class */
 .animalPicture {
@@ -219,6 +222,7 @@ img.pawLogo{
     .buttonContainer, .form-control.userLocation, .mainContent {
         width: 100%;
     }
+}
 .walmart{
     border: 1px solid black;
     height: 50%;
@@ -229,7 +233,7 @@ img.pawLogo{
 .walmart div{
     width: 20%;
     display: inline-block;
-    background-color: #ffc220;
+    background-color: #fff;
 }
 
 .walmart.img{
