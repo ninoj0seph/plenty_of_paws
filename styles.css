@@ -107,6 +107,7 @@ img.pawLogo{
     margin: 5%;
 }
 .mainContent  {
+    position: relative;
     height: 90vh;
     margin: 0 auto;
     width: 80vw;
@@ -219,6 +220,7 @@ img.pawLogo{
     .buttonContainer, .form-control.userLocation, .mainContent {
         width: 100%;
     }
+}
 .walmart{
     border: 1px solid black;
     height: 50%;
