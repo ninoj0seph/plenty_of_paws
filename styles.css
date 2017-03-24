@@ -1,11 +1,10 @@
 body {
     margin: 0;
-    font-family: 'Dosis', Helvetica, sans-serif;
-    font-size: 1.5em;
 }
 /* Modal */
 .modalContainer p {
     font-size: 2em;
+    margin: 2% 0;
     font-family: 'Baloo Bhaina',Helvetica,sans-serif;
 }
 .navbar, .modal-content {
@@ -107,7 +106,15 @@ img.pawLogo{
 .petProfile {
     margin: 5%;
 }
+.petName {
+    font-weight: bold;
+    color: #2d165a;
+    font-style: italic;
+}
 .mainContent  {
+    font-family: 'Dosis', Helvetica, sans-serif;
+    font-size: 1.2em;
+    text-align: center;
     position: relative;
     height: 90vh;
     margin: 0 auto;
@@ -124,7 +131,8 @@ img.pawLogo{
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     padding: 3% 7%;
     width: 15vw;
-    margin-left: 15%;
+    float: right;
+    margin-right: 10%;
     text-transform: uppercase;
 }
 .btn.btn-danger {
@@ -164,11 +172,6 @@ img.pawLogo{
     top: 18%;
     left: 42%;
 }
-.heartSpin {
-    -webkit-animation: rotate-center 0.6s ease-in-out both;
-    -moz-animation: rotate-center 0.6s ease-in-out both;
-    animation: rotate-center 0.6s ease-in-out both;
-}
 /* Carousel */
 .carousel-inner{
     font-size: 1.5em;
@@ -196,7 +199,6 @@ img.pawLogo{
 .form-control.userLocation {
     margin: 2% 0;
     padding: 5%;
-    font-size: 2em;
 }
 .buttonContainer {
     width: 50vw;
@@ -204,30 +206,10 @@ img.pawLogo{
 }
 .btn.userLocationSubmit {
     padding: 3% 7%;
+    font-family: 'Dosis',Helvetica, sans-serif;
     width: 24vw;
     text-transform: uppercase;
     font-size: 2em;
-}
-.carousel {
-    padding-top: 20px;
-    width: 500px;
-    /*overflow: hidden;*/
-    height: 100%;
-    /* position: relative; */
-}
-/*@media (min-width: 768px){*/
-/*#map {*/
-/*width: 35vw;*/
-/*height: 35vw;*/
-/*}*/
-
-
-/*}*/
-
-@media (min-width: 400px) {
-    .buttonContainer, .form-control.userLocation {
-        width: 100%;
-    }
 }
 .carousel{
     padding-top: 20px;
@@ -243,7 +225,10 @@ a.right.carousel-control, a.left.carousel-control {
 .glyphicon-chevron-left, .glyphicon-chevron-right {
     color: #02a8f3;
 }
+/* Walmart styles */
 .walmart{
+    font-family: 'Dosis', Helvetica, sans-serif;
+    font-size: 1em;
     height: 50%;
     width: 90vw;
     margin: 0 auto;
@@ -260,3 +245,18 @@ a.right.carousel-control, a.left.carousel-control {
     width: 50%;
     height: 50%;
 }
+/*@media (min-width: 768px){*/
+/*#map {*/
+/*width: 35vw;*/
+/*height: 35vw;*/
+/*}*/
+
+@media (min-width: 700px){
+
+}
+@media (min-width: 400px) {
+    .buttonContainer, .form-control.userLocation {
+        width: 100%;
+    }
+}
+

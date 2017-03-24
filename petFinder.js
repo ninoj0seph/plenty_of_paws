@@ -117,7 +117,7 @@ function displayPet(petObject) {
     }
 
     nextShelterButton = $('<button>',{
-        text: 'Next',
+        text: 'Next Shelter',
         class: "btn btn-danger nextButton",
         click: nextShelter
     });
@@ -207,9 +207,6 @@ var shelterFinder = function () {
             displayMap();
             suggestion.getItemInformation();
             //suggestion.findNearestStoreFromShelter();
-            setTimeout(function () {
-                server.walmartLocator(infoForMap());
-            },1500);
         }
     });
 };
