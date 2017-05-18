@@ -262,18 +262,20 @@ function suggestionConstructor() {
 }
 function serverConstructor() {
     this.checkWalmart = function (passedAnimal, passedItem) {
+        const WALMART_URL = "http://api.walmartlabs.com/v1/search?query=";
         $.ajax({
-            "url": "http://api.walmartlabs.com/v1/search?query=" + passedAnimal + "+" + passedItem + " +&format=json&apiKey=5pw9whbkctdk92vckbgewxky",
+            "url": `${WALMART_URL}${passedAnimal}${passedItem}+&format=json&apiKey=5pw9whbkctdk92vckbgewxky`,
             "dataType": "jsonp",
             "method": "get",
             "success": function (walmartItemInfo) {
                 var randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length);
                 var keys = ["mediumImage","name", "stock" , "salePrice"];
-                keys[0] = "<img src='" + walmartItemInfo.items[randomProduct][keys[0]] + "'>";
+                keys[0] = `<img src=${walmartItemInfo.items[randomProduct][keys[0]]}>`;
                 for(var i = 1; i  < keys.length; i++){
-                    keys[i] = "<span>" + walmartItemInfo.items[randomProduct][keys[i]] + "</span>";
+                    keys[i] = `<div class="walmartTest">${walmartItemInfo.items[randomProduct][keys[i]]}</div>`;
                 }
-                $(".walmart").append("<a href=" + walmartItemInfo.items[randomProduct].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div>");
+                $(".walmart").append("<div><a href=" + walmartItemInfo.items[randomProduct].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div></a></div>");
+
             },
             "error": function () {
                 console.log('network timeout');

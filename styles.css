@@ -215,17 +215,16 @@ a.right.carousel-control, a.left.carousel-control {
 }
 /* Walmart styles */
 .walmart{
+    margin: 1em auto;
     font-family: 'Dosis', Helvetica, sans-serif;
     font-size: 1em;
     height: 50%;
     width: 90vw;
     padding: 12px;
-    margin-top: 12px;
     border-radius: 4px;
     box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.75);
 }
 .walmart div{
-    width: 20%;
     display: inline-block;
     background-color: #ffffff;
     margin-top: 12px;
@@ -250,4 +249,15 @@ a.right.carousel-control, a.left.carousel-control {
         width: 50vw;
         margin: 0;
     }
+}
+
+.walmart > div {
+    width: 25vw;
+    height: 25vh;
+    margin: 1em auto;
+}
+
+.thumbnail {
+    height: 200px;
+    width: 200px;
 }
