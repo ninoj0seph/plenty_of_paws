@@ -15,26 +15,27 @@ var newSearch = function () {
     petArray = [];
     nextShelterButton.remove();
 };
-/*
- * assignAnimalType - gets the text of the button pressed to know the animal
- * @params
- */
+
 var userSelectedAnimal = null;
 var nextShelterButton = null;
+/**
+ * assignAnimalType - gets the text of the button pressed to know the animal* @name assign
+ * @params none
+ */
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
 }
-/*
+/**
  * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
- * @params
+ * @params none
  */
 function getPets(){
     console.log($(this).text());
     //var userSelectedAnimal = $(this).text();
     shelterFinder();
 }
-/*
- * createMap - Makes map from the values of the latitude and longitude keys
+/**
+ * @name createMap - Makes map from the values of the latitude and longitude keys
  * @params {object} obj
  */
 function createMap(obj){
@@ -48,10 +49,10 @@ function createMap(obj){
         text: obj.address.text
     });
 }
-/*
- * infoForMap - gets latitude and longitude information from the shelterArray. Stores the latitude and longitude of the shelter in a key:value pair
+/**
+ * @name infoForMap - gets latitude and longitude information from the shelterArray. Stores the latitude and longitude of the shelter in a key:value pair
  * @params - none
- * return - coordObj
+ * @return coordObj {object}
  */
 function infoForMap(){
     var coordObj = {
@@ -66,16 +67,16 @@ function infoForMap(){
     coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
     return coordObj;
 }
-/*
- * displayMap - function for displaying the map from the coordinates returned by infoForMap. Calls createMap with parameter of coordinates
+/**
+ * @name - displayMap - function for displaying the map from the coordinates returned by infoForMap. Calls createMap with parameter of coordinates
  * @params - none
  */
 function displayMap(){
     var coordinates = infoForMap();
     createMap(coordinates);
 }
-/*
- displayPet - function to append the DOM to display the animal's profile
+/**
+ @name displayPet - function to append the DOM to display the animal's profile
  @params petObject => response["petfinder"]["pets"]
  */
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
@@ -128,7 +129,7 @@ function displayPet(petObject) {
     $('.mainContent').append(nextShelterButton);
 }
 var walmartStuff = function () {
-    $(".walmart").show();
+    $(".walmart").show(); // make walmart content visible on DOM
     $(".walmart div").remove();
     suggestion.getItemInformation();
     // suggestion.findNearestStoreFromShelter();
@@ -136,10 +137,10 @@ var walmartStuff = function () {
 };
 
 
-/*
- * displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
+/**
+ * @name - displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
  * @params - petObject
- * return - Nothing
+ * @return none
  */
 function displayRandomPet(petObject) {
     var petProfile = $("<div>");
@@ -153,9 +154,9 @@ function displayRandomPet(petObject) {
     }
     $(".mainContent").append(petProfile);
 }
-/*
- * getRandomPet - Based on user click get a random dog or cat
- * May need to transition this to shelter.getPet and randomize the results or something like that
+/**
+ * @name - getRandomPet - Based on user click get a random dog or cat
+ * @note - May need to transition this to shelter.getPet and randomize the results or something like that
  */
 function getRandomPet() {
     console.log($(this)); //$(this) = button.animalType
@@ -185,8 +186,8 @@ function getRandomPet() {
 var shelterArray = [];
 var petArray = [];
 var shelterCount = 0;
-/*
- * shelterFinder - function for finding a shelter based on the user submitted location. Also updates the shelter list
+/**
+ * @name - shelterFinder - function for finding a shelter based on the user submitted location. Also updates the shelter list
  * @params - none
  * dataObject @type
  */
@@ -198,9 +199,10 @@ var shelterFinder = function () {
         output: "full",
         count: 5
     };
-    var urlString = "http://api.petfinder.com/shelter.find?format=json" + "&" + dataObject["location"] + "&" + dataObject["output"] + "&" + "callback=?";
+    let shelterFinderURL = `http://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
+    // var urlString = "http://api.petfinder.com/shelter.find?format=json" + "&" + dataObject["location"] + "&" + dataObject["output"] + "&" + "callback=?";
     $.ajax({
-        url: urlString,
+        url: shelterFinderURL,
         type: 'GET',
         data: dataObject,
         dataType: 'json',
@@ -284,8 +286,10 @@ function serverConstructor() {
     };
 
     this.walmartLocator = function (coordinates) {
+        let walmartLocatorURL = `http://api.walmartlabs.com/v1/stores?format=json&lat=${coordinates.latitude}&lon=${coordinates.longitude}&apiKey=5pw9whbkctdk92vckbgewxky`;
         $.ajax({
-            "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ coordinates.latitude + "&lon=" + coordinates.longitude + "&apiKey=5pw9whbkctdk92vckbgewxky",
+            // "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ coordinates.latitude + "&lon=" + coordinates.longitude + "&apiKey=5pw9whbkctdk92vckbgewxky",
+            url: walmartLocatorURL,
             "dataType" : "jsonp",
             "method" : "get",
             "success" : function (walmartLocation) {
