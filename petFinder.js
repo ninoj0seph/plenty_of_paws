@@ -75,59 +75,88 @@ function displayMap(){
     var coordinates = infoForMap();
     createMap(coordinates);
 }
+
+
+function displayPet(petObject) {
+    if (petObject.length > 0) {
+
+        for (let i = 0; i < petObject.length; i++) {
+            let petCard = $("<div class='card'>");
+            let cardMedia = $("<div class='cardMedia'>");
+            let cardTitle = $("<div class='cardTitle'>").text(petObject[i]["name"]["$t"]); // Make the petName the cardTitle
+            let cardActions = $("<div class='cardActions'>");
+            // let likeButton = $("<button class='likeButton'>");
+            let likeIcon = $("<i class='material-icons'>").text("favorite").addClass('likeIcon');
+            if (petObject[i]["media"]["photos"] !== undefined) {
+                // set the background image of the card media div = to the pet's image
+                // In the response from the PetFinder API, the index=2 of the media.photos.photo array contains an image of the dog that has a width of 500. The 0 and 1 indices are smaller widths
+                $(cardMedia).css("background-image", `url("${petObject[i]["media"]["photos"]["photo"][2]["$t"]}")`);
+            } else {
+                console.log("No photo found"); // TODO pick a default photo in case there is not a photo there
+            }
+
+
+            petCard.append(cardMedia);
+            cardMedia.append(cardTitle);
+            petCard.append(cardActions);
+            cardActions.append(likeIcon);
+            $(".test").append(petCard);
+        }
+    }
+}
 /**
  @name displayPet - function to append the DOM to display the animal's profile
  @params petObject => response["petfinder"]["pets"]
  */
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
-function displayPet(petObject) {
-    if (petObject.length !== 0) {
-        var petCarouselDiv = $("<div id='petCarousel' class='carousel slide col-xs-12'>");
-        var innerPetCarousel = $("<div class= 'carousel-inner'>");
-        var dummyDiv = $("<div class = 'item active'>").text("Click Arrow to Begin!");
-        petCarouselDiv.append(innerPetCarousel);
-        $(innerPetCarousel).append(dummyDiv);
-        $("#petInfo").append(petCarouselDiv);
-        for (var i = 0; i < petObject.length; i++) {
-            var petProfile= $("<div>").addClass("item petProfile");//.addClass("petProfile col-xs-4");
-            var petPictureHolder = $("<div>").addClass("imgContainer");
-            var petPicture = $("<img>").addClass("img-fluid");
-            if(petObject[i]["media"]["photos"] !== undefined) {
-                petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-                petPictureHolder.append(petPicture);
-                petProfile.append(petPictureHolder);
-            }
-
-            var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
-            var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
-            var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
-            var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
-            var heartContainer = $("<div>").addClass('heartContainer');
-            $(heartContainer).on("click",walmartStuff);
-            var imgUrl = 'images/heart_icon.svg';
-            var walmartButton = $('<img>',{
-                src: imgUrl,
-                click: walmartStuff
-            });
-            heartContainer.append(walmartButton);
-            petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
-            $(innerPetCarousel).append(petProfile);
-        }
-
-    }
-    else {
-        console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
-
-        $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
-    }
-
-    nextShelterButton = $('<button>',{
-        text: 'Next Shelter',
-        class: "btn btn-danger nextButton",
-        click: nextShelter
-    });
-    $('.mainContent').append(nextShelterButton);
-}
+// function displayPet(petObject) {
+//     if (petObject.length !== 0) {
+//         var petCarouselDiv = $("<div id='petCarousel' class='carousel slide col-xs-12'>");
+//         var innerPetCarousel = $("<div class= 'carousel-inner'>");
+//         var dummyDiv = $("<div class = 'item active'>").text("Click Arrow to Begin!");
+//         petCarouselDiv.append(innerPetCarousel);
+//         $(innerPetCarousel).append(dummyDiv);
+//         $("#petInfo").append(petCarouselDiv);
+//         for (var i = 0; i < petObject.length; i++) {
+//             var petProfile= $("<div>").addClass("item petProfile");//.addClass("petProfile col-xs-4");
+//             var petPictureHolder = $("<div>").addClass("imgContainer");
+//             var petPicture = $("<img>").addClass("img-fluid");
+//             if(petObject[i]["media"]["photos"] !== undefined) {
+//                 petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
+//                 petPictureHolder.append(petPicture);
+//                 petProfile.append(petPictureHolder);
+//             }
+//
+//             var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
+//             var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
+//             var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
+//             var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
+//             var heartContainer = $("<div>").addClass('heartContainer');
+//             $(heartContainer).on("click",walmartStuff);
+//             var imgUrl = 'images/heart_icon.svg';
+//             var walmartButton = $('<img>',{
+//                 src: imgUrl,
+//                 click: walmartStuff
+//             });
+//             heartContainer.append(walmartButton);
+//             petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
+//             $(innerPetCarousel).append(petProfile);
+//         }
+//
+//     }
+//     else {
+//         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
+//
+//         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
+//     }
+//
+//     nextShelterButton = $('<button>',{
+//         text: 'Next Shelter',
+//         class: "btn btn-danger nextButton",
+//         click: nextShelter
+//     });
+//     $('.mainContent').append(nextShelterButton);
+// }
 var walmartStuff = function () {
     $(".walmart").show(); // make walmart content visible on DOM
     $(".walmart div").remove();
