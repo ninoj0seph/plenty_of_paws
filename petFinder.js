@@ -318,6 +318,10 @@ var resetEverything = function () {
     shelterArray = [];
     userSelectedAnimal = null;
     shelterCount = 0;
+    $('.noMoreShelters').remove();
+    let newSearch = $("<a href='index.html'>").text("New Search?");
+    $(".animalCards").append(newSearch)
+
 
 };
 var nextShelter = function () {
@@ -332,7 +336,7 @@ var nextShelter = function () {
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<div>").text("No more shelters in your area");
+        let noMoreShelters = $("<div class='noMoreShelters'>").text("No more shelters in your area");
         $(".animalCards").append(noMoreShelters);
         resetEverything();
         return;
