@@ -126,6 +126,7 @@ img.pawLogo{
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     padding: 5% 7%;
     width: 15vw;
+    margin: 2em;
     text-transform: uppercase;
 }
 .btn.btn-danger {
@@ -388,6 +389,4 @@ input.form-control.userLocation {
 }
 
 .animalCards {
-
-
 }

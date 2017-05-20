@@ -172,7 +172,7 @@ function getRandomPet() {
         animal: $(this).text(),
         output: "basic"
     };
-    var urlString = "http://api.petfinder.com/pet.getRandom?format=json" + "&" + dataObject["animal"] + "&" + dataObject["output"] + "&" + "callback=?";
+    var urlString = "https://api.petfinder.com/pet.getRandom?format=json" + "&" + dataObject["animal"] + "&" + dataObject["output"] + "&" + "callback=?";
     $.ajax({
         data: dataObject,
         dataType: "JSON",
@@ -205,7 +205,7 @@ var shelterFinder = function () {
         output: "full",
         count: 5
     };
-    let shelterFinderURL = `http://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
+    let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
     // var urlString = "http://api.petfinder.com/shelter.find?format=json" + "&" + dataObject["location"] + "&" + dataObject["output"] + "&" + "callback=?";
     $.ajax({
         url: shelterFinderURL,
@@ -231,7 +231,7 @@ function getRandomShelterBasedOnAreaCode(shelterArray) {
 }
 var shelterPets = function () {
     $.ajax({
-        url: 'http://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
+        url: 'https://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
             id: getRandomShelterBasedOnAreaCode(shelterArray)
@@ -319,7 +319,7 @@ var resetEverything = function () {
     userSelectedAnimal = null;
     shelterCount = 0;
     $('.noMoreShelters').remove();
-    let newSearch = $("<a href='index.html'>").text("New Search?");
+    let newSearch = $("<a href='index.html#homeModal'>").text("New Search?");
     $(".animalCards").append(newSearch)
 
 
