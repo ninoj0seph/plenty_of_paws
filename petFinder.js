@@ -97,7 +97,7 @@ function displayPet(petObject) {
             let petInfoDiv = $("<div class='petInfoExtended'>");
             petInfoDiv.append(petAgeDiv, petGenderDiv, petDescriptionDiv);
             // When the user clicks the like icon, append the extended information onto the card
-            cardMedia.on("click", function() {
+            cardMedia.on("click", function () {
                 petInfoDiv.stop().slideToggle("slow");
             });
             if (petObject[i]["media"]["photos"] !== undefined) {
@@ -117,61 +117,23 @@ function displayPet(petObject) {
         let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
         let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
         $(".animalShelterInformation").append(shelterName, shelterContact);
+    } else {
+        let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption`;
+        $("#petInfo").append($("<div class='noMoreAnimals'>").text(noMoreAnimals));
     }
+    nextShelterButton = $('<button>', {
+        text: 'Next Shelter',
+        class: "btn btn-danger nextButton",
+        click: nextShelter
+    });
+    $('.mainContent').append(nextShelterButton);
 }
 /**
  @name displayPet - function to append the DOM to display the animal's profile
  @params petObject => response["petfinder"]["pets"]
  */
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
-// function displayPet(petObject) {
-//     if (petObject.length !== 0) {
-//         var petCarouselDiv = $("<div id='petCarousel' class='carousel slide col-xs-12'>");
-//         var innerPetCarousel = $("<div class= 'carousel-inner'>");
-//         var dummyDiv = $("<div class = 'item active'>").text("Click Arrow to Begin!");
-//         petCarouselDiv.append(innerPetCarousel);
-//         $(innerPetCarousel).append(dummyDiv);
-//         $("#petInfo").append(petCarouselDiv);
-//         for (var i = 0; i < petObject.length; i++) {
-//             var petProfile= $("<div>").addClass("item petProfile");//.addClass("petProfile col-xs-4");
-//             var petPictureHolder = $("<div>").addClass("imgContainer");
-//             var petPicture = $("<img>").addClass("img-fluid");
-//             if(petObject[i]["media"]["photos"] !== undefined) {
-//                 petPicture.attr("src", petObject[i]["media"]["photos"]["photo"][2]["$t"]).addClass("animalPicture"); // ...["photo"][2]["$t"] seems to be the largest image that won't require splicing out part of the string. For the time being, "good enough" -ADG
-//                 petPictureHolder.append(petPicture);
-//                 petProfile.append(petPictureHolder);
-//             }
-//
-//             var petName = $("<div>").text(petObject[i]["name"]["$t"]).addClass('petName');
-//             var petAge = $("<div>").text(petObject[i]["age"]["$t"]).addClass('petAge');
-//             var petContact = $("<div>").text(petObject[i]["contact"]["email"]["$t"]).addClass('petContact');
-//             var shelterName = $('<div>').text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
-//             var heartContainer = $("<div>").addClass('heartContainer');
-//             $(heartContainer).on("click",walmartStuff);
-//             var imgUrl = 'images/heart_icon.svg';
-//             var walmartButton = $('<img>',{
-//                 src: imgUrl,
-//                 click: walmartStuff
-//             });
-//             heartContainer.append(walmartButton);
-//             petProfile.append(petName, petAge, petContact, shelterName, heartContainer);
-//             $(innerPetCarousel).append(petProfile);
-//         }
-//
-//     }
-//     else {
-//         console.log("This shelter does not have any " + userSelectedAnimal + "s available for adoption");
-//
-//         $("#petInfo").append($("<div>").text("This shelter does not have any " + userSelectedAnimal + "s available for adoption"));
-//     }
-//
-//     nextShelterButton = $('<button>',{
-//         text: 'Next Shelter',
-//         class: "btn btn-danger nextButton",
-//         click: nextShelter
-//     });
-//     $('.mainContent').append(nextShelterButton);
-// }
+
 var walmartStuff = function () {
     $(".walmart").show(); // make walmart content visible on DOM
     $(".walmart div").remove();
@@ -356,17 +318,22 @@ var resetEverything = function () {
     shelterArray = [];
     userSelectedAnimal = null;
     shelterCount = 0;
+
 };
 var nextShelter = function () {
     petArray = [];
     nextShelterButton.remove();
-    $('#petInfo').empty();
+    $('.animalCards').empty();
+    $('.animalShelterInformation').empty();
+    $('.noMoreAnimals').remove();
+
     if (shelterCount < 4){
         shelterCount++;
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        $("#petInfo").append("No more shelters in your area.");
+        let noMoreShelters = $("<div>").text("No more shelters in your area");
+        $(".animalCards").append(noMoreShelters);
         resetEverything();
         return;
     }
