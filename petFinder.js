@@ -210,7 +210,7 @@ var shelterFinder = function () {
         count: 5
     };
     // Quick hard coded error handling for empty input fields
-    ($(".userLocation").val() === '') ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
+    ($(".userLocation").val().length < 4) ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
     let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
     $.ajax({
         url: shelterFinderURL,
@@ -331,10 +331,6 @@ var resetEverything = function () {
 
 var nextShelter = function () {
     petArray = [];
-    // nextShelterButton.remove();
-    // $('.animalCards').empty();
-    // $('.animalShelterInformation').empty();
-    // $('.noMoreAnimals').remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
 
     if (shelterCount < 4){
