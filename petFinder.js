@@ -2,19 +2,24 @@ $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
     //$(".animalType").on("click", getRandomPet);
-    $(".animalType").on("click",assignAnimalType);
-    $(".animalType").on("click",getPets);
-    //$("#homeModal").on("click", resetEverything);
-    $(".animalType").on("click",newSearch);
-    $(".walmart").hide();
+        $(".animalType").on("click", assignAnimalType);
+        $(".animalType").on("click", getPets);
+        //$("#homeModal").on("click", resetEverything);
+        $(".animalType").on("click", newSearch);
+        $(".walmart").hide();
+
 });
+
+
+
+
 
 var newSearch = function () {
 
     $('#petInfo').empty();
     shelterArray = [];
     petArray = [];
-    emptyAnimalDOM(); // empty the animal dom
+    (nextShelterButton !== null) ? (emptyAnimalDOM()) : (''); // Empty the animal dom only if the nextShelter button is there. If not, do nothing
 };
 
 var userSelectedAnimal = null;
@@ -204,6 +209,8 @@ var shelterFinder = function () {
         output: "full",
         count: 5
     };
+    // Quick hard coded error handling for empty input fields
+    ($(".userLocation").val() === '') ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
     let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
     $.ajax({
         url: shelterFinderURL,
@@ -211,7 +218,7 @@ var shelterFinder = function () {
         data: dataObject,
         dataType: 'json',
         success: function (result) {
-            console.log(result);
+            // console.log(result);
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i]);
             }
@@ -236,7 +243,7 @@ var shelterPets = function () {
         },
         dataType: 'json',
         success: function (result) {
-            console.log("shelterPets", result);
+            // console.log("shelterPets", result);
             if(result.petfinder.pets.pet !== undefined) {
                 for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
                     if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
@@ -351,4 +358,4 @@ var emptyAnimalDOM = function() {
     $('.animalCards').empty();
     $('.animalShelterInformation').empty();
     $('.noMoreAnimals').remove();
-}
+};
