@@ -10,10 +10,11 @@ $(document).ready(function() {
 });
 
 var newSearch = function () {
+
     $('#petInfo').empty();
     shelterArray = [];
     petArray = [];
-    nextShelterButton.remove();
+    emptyAnimalDOM(); // empty the animal dom
 };
 
 var userSelectedAnimal = null;
@@ -30,7 +31,6 @@ function assignAnimalType() {
  * @params none
  */
 function getPets(){
-    console.log($(this).text());
     //var userSelectedAnimal = $(this).text();
     shelterFinder();
 }
@@ -165,7 +165,6 @@ function displayRandomPet(petObject) {
  * @note - May need to transition this to shelter.getPet and randomize the results or something like that
  */
 function getRandomPet() {
-    console.log($(this)); //$(this) = button.animalType
     var dataObject = {
         format: "json",
         key: "1db51d3f16936ba505cf7a0476dd8771",
@@ -206,7 +205,6 @@ var shelterFinder = function () {
         count: 5
     };
     let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
-    // var urlString = "http://api.petfinder.com/shelter.find?format=json" + "&" + dataObject["location"] + "&" + dataObject["output"] + "&" + "callback=?";
     $.ajax({
         url: shelterFinderURL,
         type: 'GET',
@@ -294,7 +292,6 @@ function serverConstructor() {
     this.walmartLocator = function (coordinates) {
         let walmartLocatorURL = `http://api.walmartlabs.com/v1/stores?format=json&lat=${coordinates.latitude}&lon=${coordinates.longitude}&apiKey=5pw9whbkctdk92vckbgewxky`;
         $.ajax({
-            // "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ coordinates.latitude + "&lon=" + coordinates.longitude + "&apiKey=5pw9whbkctdk92vckbgewxky",
             url: walmartLocatorURL,
             "dataType" : "jsonp",
             "method" : "get",
@@ -319,17 +316,19 @@ var resetEverything = function () {
     userSelectedAnimal = null;
     shelterCount = 0;
     $('.noMoreShelters').remove();
-    let newSearch = $("<a href='index.html#homeModal'>").text("New Search?");
+    $('.userLocation').val(''); // Empty the zip code when you reset everything
+    let newSearch = $("<a href='index.html/#homeModal' class='btn' data-toggle='modal'>").text("New Search?");
     $(".animalCards").append(newSearch)
-
-
 };
+
+
 var nextShelter = function () {
     petArray = [];
-    nextShelterButton.remove();
-    $('.animalCards').empty();
-    $('.animalShelterInformation').empty();
-    $('.noMoreAnimals').remove();
+    // nextShelterButton.remove();
+    // $('.animalCards').empty();
+    // $('.animalShelterInformation').empty();
+    // $('.noMoreAnimals').remove();
+    emptyAnimalDOM(); // Empty the DOM for all information about the animals
 
     if (shelterCount < 4){
         shelterCount++;
@@ -344,3 +343,12 @@ var nextShelter = function () {
     displayMap();
     shelterPets();
 };
+
+
+// jQuery methods empty the DOM for the animal information sections
+var emptyAnimalDOM = function() {
+    nextShelterButton.remove();
+    $('.animalCards').empty();
+    $('.animalShelterInformation').empty();
+    $('.noMoreAnimals').remove();
+}
