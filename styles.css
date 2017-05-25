@@ -105,27 +105,19 @@ img.pawLogo{
     color: #2d165a;
     font-style: italic;
 }
-.mainContent  {
+.mainContent {
     font-family: 'Dosis', Helvetica, sans-serif;
-    font-size: 1.2em;
     text-align: center;
-    position: relative;
-    height: 100%;
     margin: 0 auto;
     padding: 12px;
     width: 80vw;
-    border-radius: 4px;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 }
 /* Next button */
 .nextButton {
     -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    padding: 5% 7%;
-    width: 15vw;
+    padding: 2%;
     margin: 2em;
     text-transform: uppercase;
 }
@@ -191,6 +183,7 @@ img.pawLogo{
 .form-control.userLocation {
     margin: 2% 0;
     padding: 5%;
+    font-size: 2vmax;
 }
 .buttonContainer {
     width: 50vw;
@@ -223,7 +216,7 @@ a.right.carousel-control, a.left.carousel-control {
     width: 90vw;
     padding: 12px;
     border-radius: 4px;
-    box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.75);
+    box-shadow: 0 5px 2px 0 rgba(0,0,0,0.75);
 }
 .walmart div{
     display: inline-block;
@@ -243,11 +236,6 @@ a.right.carousel-control, a.left.carousel-control {
     }
     #map {
         border-radius: 0;
-        margin: 0;
-    }
-    .nextButton {
-        float: none;
-        width: 50vw;
         margin: 0;
     }
 }
@@ -357,25 +345,17 @@ i.material-icons.likeIcon:hover {
 
 
 .paper {
-    margin: 1em auto;
-    box-shadow: 0.875em 0.875em 1.75em rgba(0,0,0,0.25), 0.625em 0.625em 0.625em rgba(0,0,0,0.22);
     width: 90vw;
-    border-radius: 1em;
 }
 
 .animalShelterInformation {
-    font-family: Roboto, sans-serif;
-    font-size: 4em;
+    font-family: Dosis, sans-serif;
+    font-size: 4vmax;
     text-align: center;
 }
 
-/* Up the font size to make the text more legible */
-input.form-control.userLocation {
-    font-size: 2em;
-}
-
 .petInfoExtended {
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto', Avenir, sans-serif;
     font-size: 1em;
     width: 25em;
     color: black;
