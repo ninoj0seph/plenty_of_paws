@@ -266,6 +266,7 @@ body {
     background: #e2e1e0;
 }
 .card {
+    cursor: pointer;
     font-family: Roboto, sans-serif;
     width: 400px;
     height: 400px;
