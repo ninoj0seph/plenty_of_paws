@@ -267,6 +267,7 @@ body {
     background: #e2e1e0;
 }
 .card {
+
     font-family: Roboto, sans-serif;
     width: 25em;
     height: 25em;
@@ -387,6 +388,7 @@ input.form-control.userLocation {
     border-radius: 0.75em;
     position: absolute;
 }
+
 
 .animalCards > div {
     margin: 1em;
