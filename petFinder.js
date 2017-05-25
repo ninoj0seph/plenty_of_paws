@@ -2,18 +2,24 @@ $(document).ready(function() {
     var petObject = null;
     $('#homeModal').modal('show');
     //$(".animalType").on("click", getRandomPet);
-    $(".animalType").on("click",assignAnimalType);
-    $(".animalType").on("click",getPets);
+    $(".animalType").on("click", assignAnimalType);
+    $(".animalType").on("click", getPets);
     //$("#homeModal").on("click", resetEverything);
-    $(".animalType").on("click",newSearch);
+    $(".animalType").on("click", newSearch);
     $(".walmart").hide();
+
 });
 
+
+
+
+
 var newSearch = function () {
+
     $('#petInfo').empty();
     shelterArray = [];
     petArray = [];
-    nextShelterButton.remove();
+    (nextShelterButton !== null) ? (emptyAnimalDOM()) : (''); // Empty the animal dom only if the nextShelter button is there. If not, do nothing
 };
 
 var userSelectedAnimal = null;
@@ -30,7 +36,6 @@ function assignAnimalType() {
  * @params none
  */
 function getPets(){
-    console.log($(this).text());
     //var userSelectedAnimal = $(this).text();
     shelterFinder();
 }
@@ -115,9 +120,8 @@ function displayPet(petObject) {
         }
         // Append the shelter information to the animalShelterInformaiton div that sits above the animal cards
         let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
-        let shelterEmail = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact');// for shelters, the email address is the same, so pick off the email address from the first animal in the array
-        let shelterPhone = $("<div>").text(petObject[0]["contact"]["phone"]["$t"]).addClass('petContact');
-        $(".animalShelterInformation").append(shelterName, shelterEmail, shelterPhone);
+        let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
+        $(".animalShelterInformation").append(shelterName, shelterContact);
     } else {
         let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption`;
         $("#petInfo").append($("<div class='noMoreAnimals'>").text(noMoreAnimals));
@@ -148,7 +152,6 @@ var walmartStuff = function () {
  * @name - displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
  * @params - petObject
  * @return none
- * @note - not in use
  */
 function displayRandomPet(petObject) {
     var petProfile = $("<div>");
@@ -165,17 +168,15 @@ function displayRandomPet(petObject) {
 /**
  * @name - getRandomPet - Based on user click get a random dog or cat
  * @note - May need to transition this to shelter.getPet and randomize the results or something like that
- * @note - Not currently in use
  */
 function getRandomPet() {
-    console.log($(this)); //$(this) = button.animalType
     var dataObject = {
         format: "json",
         key: "1db51d3f16936ba505cf7a0476dd8771",
         animal: $(this).text(),
         output: "basic"
     };
-    var urlString = "http://api.petfinder.com/pet.getRandom?format=json" + "&" + dataObject["animal"] + "&" + dataObject["output"] + "&" + "callback=?";
+    var urlString = "https://api.petfinder.com/pet.getRandom?format=json" + "&" + dataObject["animal"] + "&" + dataObject["output"] + "&" + "callback=?";
     $.ajax({
         data: dataObject,
         dataType: "JSON",
@@ -208,15 +209,16 @@ var shelterFinder = function () {
         output: "full",
         count: 5
     };
-    let shelterFinderURL = `http://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
-    // var urlString = "http://api.petfinder.com/shelter.find?format=json" + "&" + dataObject["location"] + "&" + dataObject["output"] + "&" + "callback=?";
+    // Quick hard coded error handling for empty input fields
+    ($(".userLocation").val().length < 4) ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
+    let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
     $.ajax({
         url: shelterFinderURL,
         type: 'GET',
         data: dataObject,
         dataType: 'json',
         success: function (result) {
-            console.log(result);
+            // console.log(result);
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i]);
             }
@@ -234,14 +236,14 @@ function getRandomShelterBasedOnAreaCode(shelterArray) {
 }
 var shelterPets = function () {
     $.ajax({
-        url: 'http://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
+        url: 'https://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
             id: getRandomShelterBasedOnAreaCode(shelterArray)
         },
         dataType: 'json',
         success: function (result) {
-            console.log("shelterPets", result);
+            // console.log("shelterPets", result);
             if(result.petfinder.pets.pet !== undefined) {
                 for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
                     if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {
@@ -256,10 +258,10 @@ var shelterPets = function () {
 /*
  * instantiation of serverConstructor
  */
-var server = new ServerConstructor();
-var suggestion = new SuggestionConstructor();
+var server = new serverConstructor();
+var suggestion = new suggestionConstructor();
 
-function SuggestionConstructor() {
+function suggestionConstructor() {
     this.items = {
         dog: ['food', 'treats', 'toy', 'collar+leash'],
         cat: ['food,', 'bowl', 'litter+box', 'scratching+post']
@@ -271,7 +273,7 @@ function SuggestionConstructor() {
         }
     };
 }
-function ServerConstructor() {
+function serverConstructor() {
     this.checkWalmart = function (passedAnimal, passedItem) {
         const WALMART_URL = "http://api.walmartlabs.com/v1/search?query=";
         $.ajax({
@@ -297,7 +299,6 @@ function ServerConstructor() {
     this.walmartLocator = function (coordinates) {
         let walmartLocatorURL = `http://api.walmartlabs.com/v1/stores?format=json&lat=${coordinates.latitude}&lon=${coordinates.longitude}&apiKey=5pw9whbkctdk92vckbgewxky`;
         $.ajax({
-            // "url" : "http://api.walmartlabs.com/v1/stores?format=json&lat="+ coordinates.latitude + "&lon=" + coordinates.longitude + "&apiKey=5pw9whbkctdk92vckbgewxky",
             url: walmartLocatorURL,
             "dataType" : "jsonp",
             "method" : "get",
@@ -321,25 +322,36 @@ var resetEverything = function () {
     shelterArray = [];
     userSelectedAnimal = null;
     shelterCount = 0;
-
+    $('.noMoreShelters').remove();
+    $('.userLocation').val(''); // Empty the zip code when you reset everything
+    let newSearch = $("<a href='index.html/#homeModal' class='btn' data-toggle='modal'>").text("New Search?");
+    $(".animalCards").append(newSearch)
 };
+
+
 var nextShelter = function () {
     petArray = [];
-    nextShelterButton.remove();
-    $('.animalCards').empty();
-    $('.animalShelterInformation').empty();
-    $('.noMoreAnimals').remove();
+    emptyAnimalDOM(); // Empty the DOM for all information about the animals
 
     if (shelterCount < 4){
         shelterCount++;
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<div>").text("No more shelters in your area");
+        let noMoreShelters = $("<div class='noMoreShelters'>").text("No more shelters in your area");
         $(".animalCards").append(noMoreShelters);
         resetEverything();
         return;
     }
     displayMap();
     shelterPets();
+};
+
+
+// jQuery methods empty the DOM for the animal information sections
+var emptyAnimalDOM = function() {
+    nextShelterButton.remove();
+    $('.animalCards').empty();
+    $('.animalShelterInformation').empty();
+    $('.noMoreAnimals').remove();
 };

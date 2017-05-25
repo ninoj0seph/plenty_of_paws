@@ -126,6 +126,7 @@ img.pawLogo{
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     padding: 5% 7%;
     width: 15vw;
+    margin: 2em;
     text-transform: uppercase;
 }
 .btn.btn-danger {
@@ -266,10 +267,10 @@ body {
     background: #e2e1e0;
 }
 .card {
-    cursor: pointer;
+
     font-family: Roboto, sans-serif;
-    width: 400px;
-    height: 400px;
+    width: 25em;
+    height: 25em;
     color: #FAFAFA;
     background-color: white;
     box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
@@ -302,8 +303,8 @@ body {
 .cardMedia {
 
     background-size: 100% 100%;
-    width: 400px;
-    height: 400px;
+    width: 25em;
+    height: 25em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -376,19 +377,19 @@ input.form-control.userLocation {
 .petInfoExtended {
     font-family: Roboto, sans-serif;
     font-size: 1em;
-    width: 400px;
+    width: 25em;
     color: black;
     background-color: white;
     box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    margin: 0em;
+    margin: 0em 0em 1em 0em;
     padding: 1em;
     display: none;
     border-radius: 0.75em;
     position: absolute;
 }
 
-.animalCards {
 
-
+.animalCards > div {
+    margin: 1em;
 }
