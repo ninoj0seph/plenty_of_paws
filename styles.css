@@ -388,6 +388,6 @@ input.form-control.userLocation {
 }
 
 .animalCards {
-
+    cursor: pointer;
 
 }

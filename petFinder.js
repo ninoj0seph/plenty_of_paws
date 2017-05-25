@@ -115,8 +115,9 @@ function displayPet(petObject) {
         }
         // Append the shelter information to the animalShelterInformaiton div that sits above the animal cards
         let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
-        let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
-        $(".animalShelterInformation").append(shelterName, shelterContact);
+        let shelterEmail = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact');// for shelters, the email address is the same, so pick off the email address from the first animal in the array
+        let shelterPhone = $("<div>").text(petObject[0]["contact"]["phone"]["$t"]).addClass('petContact');
+        $(".animalShelterInformation").append(shelterName, shelterEmail, shelterPhone);
     } else {
         let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption`;
         $("#petInfo").append($("<div class='noMoreAnimals'>").text(noMoreAnimals));
