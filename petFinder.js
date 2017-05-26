@@ -1,35 +1,33 @@
 $(document).ready(function() {
     var petObject = null;
-    $('#homeModal').modal('show');
+
     //$(".animalType").on("click", getRandomPet);
     $(".animalType").on("click", assignAnimalType);
     $(".animalType").on("click", getPets);
     //$("#homeModal").on("click", resetEverything);
     $(".animalType").on("click", newSearch);
-    $(".walmart").hide();
+    // $(".walmart").hide();
+    $('.walmartSuggestion').on("click", walmartInformation);
 
 });
 
-
-
-
-
 var newSearch = function () {
-
-    $('#petInfo').empty();
-    shelterArray = [];
-    petArray = [];
+    $('#petInfo').empty(); // remove the elements from the DOM and destroy click handlers
+    shelterArray = []; // Empty the list of stored shelters
+    petArray = []; // Empty the list of stored pets from that search
     (nextShelterButton !== null) ? (emptyAnimalDOM()) : (''); // Empty the animal dom only if the nextShelter button is there. If not, do nothing
 };
 
 var userSelectedAnimal = null;
 var nextShelterButton = null;
+var previousShelterButton = null;
 /**
  * assignAnimalType - gets the text of the button pressed to know the animal* @name assign
  * @params none
  */
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
+
 }
 /**
  * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
@@ -37,57 +35,21 @@ function assignAnimalType() {
  */
 function getPets(){
     //var userSelectedAnimal = $(this).text();
+    // hide the input form after the user searches for it
+    toggleVisibility('animalSearch');
     shelterFinder();
 }
-/**
- * @name createMap - Makes map from the values of the latitude and longitude keys
- * @params {object} obj
- */
-function createMap(obj){
-    $("#map").googleMap({
-        zoom: 14,
-        coords: [obj.latitude,obj.longitude] // Map center (optional)
-    });
-    $("#map").addMarker({
-        coords: [obj.latitude,obj.longitude],
-        title: obj.address.name,
-        text: obj.address.text
-    });
-}
-/**
- * @name infoForMap - gets latitude and longitude information from the shelterArray. Stores the latitude and longitude of the shelter in a key:value pair
- * @params - none
- * @return coordObj {object}
- */
-function infoForMap(){
-    var coordObj = {
-        address : {
-            state : shelterArray[shelterCount].state['$t'],
-            city : shelterArray[shelterCount].city['$t'],
-            name : shelterArray[shelterCount].name['$t']
-        },
-        latitude : parseFloat(shelterArray[shelterCount].latitude['$t']),
-        longitude : parseFloat(shelterArray[shelterCount].longitude['$t'])
-    };
-    coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
-    return coordObj;
-}
-/**
- * @name - displayMap - function for displaying the map from the coordinates returned by infoForMap. Calls createMap with parameter of coordinates
- * @params - none
- */
-function displayMap(){
-    var coordinates = infoForMap();
-    createMap(coordinates);
-}
 
-
+/**
+ @name displayPet - function to append the DOM to display the animal's profile
+ @params petObject => response["petfinder"]["pets"]
+ */
 function displayPet(petObject) {
     if (petObject.length > 0) {
 
         for (let i = 0; i < petObject.length; i++) {
-            let petCard = $("<div class='card'>");
-            let cardMedia = $("<div class='cardMedia'>");
+            let petCard = $("<div class='card col-lg-4 col-sm-3 col-xs-3'>");
+            let cardMedia = $("<div class='cardMedia img-fluid'>");
             let petName = petObject[i]["name"]["$t"];
             let cardTitle = $("<div class='cardTitle'>").text(petName); // Make the petName the cardTitle
             let cardActions = $("<div class='cardActions'>");
@@ -119,8 +81,8 @@ function displayPet(petObject) {
             $(".animalCards").append(petCard);
         }
         // Append the shelter information to the animalShelterInformaiton div that sits above the animal cards
-        let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
-        let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
+        let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName col-lg-8 col-lg-offset-2 col-xs-8 col-xs-offset-2');
+        let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact col-lg-8 col-lg-offset-2 col-xs-8 col-xs-offset-2'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
         $(".animalShelterInformation").append(shelterName, shelterContact);
     } else {
         let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption`;
@@ -128,24 +90,22 @@ function displayPet(petObject) {
     }
     nextShelterButton = $('<button>', {
         text: 'Next Shelter',
-        class: "btn btn-danger nextButton",
+        class: "btn btn-danger shelterButton",
         click: nextShelter
     });
-    $('.mainContent').append(nextShelterButton);
+    previousShelterButton = $('<button>', {
+        text: 'Previous Shelter',
+        class: "btn btn-danger shelterButton",
+        click: null
+
+    });
+
+    $('#petInfo').append(previousShelterButton, nextShelterButton);
 }
-/**
- @name displayPet - function to append the DOM to display the animal's profile
- @params petObject => response["petfinder"]["pets"]
- */
+
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
 
-var walmartStuff = function () {
-    $(".walmart").show(); // make walmart content visible on DOM
-    $(".walmart div").remove();
-    suggestion.getItemInformation();
-    // suggestion.findNearestStoreFromShelter();
-    server.walmartLocator(infoForMap());
-};
+
 
 
 /**
@@ -202,15 +162,16 @@ var shelterCount = 0;
  * dataObject @type
  */
 var shelterFinder = function () {
+    let userLocation = $(".userLocation").val();
     var dataObject = {
         format: "json",
         key: "579d9f154b80d15e1daee8e8aca5ba7a",
-        location: $(".userLocation").val(),
+        location: userLocation,
         output: "full",
         count: 5
     };
     // Quick hard coded error handling for empty input fields
-    ($(".userLocation").val().length < 4) ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
+    (userLocation.length < 4) ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
     let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
     $.ajax({
         url: shelterFinderURL,
@@ -223,7 +184,7 @@ var shelterFinder = function () {
                 shelterArray.push(result.petfinder.shelters.shelter[i]);
             }
             shelterPets(shelterArray);
-            displayMap();
+            displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
             suggestion.getItemInformation();
             //suggestion.findNearestStoreFromShelter();
         }
@@ -255,82 +216,24 @@ var shelterPets = function () {
         }
     });
 };
-/*
- * instantiation of serverConstructor
- */
-var server = new serverConstructor();
-var suggestion = new suggestionConstructor();
 
-function suggestionConstructor() {
-    this.items = {
-        dog: ['food', 'treats', 'toy', 'collar+leash'],
-        cat: ['food,', 'bowl', 'litter+box', 'scratching+post']
-    };
-
-    this.getItemInformation = function () {
-        for (var i = 0; i < suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
-            server.checkWalmart(userSelectedAnimal.toLowerCase(), suggestion.items[userSelectedAnimal.toLowerCase()][i]);
-        }
-    };
-}
-function serverConstructor() {
-    this.checkWalmart = function (passedAnimal, passedItem) {
-        const WALMART_URL = "http://api.walmartlabs.com/v1/search?query=";
-        $.ajax({
-            "url": `${WALMART_URL}${passedAnimal}${passedItem}+&format=json&apiKey=5pw9whbkctdk92vckbgewxky`,
-            "dataType": "jsonp",
-            "method": "get",
-            "success": function (walmartItemInfo) {
-                var randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length);
-                var keys = ["mediumImage","name", "stock" , "salePrice"];
-                keys[0] = `<img src=${walmartItemInfo.items[randomProduct][keys[0]]}>`;
-                for(var i = 1; i  < keys.length; i++){
-                    keys[i] = `<div class="walmartTest">${walmartItemInfo.items[randomProduct][keys[i]]}</div>`;
-                }
-                $(".walmart").append("<div><a href=" + walmartItemInfo.items[randomProduct].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div></a></div>");
-
-            },
-            "error": function () {
-                console.log('network timeout');
-            }
-        });
-    };
-
-    this.walmartLocator = function (coordinates) {
-        let walmartLocatorURL = `http://api.walmartlabs.com/v1/stores?format=json&lat=${coordinates.latitude}&lon=${coordinates.longitude}&apiKey=5pw9whbkctdk92vckbgewxky`;
-        $.ajax({
-            url: walmartLocatorURL,
-            "dataType" : "jsonp",
-            "method" : "get",
-            "success" : function (walmartLocation) {
-                $(function() {
-                    $("#map").googleMap();
-                    for(var i = 0; i < 10; i++){
-                        $("#map").addMarker({
-                            coords: [parseFloat(walmartLocation[i].coordinates[1]), parseFloat(walmartLocation[i].coordinates[0])],
-                            title: walmartLocation[i].name,
-                            text:  walmartLocation[i].streetAddress + " " + walmartLocation[i].city + " " + walmartLocation[i].stateProvCode + " " + walmartLocation[i].zip
-                        });
-                    }
-                });
-            }
-        });
-    };
-}
-var resetEverything = function () {
+const resetEverything = function () {
     petArray = [];
     shelterArray = [];
     userSelectedAnimal = null;
     shelterCount = 0;
     $('.noMoreShelters').remove();
     $('.userLocation').val(''); // Empty the zip code when you reset everything
-    let newSearch = $("<a href='index.html/#homeModal' class='btn' data-toggle='modal'>").text("New Search?");
+    let newSearch = $("<a href='index.html/#home' class='btn'>").text("New Search?");
+    newSearch.on('click', toggleVisibility('newSearchRequested')); // hide the map, walmart, and animal cards
     $(".animalCards").append(newSearch)
 };
 
 
-var nextShelter = function () {
+const nextShelter = function () {
     petArray = [];
+    nextShelterButton.remove();
+    previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
 
     if (shelterCount < 4){
@@ -349,9 +252,158 @@ var nextShelter = function () {
 
 
 // jQuery methods empty the DOM for the animal information sections
-var emptyAnimalDOM = function() {
-    nextShelterButton.remove();
+const emptyAnimalDOM = function() {
+
     $('.animalCards').empty();
     $('.animalShelterInformation').empty();
     $('.noMoreAnimals').remove();
 };
+
+
+
+
+
+/**
+ * Begin Walmart API related code
+ *
+ * instantiation of serverConstructor
+ */
+
+
+// var walmartStuff = function () {
+//     $(".walmart").show(); // make walmart content visible on DOM
+//     $(".walmart div").remove();
+//     suggestion.getItemInformation();
+//     // suggestion.findNearestStoreFromShelter();
+//     server.walmartLocator(infoForMap());
+// };
+
+
+
+const suggestion = new suggestionConstructor(); // new Instance of suggestions
+const walmartItems = new walmartAPICall(); // new instance of walmart API call
+
+
+
+
+const appendWalmartSuggestedItem = function() {
+    let suggestionDiv = $('<div>').addClass('suggestedItem');
+    $('.walmart').append(suggestionDiv);
+};
+
+
+// suggestionConstructor: generate suggested items
+function suggestionConstructor() {
+    this.items = {
+        dog: ['food', 'treats', 'toy', 'collar+leash'],
+        cat: ['food,', 'bowl', 'litter+box', 'scratching+post']
+    };
+    let selectedAnimal = userSelectedAnimal.toLowerCase(); // to match the required format of the walmart api
+    // Iterate through default suggested items based on user selected animal;
+    this.getItemInformation = function () {
+        for (let i = 0; i < suggestion.items[selectedAnimal].length; i++) {
+            walmartAPICall().checkWalmart(selectedAnimal, suggestion.items[selectedAnimal][i]);
+        }
+    };
+}
+
+function walmartAPICall() {
+    this.checkWalmart = function (passedAnimal, passedItem) {
+        const WALMART_URL = "http://api.walmartlabs.com/v1/search?query=";
+        $.ajax({
+            "url": `${WALMART_URL}${passedAnimal}${passedItem}+&format=json&apiKey=5pw9whbkctdk92vckbgewxky`,
+            "dataType": "jsonp",
+            "method": "get",
+            success: function (walmartItemInfo) {
+                console.log("walmartAPICall walmartItemInfo", walmartItemInfo);
+                var randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length);
+                var keys = ["mediumImage", "name", "stock", "salePrice"];
+
+                // keys[0] = `<img src=${walmartItemInfo.items[randomProduct][keys[0]]}>`;
+                // for (var i = 1; i < keys.length; i++) {
+                //     keys[i] = `<div class="walmartTest">${walmartItemInfo.items[randomProduct][keys[i]]}</div>`;
+                // }
+                // $(".walmart").append("<div><a href=" + walmartItemInfo.items[randomProduct].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div></a></div>");
+
+            },
+            "error": function () {
+                console.log('network timeout');
+            }
+        });
+    };
+}
+
+
+
+
+/**
+ * Begin Google Maps API related code
+ */
+
+/**
+ * @name createMap - Makes map from the values of the latitude and longitude keys
+ * @params {object} obj
+ */
+function createMap(obj){
+    let map = $("#map");
+    map.googleMap({
+        zoom: 14,
+        coords: [obj.latitude,obj.longitude] // Map center (optional)
+    });
+    map.addMarker({
+        coords: [obj.latitude,obj.longitude],
+        title: obj.address.name,
+        text: obj.address.text
+    });
+}
+/**
+ * @name infoForMap - gets latitude and longitude information from the shelterArray. Stores the latitude and longitude of the shelter in a key:value pair
+ * @params - none
+ * @return coordObj {object}
+ */
+function infoForMap(){
+    let coordObj = {
+        address : {
+            state : shelterArray[shelterCount].state['$t'],
+            city : shelterArray[shelterCount].city['$t'],
+            name : shelterArray[shelterCount].name['$t']
+        },
+        latitude : parseFloat(shelterArray[shelterCount].latitude['$t']),
+        longitude : parseFloat(shelterArray[shelterCount].longitude['$t'])
+    };
+    coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
+    return coordObj;
+}
+/**
+ * @name - displayMap - function for displaying the map from the coordinates returned by infoForMap. Calls createMap with parameter of coordinates
+ * @params - none
+ */
+function displayMap(){
+    // let coordinates = infoForMap();
+    createMap(infoForMap());
+    // shelt
+};
+
+function toggleVisibility(context) {
+    let animalSelection = $('.animalSelection'); // the div containing the form for the user to select an animal
+    let map = $('#map');
+    switch(context) {
+
+        case('animalSearch'):
+            animalSelection.css('display','none'); // hide the input form
+            map.css('display', 'block'); //
+            break;
+
+
+        case('newSearchRequested'):
+            map.css('display','none'); // hide the map
+            emptyAnimalDOM(); // Clear out animal DOM
+            animalSelection.css('display','block');
+            break;
+
+        default:
+            console.log("toggle visibility default");
+
+    }
+
+}
