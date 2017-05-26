@@ -185,9 +185,6 @@ function displayPet(petObject) {
 
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
 
-
-
-
 /**
  * @name - displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
  * @params - petObject
@@ -339,10 +336,6 @@ const emptyAnimalDOM = function() {
     $('.noMoreAnimals').remove();
 };
 
-
-
-
-
 /**
  * Begin Walmart API related code
  *
@@ -363,9 +356,6 @@ const emptyAnimalDOM = function() {
 const suggestion = new suggestionConstructor(); // new Instance of suggestions
 const walmartItems = new walmartAPICall(); // new instance of walmart API call
 
-
-
-
 const appendWalmartSuggestedItem = function() {
     let suggestionDiv = $('<div>').addClass('suggestedItem');
     $('.walmart').append(suggestionDiv);
@@ -378,7 +368,10 @@ function suggestionConstructor() {
         dog: ['food', 'treats', 'toy', 'collar+leash'],
         cat: ['food,', 'bowl', 'litter+box', 'scratching+post']
     };
-    let selectedAnimal = userSelectedAnimal.toLowerCase(); // to match the required format of the walmart api
+    let selectedAnimal;
+    if(userSelectedAnimal){
+        selectedAnimal = userSelectedAnimal.toLowerCase(); // to match the required format of the walmart api
+    }
     // Iterate through default suggested items based on user selected animal;
     this.getItemInformation = function () {
         for (let i = 0; i < suggestion.items[selectedAnimal].length; i++) {
@@ -412,57 +405,6 @@ function walmartAPICall() {
         });
     };
 }
-
-
-
-
-/**
- * Begin Google Maps API related code
- */
-
-/**
- * @name createMap - Makes map from the values of the latitude and longitude keys
- * @params {object} obj
- */
-function createMap(obj){
-    let map = $("#map");
-    map.googleMap({
-        zoom: 14,
-        coords: [obj.latitude,obj.longitude] // Map center (optional)
-    });
-    map.addMarker({
-        coords: [obj.latitude,obj.longitude],
-        title: obj.address.name,
-        text: obj.address.text
-    });
-}
-/**
- * @name infoForMap - gets latitude and longitude information from the shelterArray. Stores the latitude and longitude of the shelter in a key:value pair
- * @params - none
- * @return coordObj {object}
- */
-function infoForMap(){
-    let coordObj = {
-        address : {
-            state : shelterArray[shelterCount].state['$t'],
-            city : shelterArray[shelterCount].city['$t'],
-            name : shelterArray[shelterCount].name['$t']
-        },
-        latitude : parseFloat(shelterArray[shelterCount].latitude['$t']),
-        longitude : parseFloat(shelterArray[shelterCount].longitude['$t'])
-    };
-    coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
-    return coordObj;
-}
-/**
- * @name - displayMap - function for displaying the map from the coordinates returned by infoForMap. Calls createMap with parameter of coordinates
- * @params - none
- */
-function displayMap(){
-    // let coordinates = infoForMap();
-    createMap(infoForMap());
-    // shelt
-};
 
 function toggleVisibility(context) {
     let animalSelection = $('.animalSelection'); // the div containing the form for the user to select an animal
