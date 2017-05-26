@@ -1,5 +1,6 @@
+# plenty_of_paws
+=======
 **Plenty of Paws**: *Adorable adoptable animals in your area*
-
 
 # C2.17_hackathon
 
@@ -27,10 +28,12 @@ Hackathon project involving the combination of different data sources into an ap
   - Kevin C
   - Andres
 
-
 ### Deadline: 
 - 6:00PM Thursday, March 23, 2017
+
 ***
+
 # Plenty of Paws v2
 Hackathon 2: Plenty of Paws v2
+
 
