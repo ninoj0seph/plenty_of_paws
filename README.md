@@ -1,6 +1,7 @@
-# plenty_of_paws
-=======
+
 **Plenty of Paws**: *Adorable adoptable animals in your area*
+
+# plenty_of_paws
 
 # C2.17_hackathon
 
