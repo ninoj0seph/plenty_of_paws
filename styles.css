@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    background-color: #e2e1e0;
 }
 /* Modal */
 .modalContainer p {
@@ -65,7 +66,6 @@ img.pawLogo{
     border-radius: 0;
     font-size: 40px;
     font-weight: bold;
-    text-align: center;
 }
 .navbar-header {
     position: relative;
@@ -227,9 +227,17 @@ a.right.carousel-control, a.left.carousel-control {
     width: 50%;
     height: 50%;
 }
+.gm-style-cc {
+    display: none;
+}
+
 @media (max-width: 600px) {
     .mainContent {
         width: 100vw;
+    }
+    .container {
+        padding: 0;
+        margin: 0;
     }
     .buttonContainer, .form-control.userLocation, #map, #petCarousel {
         width: 100%;
@@ -237,6 +245,14 @@ a.right.carousel-control, a.left.carousel-control {
     #map {
         border-radius: 0;
         margin: 0;
+        width: 100%;
+        height: 20vh;
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
+    .pawLogo {
+        left: 5%;
     }
 }
 
@@ -251,9 +267,6 @@ a.right.carousel-control, a.left.carousel-control {
     width: 200px;
 }
 
-body {
-    background: #e2e1e0;
-}
 .card {
 
     font-family: Roboto, sans-serif;
@@ -276,7 +289,7 @@ body {
 
 .cardTitle {
     font-size: 2em;
-    font-family: Roboto, sans-serif;
+    font-family: Roboto, Helvetica, sans-serif;
     margin-left: 1em;
     margin-bottom: 1em;
 
@@ -289,7 +302,6 @@ body {
 }
 
 .cardMedia {
-
     background-size: 100% 100%;
     width: 25em;
     height: 25em;
@@ -342,7 +354,6 @@ i.material-icons.likeIcon:hover {
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
-
 
 .paper {
     width: 90vw;
