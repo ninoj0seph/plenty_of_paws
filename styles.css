@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    background-color: #e2e1e0;
 }
 /* Modal */
 .modalContainer p {
@@ -62,7 +63,6 @@ img.pawLogo{
     border-radius: 0;
     font-size: 40px;
     font-weight: bold;
-    text-align: center;
 }
 .navbar-header {
     position: relative;
@@ -103,27 +103,20 @@ img.pawLogo{
     color: #2d165a;
     font-style: italic;
 }
-.mainContent  {
+.mainContent {
     font-family: 'Dosis', Helvetica, sans-serif;
-    font-size: 1.2em;
     text-align: center;
-    position: relative;
-    height: 100%;
     margin: 0 auto;
     padding: 12px;
     width: 80vw;
-    border-radius: 4px;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 }
 /* Next button */
 .nextButton .previousButton {
     -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    padding: 5% 7%;
     width: 30vw;
+    padding: 2%;
     margin: 2em;
     text-transform: uppercase;
 }
@@ -186,6 +179,7 @@ img.pawLogo{
 .form-control.userLocation {
     margin: 2% 0;
     padding: 5%;
+    font-size: 2vmax;
 }
 .buttonContainer {
     margin: 0em auto;
@@ -212,7 +206,7 @@ img.pawLogo{
     width: 90vw;
     padding: 12px;
     border-radius: 4px;
-    box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.75);
+    box-shadow: 0 5px 2px 0 rgba(0,0,0,0.75);
 }
 .walmart div{
     display: inline-block;
@@ -223,23 +217,30 @@ img.pawLogo{
     width: 50%;
     height: 50%;
 }
+.gm-style-cc {
+    display: none;
+}
+
 @media (max-width: 600px) {
     .container {
         width: 100vw;
-    }
-    .buttonContainer, animalSelection, .form-control.userLocation, #map {
-        width: 100%;
-        display: none;
+        padding: 0;
+        margin: 0;
+
     }
     #map {
         border-radius: 0;
         margin: 0;
+
         display: none;
+        width: 100%;
+        height: 20vh;
     }
-    .nextButton {
-        float: none;
-        width: 50vw;
-        margin: 0;
+    .navbar {
+        margin-bottom: 0;
+    }
+    .pawLogo {
+        left: 5%;
     }
 }
 
@@ -254,9 +255,6 @@ img.pawLogo{
     width: 200px;
 }
 
-body {
-    background: #e2e1e0;
-}
 .card {
 
     font-family: Roboto, sans-serif;
@@ -280,7 +278,7 @@ body {
 
 .cardTitle {
     font-size: 2em;
-    font-family: Roboto, sans-serif;
+    font-family: Roboto, Helvetica, sans-serif;
     margin-left: 1em;
     margin-bottom: 1em;
 
@@ -293,7 +291,6 @@ body {
 }
 
 .cardMedia {
-
     background-size: 100% 100%;
     width: 25em;
     height: 25em;
@@ -349,19 +346,16 @@ i.material-icons.likeIcon:hover {
     font-feature-settings: 'liga';
 }
 
-
 .paper {
-    margin: 1em auto;
-    box-shadow: 0.875em 0.875em 1.75em rgba(0,0,0,0.25), 0.625em 0.625em 0.625em rgba(0,0,0,0.22);
     width: 90vw;
-    border-radius: 1em;
 }
 
 .animalShelterInformation {
-    font-family: Roboto, sans-serf;
-    font-size: 4em;
+    font-family: Dosis, sans-serif;
+    font-size: 4vmax;
     text-align: center;
 }
+
 
 
 
@@ -370,8 +364,9 @@ input.form-control.userLocation {
     font-size: 2em;
 }
 
+
 .petInfoExtended {
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto', Avenir, sans-serif;
     font-size: 1em;
     width: 25em;
     color: black;
@@ -386,6 +381,7 @@ input.form-control.userLocation {
 }
 
 
+
 /* Next and previous shelter buttons*/
 .shelterButton {
     margin-left: 10em;
@@ -395,8 +391,6 @@ input.form-control.userLocation {
     height: 5vh;
     font-size: 1vh;
 }
-
-
 .animalCards > div {
     margin: 1em;
 }

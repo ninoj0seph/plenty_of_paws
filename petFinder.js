@@ -12,6 +12,7 @@ $(document).ready(function() {
 });
 
 var newSearch = function () {
+
     $('#petInfo').empty(); // remove the elements from the DOM and destroy click handlers
     shelterArray = []; // Empty the list of stored shelters
     petArray = []; // Empty the list of stored pets from that search
@@ -37,8 +38,13 @@ function getPets(){
     //var userSelectedAnimal = $(this).text();
     // hide the input form after the user searches for it
     toggleVisibility('animalSearch');
+    window.location.hash = '#search'; // set the hash to search so the routing back to the index.html for multiple searches can work will minimal rework
     shelterFinder();
 }
+
+
+
+
 
 /**
  @name displayPet - function to append the DOM to display the animal's profile
@@ -161,7 +167,7 @@ var shelterCount = 0;
  * @params - none
  * dataObject @type
  */
-var shelterFinder = function () {
+const shelterFinder = function () {
     let userLocation = $(".userLocation").val();
     var dataObject = {
         format: "json",
@@ -195,7 +201,7 @@ function getRandomShelterBasedOnAreaCode(shelterArray) {
     var randomShelterID = shelterArray[shelterCount];
     return shelterArray[shelterCount]["id"]["$t"];
 }
-var shelterPets = function () {
+const shelterPets = function () {
     $.ajax({
         url: 'https://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
@@ -224,7 +230,7 @@ const resetEverything = function () {
     shelterCount = 0;
     $('.noMoreShelters').remove();
     $('.userLocation').val(''); // Empty the zip code when you reset everything
-    let newSearch = $("<a href='index.html/#home' class='btn'>").text("New Search?");
+    let newSearch = $("<a href='index.html' class='btn'>").text("New Search?");
     newSearch.on('click', toggleVisibility('newSearchRequested')); // hide the map, walmart, and animal cards
     $(".animalCards").append(newSearch)
 };
@@ -336,54 +342,11 @@ function walmartAPICall() {
 
 
 
-/**
- * Begin Google Maps API related code
- */
 
 /**
- * @name createMap - Makes map from the values of the latitude and longitude keys
- * @params {object} obj
+ * @name toggleVisibility - hide and show components based on whether or not the user is searching
+ * @param context {type | string}
  */
-function createMap(obj){
-    let map = $("#map");
-    map.googleMap({
-        zoom: 14,
-        coords: [obj.latitude,obj.longitude] // Map center (optional)
-    });
-    map.addMarker({
-        coords: [obj.latitude,obj.longitude],
-        title: obj.address.name,
-        text: obj.address.text
-    });
-}
-/**
- * @name infoForMap - gets latitude and longitude information from the shelterArray. Stores the latitude and longitude of the shelter in a key:value pair
- * @params - none
- * @return coordObj {object}
- */
-function infoForMap(){
-    let coordObj = {
-        address : {
-            state : shelterArray[shelterCount].state['$t'],
-            city : shelterArray[shelterCount].city['$t'],
-            name : shelterArray[shelterCount].name['$t']
-        },
-        latitude : parseFloat(shelterArray[shelterCount].latitude['$t']),
-        longitude : parseFloat(shelterArray[shelterCount].longitude['$t'])
-    };
-    coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
-    return coordObj;
-}
-/**
- * @name - displayMap - function for displaying the map from the coordinates returned by infoForMap. Calls createMap with parameter of coordinates
- * @params - none
- */
-function displayMap(){
-    // let coordinates = infoForMap();
-    createMap(infoForMap());
-    // shelt
-};
-
 function toggleVisibility(context) {
     let animalSelection = $('.animalSelection'); // the div containing the form for the user to select an animal
     let map = $('#map');
@@ -398,6 +361,7 @@ function toggleVisibility(context) {
         case('newSearchRequested'):
             map.css('display','none'); // hide the map
             emptyAnimalDOM(); // Clear out animal DOM
+            $('.newSearchButton').remove();
             animalSelection.css('display','block');
             break;
 
