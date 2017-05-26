@@ -231,8 +231,8 @@ const resetEverything = function () {
     $('.noMoreShelters').remove();
     $('.userLocation').val(''); // Empty the zip code when you reset everything
     let newSearch = $("<a href='index.html' class='btn'>").text("New Search?");
+    $(".animalCards").append(newSearch);
     newSearch.on('click', toggleVisibility('newSearchRequested')); // hide the map, walmart, and animal cards
-    $(".animalCards").append(newSearch)
 };
 
 
@@ -247,10 +247,11 @@ const nextShelter = function () {
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<div class='noMoreShelters'>").text("No more shelters in your area");
+        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        emptyAnimalDOM();
         $(".animalCards").append(noMoreShelters);
-        resetEverything();
-        return;
+        // $('.noMoreShelters').on('click', resetEverything);
+        // return;
     }
     displayMap();
     shelterPets();
