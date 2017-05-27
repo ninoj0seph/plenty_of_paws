@@ -1,11 +1,6 @@
-<<<<<<< HEAD
+
 **Plenty of Paws**: *Adorable adoptable animals in your area*
 
-=======
-# plenty_of_paws
-=======
-**Plenty of Paws**: *Adorable adoptable animals in your area*
->>>>>>> b9b6496dfbffad2017c93389125d0584d24d8051
 
 # C2.17_hackathon
 
@@ -37,6 +32,10 @@ Hackathon project involving the combination of different data sources into an ap
 - 6:00PM Thursday, March 23, 2017
 
 ***
+***API Documentation***
+* [Walmart API](https://developer.walmartlabs.com/docs)
+    * [Search](https://developer.walmartlabs.com/docs/read/Search_API)
+    
 
 # Plenty of Paws v2
 Hackathon 2: Plenty of Paws v2

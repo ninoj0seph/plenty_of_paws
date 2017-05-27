@@ -1,14 +1,13 @@
 $(document).ready(function() {
     var petObject = null;
 
-    //$(".animalType").on("click", getRandomPet);
     $(".animalType").on("click", assignAnimalType);
     $(".animalType").on("click", getPets);
-    //$("#homeModal").on("click", resetEverything);
     $(".animalType").on("click", newSearch);
-    // $(".walmart").hide();
-    $('.walmartSuggestion').on("click", walmartInformation);
-
+    $(".walmamrtSuggestion").on("click", () => {
+        const walmartAPI = new WalmartSuggestionInformation();
+        walmartAPI.getItemInformation();
+    });
 });
 
 var newSearch = function () {
@@ -19,6 +18,9 @@ var newSearch = function () {
     (nextShelterButton !== null) ? (emptyAnimalDOM()) : (''); // Empty the animal dom only if the nextShelter button is there. If not, do nothing
 };
 
+// While there may be a configuration that does not require
+// the userSelectedAnimal, nextShelterButton, and previousShelterButton variables to be in the global
+// name space,  a global scoping configuration is functional for the purposes of polishing the UI.
 var userSelectedAnimal = null;
 var nextShelterButton = null;
 var previousShelterButton = null;
@@ -191,7 +193,7 @@ const shelterFinder = function () {
             }
             shelterPets(shelterArray);
             displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
-            suggestion.getItemInformation();
+            // suggestion.getItemInformation();
             //suggestion.findNearestStoreFromShelter();
         }
     });
@@ -258,91 +260,14 @@ const nextShelter = function () {
 };
 
 
-// jQuery methods empty the DOM for the animal information sections
+/**
+ * @name emptyAnimalDOM - remove all animal cards, shelter information, and notification text from the DOM
+ */
 const emptyAnimalDOM = function() {
-
     $('.animalCards').empty();
     $('.animalShelterInformation').empty();
     $('.noMoreAnimals').remove();
 };
-
-
-
-
-
-/**
- * Begin Walmart API related code
- *
- * instantiation of serverConstructor
- */
-
-
-// var walmartStuff = function () {
-//     $(".walmart").show(); // make walmart content visible on DOM
-//     $(".walmart div").remove();
-//     suggestion.getItemInformation();
-//     // suggestion.findNearestStoreFromShelter();
-//     server.walmartLocator(infoForMap());
-// };
-
-
-
-const suggestion = new suggestionConstructor(); // new Instance of suggestions
-const walmartItems = new walmartAPICall(); // new instance of walmart API call
-
-
-
-
-const appendWalmartSuggestedItem = function() {
-    let suggestionDiv = $('<div>').addClass('suggestedItem');
-    $('.walmart').append(suggestionDiv);
-};
-
-
-// suggestionConstructor: generate suggested items
-function suggestionConstructor() {
-    this.items = {
-        dog: ['food', 'treats', 'toy', 'collar+leash'],
-        cat: ['food,', 'bowl', 'litter+box', 'scratching+post']
-    };
-    let selectedAnimal = userSelectedAnimal.toLowerCase(); // to match the required format of the walmart api
-    // Iterate through default suggested items based on user selected animal;
-    this.getItemInformation = function () {
-        for (let i = 0; i < suggestion.items[selectedAnimal].length; i++) {
-            walmartAPICall().checkWalmart(selectedAnimal, suggestion.items[selectedAnimal][i]);
-        }
-    };
-}
-
-function walmartAPICall() {
-    this.checkWalmart = function (passedAnimal, passedItem) {
-        const WALMART_URL = "http://api.walmartlabs.com/v1/search?query=";
-        $.ajax({
-            "url": `${WALMART_URL}${passedAnimal}${passedItem}+&format=json&apiKey=5pw9whbkctdk92vckbgewxky`,
-            "dataType": "jsonp",
-            "method": "get",
-            success: function (walmartItemInfo) {
-                console.log("walmartAPICall walmartItemInfo", walmartItemInfo);
-                var randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length);
-                var keys = ["mediumImage", "name", "stock", "salePrice"];
-
-                // keys[0] = `<img src=${walmartItemInfo.items[randomProduct][keys[0]]}>`;
-                // for (var i = 1; i < keys.length; i++) {
-                //     keys[i] = `<div class="walmartTest">${walmartItemInfo.items[randomProduct][keys[i]]}</div>`;
-                // }
-                // $(".walmart").append("<div><a href=" + walmartItemInfo.items[randomProduct].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div></a></div>");
-
-            },
-            "error": function () {
-                console.log('network timeout');
-            }
-        });
-    };
-}
-
-
-
-
 
 /**
  * @name toggleVisibility - hide and show components based on whether or not the user is searching
