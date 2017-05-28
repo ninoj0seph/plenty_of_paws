@@ -27,7 +27,6 @@ body {
     border-color: #202b71;
     transition-duration: 1s;
 }
-
 #home {
     background: url('images/puppy.jpg')no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -35,9 +34,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-
 .userLocationAndAnimalChoice {
-
     margin: 1em auto;
 }
 /* Nav */
@@ -182,9 +179,6 @@ img.pawLogo{
     font-size: 2em;
     margin: 1em;
 }
-
-
-
 /* Walmart styles */
 .walmart{
     margin: 1em auto;
@@ -214,12 +208,10 @@ img.pawLogo{
         width: 100vw;
         padding: 0;
         margin: 0;
-
     }
     #map {
         border-radius: 0;
         margin: 0;
-
         display: none;
         width: 100%;
         height: 20vh;
@@ -231,21 +223,18 @@ img.pawLogo{
         left: 5%;
     }
 }
-
 .walmart > div {
     width: 25vw;
     height: 25vh;
     margin: 1em auto;
 }
-
 .thumbnail {
     height: 200px;
     width: 200px;
 }
 
 .card {
-
-    font-family: Roboto, sans-serif;
+    font-family: Roboto, Helvetica, sans-serif;
     width: 25em;
     height: 25em;
     color: #FAFAFA;
@@ -263,21 +252,17 @@ img.pawLogo{
 .card:hover {
     box-shadow: 0 0.3em 0.6em rgba(0,0,0,0.25), 0 3em 3em rgba(0,0,0,0.22);
 }
-
 .cardTitle {
     font-size: 2em;
     font-family: Roboto, Helvetica, sans-serif;
     margin-left: 1em;
     margin-bottom: 1em;
-
 }
-
 .cardSubHead {
     font-family: Roboto,sans-serif;
     font-size: 1.5em;
     padding-left: 0.1em;
 }
-
 .cardMedia {
     background-size: 100% 100%;
     width: 25em;
@@ -285,14 +270,10 @@ img.pawLogo{
     display: flex;
     flex-direction: column;
     align-items: center;
-
-
     /*border-top-left-radius: 0.75em;*/
     /*border-top-right-radius: 0.75em;*/
     border-radius: 0.75em;
 }
-
-
 i.material-icons.likeIcon {
     color: #2F3E9E;
     font-size: 48px;
@@ -300,14 +281,10 @@ i.material-icons.likeIcon {
     margin-top: 0.5em;
     align-self: center;
 }
-
 i.material-icons.likeIcon:hover {
     color: #E91E63;
     cursor: pointer;
-
 }
-
-
 /*Styling for the material icons. Taken from google.github.io/material-design-icons/ */
 .material-icons {
     font-family: 'Material Icons';
@@ -333,28 +310,16 @@ i.material-icons.likeIcon:hover {
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
-
 .paper {
     width: 90vw;
 }
-
 .animalShelterInformation {
     font-family: Dosis, sans-serif;
     font-size: 4vmax;
     text-align: center;
 }
-
-
-
-
-/* Up the font size to make the text more legible */
-input.form-control.userLocation {
-    font-size: 2em;
-}
-
-
 .petInfoExtended {
-    font-family: 'Roboto', Avenir, sans-serif;
+    font-family: 'Roboto', Helvetica, sans-serif;
     font-size: 1em;
     width: 25em;
     color: black;
@@ -367,9 +332,6 @@ input.form-control.userLocation {
     border-radius: 0.75em;
     position: absolute;
 }
-
-
-
 /* Next and previous shelter buttons*/
 .shelterButton {
     margin-left: 10em;
@@ -413,7 +375,6 @@ input.form-control.userLocation {
     .shelterButton {
         font-size: 1.50em;
     }
-
 }
 @media (max-width: 991px) and (min-width: 768px) {
     .animalShelterInformation {
