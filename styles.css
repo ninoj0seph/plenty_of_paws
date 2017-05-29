@@ -383,6 +383,12 @@ input.form-control.userLocation {
     margin: 1em;
 }
 
+.walmart {
+    display: none;
+}
+
+
+
 @media (max-width: 768px) {
     .animalShelterInformation {
         font-size: 1.75em;

@@ -4,15 +4,11 @@
  * instantiation of serverConstructor
  */
 
-
-// var walmartStuff = function () {
-//     $(".walmart").show(); // make walmart content visible on DOM
-//     $(".walmart div").remove();
-//     suggestion.getItemInformation();
-//     // suggestion.findNearestStoreFromShelter();
-//     server.walmartLocator(infoForMap());
-// };
-
+/**
+ * @name - WalmartSuggestionInformation
+ * @constructor
+ * @name - getItemInformation - Sends netwrok request for animal items
+ */
 
 function WalmartSuggestionInformation() {
     // We decided on a fixed number of items to be queried for each animal delivered consistent results
@@ -68,7 +64,6 @@ function WalmartSuggestionInformation() {
             dataType: "jsonp",
             method: "get",
             success: function (walmartItemInfo) {
-                debugger;
                 let randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length); // The success response (walmartItemInfo) contains an array of relevant products, so "randomProduct" is just a random one of the relevant items
                 let {mediumImage, name, stock, salePrice, productUrl} =  walmartItemInfo.items[randomProduct]; // pull off the mediumImage, name, stock, and salesPrice
                 let productDiv = $("<div class='walmartItem'>"); // div to hold the product image, name, availability, etc.
