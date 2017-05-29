@@ -353,6 +353,11 @@ i.material-icons.likeIcon:hover {
 .animalCards > div {
     margin: 1em;
 }
+
+
+.walmart {
+    display: none;
+}
 @media (orientation: landscape){
     .container {
         width: 75vw;
@@ -388,6 +393,7 @@ i.material-icons.likeIcon:hover {
         left: 5%;
     }
 }
+
 @media (max-width: 768px) {
     .animalShelterInformation {
         font-size: 1.75em;
@@ -396,15 +402,6 @@ i.material-icons.likeIcon:hover {
         font-size: 1.50em;
     }
 }
-/*
-* Media Queries: min-width vs. max-width
-* @media (max-width: 600px) {
-    p {
-        font-size: 1.5em;
-     }
-    }
-* If the device width is LESS THAN OR EQUAL TO 600 px, make the font size of all
-*/
 @media (min-width: 992px), (max-width: 991px) and (min-width: 768px) {
     .animalShelterInformation {
         font-size: 1.75em;

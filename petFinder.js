@@ -34,8 +34,8 @@ function addCssBlur(){
  * @params none
  */
 function walmartSuggestionInstantiation(){
-    const walmartAPI = new WalmartSuggestionInformation();
-    walmartAPI.getItemInformation();
+    const walmartAPI = new WalmartSuggestionInformation(); // make a new instance from the WalmartSuggestionInformation constructor
+    walmartAPI.getItemInformation(); // use the getItemInformation method to make the network request for the information.
 }
 /**
  * randomBackground - randomly selects a class that is responsible for a background image and styling
@@ -50,6 +50,7 @@ function randomBackground(){
     }
     bg.addClass(bgClasses[chosenBg]);
 }
+
 
 var newSearch = function () {
     $('#petInfo').empty(); // remove the elements from the DOM and destroy click handlers
@@ -275,6 +276,7 @@ const nextShelter = function () {
     nextShelterButton.remove();
     previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
+    $('.walmartItem').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
 
     if (shelterCount < 4){
         shelterCount++;
@@ -308,14 +310,17 @@ const emptyAnimalDOM = function() {
 function toggleVisibility(context) {
     let animalSelection = $('.animalSelection'); // the div containing the form for the user to select an animal
     let map = $('#map');
+    let walmartDiv = $('.walmart');
     switch(context) {
 
         case('animalSearch'):
             animalSelection.css('display','none'); // hide the input form
-            map.css('display', 'block'); //
+            map.css('display', 'block'); // make the map visible
+            walmartDiv.css('display', 'block'); // make the suggestion button visible
             break;
         case('newSearchRequested'):
             map.css('display','none'); // hide the map
+            walmartDiv.css('display', 'none'); // hide the walmart div
             emptyAnimalDOM(); // Clear out animal DOM
             $('.newSearchButton').remove();
             animalSelection.css('display','block');
