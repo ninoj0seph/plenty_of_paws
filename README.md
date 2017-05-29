@@ -1,7 +1,6 @@
 
 **Plenty of Paws**: *Adorable adoptable animals in your area*
 
-
 # C2.17_hackathon
 
 Hackathon project involving the combination of different data sources into an application or game

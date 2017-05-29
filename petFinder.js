@@ -1,6 +1,5 @@
 $(document).ready(function() {
     var petObject = null;
-
     $(".animalType").on("click", assignAnimalType);
     $(".animalType").on("click", getPets);
     $(".animalType").on("click", newSearch);
@@ -30,7 +29,6 @@ var previousShelterButton = null;
  */
 function assignAnimalType() {
     userSelectedAnimal = $(this).text();
-
 }
 /**
  * getPets - function for finding a shelter (shelterFinder) and finding pets at that shelter (shelterPets); userSelectedAnimal picks up value
@@ -43,10 +41,6 @@ function getPets(){
     window.location.hash = '#search'; // set the hash to search so the routing back to the index.html for multiple searches can work will minimal rework
     shelterFinder();
 }
-
-
-
-
 
 /**
  @name displayPet - function to append the DOM to display the animal's profile
@@ -112,9 +106,6 @@ function displayPet(petObject) {
 }
 
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
-
-
-
 
 /**
  * @name - displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
@@ -193,7 +184,7 @@ const shelterFinder = function () {
             }
             shelterPets(shelterArray);
             displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
-            // suggestion.getItemInformation();
+            //suggestion.getItemInformation();
             //suggestion.findNearestStoreFromShelter();
         }
     });
@@ -203,6 +194,7 @@ function getRandomShelterBasedOnAreaCode(shelterArray) {
     var randomShelterID = shelterArray[shelterCount];
     return shelterArray[shelterCount]["id"]["$t"];
 }
+
 const shelterPets = function () {
     $.ajax({
         url: 'https://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
@@ -237,7 +229,6 @@ const resetEverything = function () {
     newSearch.on('click', toggleVisibility('newSearchRequested')); // hide the map, walmart, and animal cards
 };
 
-
 const nextShelter = function () {
     petArray = [];
     nextShelterButton.remove();
@@ -259,7 +250,6 @@ const nextShelter = function () {
     displayMap();
     shelterPets();
 };
-
 
 /**
  * @name emptyAnimalDOM - remove all animal cards, shelter information, and notification text from the DOM
@@ -285,8 +275,6 @@ function toggleVisibility(context) {
             map.css('display', 'block'); // make the map visible
             walmartDiv.css('display', 'block'); // make the suggestion button visible
             break;
-
-
         case('newSearchRequested'):
             map.css('display','none'); // hide the map
             walmartDiv.css('display', 'none'); // hide the walmart div
@@ -294,10 +282,8 @@ function toggleVisibility(context) {
             $('.newSearchButton').remove();
             animalSelection.css('display','block');
             break;
-
         default:
             console.log("toggle visibility default");
 
     }
-
 }
