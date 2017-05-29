@@ -2,68 +2,107 @@ body {
     margin: 0;
     background-color: #e2e1e0;
 }
-/* Modal */
-.modalContainer p {
-    font-size: 2em;
-    margin: 2% 0;
-    font-family: 'Baloo Bhaina',Helvetica,sans-serif;
+.blur-container{
+    z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
-.navbar {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
+.cat-bg {
+    background: url('images/kitty.png')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-.btn.btn-default {
-    color: #FFF;
-    background-color: #3E50B4;
-    border-color: #3E50B4;
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+.puppy-bg {
+    background: url('images/doggo.png')no-repeat 30% fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-.btn.btn-default:hover {
-    color: #FFF;
-    background-color: #202b71;
-    border-color: #202b71;
-    transition-duration: 1s;
-}
-#home {
+.dog-bg {
     background: url('images/puppy.jpg')no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
+.blur-filter {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+.container {
+    z-index: 2;
+    position: absolute;
+    top: 30%;
+    width: 100%;
+}
+.userLocationAndAnimalChoice > p {
+    font-size: 3.5vmax;
+    font-family: 'Baloo Bhaina', Helvetica, sans-serif;
+}
+.navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.btn.btn-default {
+    color: #FFF;
+    background-color: #673AB7;
+    border-color: #673AB7;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+}
+.btn.btn-default:hover {
+    color: #FFF;
+    background-color: #4c2b88;
+    border-color: #4c2b88;
+    transition-duration: 1s;
+}
 .userLocationAndAnimalChoice {
     margin: 1em auto;
 }
 /* Nav */
 img.pawLogo{
-    height: 70%;
+    height: 65%;
     position: absolute;
     top: 50%;
+    left: .5%;
     transform: translateY(-50%);
 }
 .navbar, .navbar-default {
     border-radius: 0;
     font-size: 40px;
     font-weight: bold;
-}
-.navbar-header {
-    position: relative;
+    z-index: 2;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
 }
 .navbar.navbar-default {
-    background-color: #3E50B4;
-    border-color: #3E50B4;
+    background-color: #673ab7;
+    border: none;
 }
 .navbar-default .navbar-nav>li {
     text-transform: uppercase;
+    padding: 2% 0;
+}
+.navbar-default .navbar-nav>li:hover {
+    background-color: #3d226c;
 }
 .navbar-default .navbar-nav>li>a {
-    color: #C4C9E8 !important;
+    color: #fff;
 }
 .navbar-default .navbar-nav>li>a:hover {
-    color: #777;
+    color: #ddcaff;
 }
 .compName {
     text-align: center;
@@ -167,28 +206,21 @@ img.pawLogo{
     font-size: 2vmax;
 }
 .buttonContainer {
-    margin: 0em auto;
-    padding: 0.5em;
+    width: 100%;
 }
 
 .btn.userLocationSubmit {
     padding: 3% 7%;
-    font-family: 'Dosis',Helvetica, sans-serif;
-    width: 24vw;
+    font-family: 'Dosis', Helvetica, sans-serif;
+    width: 49%;
     text-transform: uppercase;
     font-size: 2em;
-    margin: 1em;
+    margin: 0;
+    border: none;
 }
 /* Walmart styles */
 .walmart{
-    margin: 1em auto;
     font-family: 'Dosis', Helvetica, sans-serif;
-    font-size: 1em;
-    height: 50%;
-    width: 90vw;
-    padding: 12px;
-    border-radius: 4px;
-    box-shadow: 0 5px 2px 0 rgba(0,0,0,0.75);
 }
 .walmart div{
     display: inline-block;
@@ -203,26 +235,6 @@ img.pawLogo{
     display: none;
 }
 
-@media (max-width: 600px) {
-    .container {
-        width: 100vw;
-        padding: 0;
-        margin: 0;
-    }
-    #map {
-        border-radius: 0;
-        margin: 0;
-        display: none;
-        width: 100%;
-        height: 20vh;
-    }
-    .navbar {
-        margin-bottom: 0;
-    }
-    .pawLogo {
-        left: 5%;
-    }
-}
 .walmart > div {
     width: 25vw;
     height: 25vh;
@@ -310,9 +322,6 @@ i.material-icons.likeIcon:hover {
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
-.paper {
-    width: 90vw;
-}
 .animalShelterInformation {
     font-family: Dosis, sans-serif;
     font-size: 4vmax;
@@ -345,11 +354,45 @@ i.material-icons.likeIcon:hover {
     margin: 1em;
 }
 
+
 .walmart {
     display: none;
 }
-
-
+@media (orientation: landscape){
+    .container {
+        width: 75vw;
+    }
+}
+@media (min-width: 320px) and (max-width: 1024px) and (orientation: portrait){
+    .blur-container.puppy-bg {
+        background: url('images/doggo.png')no-repeat 30% fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+}
+@media (max-width: 600px) {
+    .container {
+        margin: 0;
+    }
+    .userLocationSubmit {
+        padding: 2%;
+    }
+    #map {
+        border-radius: 0;
+        margin: 0;
+        display: none;
+        width: 100%;
+        height: 20vh;
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
+    .pawLogo {
+        left: 5%;
+    }
+}
 
 @media (max-width: 768px) {
     .animalShelterInformation {
@@ -359,21 +402,6 @@ i.material-icons.likeIcon:hover {
         font-size: 1.50em;
     }
 }
-
-@media (max-width) {
-    p {
-        font-size: 1.5em;
-    }
-}
-/*
-* Media Queries: min-width vs. max-width
-* @media (max-width: 600px) {
-    p {
-        font-size: 1.5em;
-     }
-    }
-* If the device width is LESS THAN OR EQUAL TO 600 px, make the font size of all
-*/
 @media (min-width: 992px), (max-width: 991px) and (min-width: 768px) {
     .animalShelterInformation {
         font-size: 1.75em;

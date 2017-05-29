@@ -1,16 +1,58 @@
 $(document).ready(function() {
+    setup();
+});
+
+/**
+ * setup - setup calls and consolidates the functions necessary for when the page loads
+ * @params none
+ */
+function setup(){
     var petObject = null;
+    randomBackground();
+    attachClickHandlers();
+}
+/**
+ * attachClickHandlers - consolidates and attaches the event handlers
+ * @params none
+ */
+function attachClickHandlers(){
     $(".animalType").on("click", assignAnimalType);
     $(".animalType").on("click", getPets);
     $(".animalType").on("click", newSearch);
-    $(".walmartSuggestion").on("click", () => {
-        const walmartAPI = new WalmartSuggestionInformation(); // make a new instance from the WalmartSuggestionInformation constructor
-        walmartAPI.getItemInformation(); // use the getItemInformation method to make the network request for the information.
-    });
-});
+    $(".animalType").on("click", addCssBlur);
+    $(".walmartSuggestion").on("click", walmartSuggestionInstantiation);
+}
+/**
+ * addCssBlur - adds a class that has a blur effect on page load and created for consistency in the attachClickHandlers function
+ * @params none
+ */
+function addCssBlur(){
+    $('.blur-container').addClass("blur-filter");
+}
+/**
+ * walmartSuggestionInstantiation - creates a new instance of WalmartSuggestionInformation and created for consistency in the attachClickHandlers function
+ * @params none
+ */
+function walmartSuggestionInstantiation(){
+    const walmartAPI = new WalmartSuggestionInformation(); // make a new instance from the WalmartSuggestionInformation constructor
+    walmartAPI.getItemInformation(); // use the getItemInformation method to make the network request for the information.
+}
+/**
+ * randomBackground - randomly selects a class that is responsible for a background image and styling
+ * @params none
+ */
+function randomBackground(){
+    let chosenBg = Math.round(Math.random()*2);
+    let bg = $('.blur-container');
+    let bgClasses = ["cat-bg", "dog-bg", "puppy-bg"];
+    if(chosenBg >= bgClasses.length || chosenBg < 0){
+        bg.css('background-color', '#E2E1E0');
+    }
+    bg.addClass(bgClasses[chosenBg]);
+}
+
 
 var newSearch = function () {
-
     $('#petInfo').empty(); // remove the elements from the DOM and destroy click handlers
     shelterArray = []; // Empty the list of stored shelters
     petArray = []; // Empty the list of stored pets from that search
@@ -161,7 +203,7 @@ var shelterCount = 0;
  * dataObject @type
  */
 const shelterFinder = function () {
-    let userLocation = $(".userLocation").val();
+    var userLocation = $(".userLocation").val();
     var dataObject = {
         format: "json",
         key: "579d9f154b80d15e1daee8e8aca5ba7a",
@@ -264,6 +306,7 @@ const emptyAnimalDOM = function() {
  * @name toggleVisibility - hide and show components based on whether or not the user is searching
  * @param context {type | string}
  */
+
 function toggleVisibility(context) {
     let animalSelection = $('.animalSelection'); // the div containing the form for the user to select an animal
     let map = $('#map');

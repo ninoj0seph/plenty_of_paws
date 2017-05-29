@@ -32,8 +32,9 @@ function WalmartSuggestionInformation() {
     this.getItemInformation = function () {
         // userSelectedAnimal available from global scope
         // *.toLowerCase() to match the required format of the walmart api
-        this.selectedAnimal = userSelectedAnimal.toLowerCase();
+        //this.selectedAnimal = userSelectedAnimal.toLowerCase();
         // TODO ponder the implementation of a ternary to replace the *.toLowerCase() in the name of an unquantified reduction in execution time
+        userSelectedAnimal ? this.selectedAnimal = userSelectedAnimal.toLowerCase() : '';
         let walmartRequestURL = null;
 
         switch(this.selectedAnimal) {
@@ -46,7 +47,7 @@ function WalmartSuggestionInformation() {
             default:
                 // something has gone wrong if the pre defined values cannot match either of the two cases
                 return; // do nothing
-        };
+        }
         // since there are only three
         for (let i = 0; i < 3; i++) {
             // this.checkWalmart(this.selectedAnimal, suggestion.items[selectedAnimal][i]);
