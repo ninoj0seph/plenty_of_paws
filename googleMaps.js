@@ -10,6 +10,10 @@
 function initMap(infoObj) {
     let mapOptions = {
         zoom: 12,
+        disableDefaultUI: true,
+        scrollwheel:  false,
+        disableDoubleClickZoom: true,
+        draggable: false,
         center: new google.maps.LatLng(infoObj.latitude, infoObj.longitude)
     };
 
