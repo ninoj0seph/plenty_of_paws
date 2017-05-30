@@ -38,11 +38,11 @@ body {
     -ms-filter: blur(5px);
     filter: blur(5px);
 }
-.container {
+.wrapper {
     z-index: 2;
     position: absolute;
-    top: 30%;
-    width: 100%;
+    #top: 30%;
+    #width: 100%;
 }
 .userLocationAndAnimalChoice > p {
     font-size: 3.5vmax;
@@ -110,14 +110,20 @@ img.pawLogo{
     font-size: 2em;
     color: #02a8f3;
 }
+.searchForm {
+    position: absolute;
+    top: 10vh;
+}
 /* Main */
 #map {
-    width: 50vw;
     height: 25vw;
     display: none;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
+}
+.mapSection {
+    padding: 0;
 }
 .petProfile {
     margin: 5%;
@@ -360,8 +366,8 @@ i.material-icons.likeIcon:hover {
     display: none;
 }
 @media (orientation: landscape){
-    .container {
-        width: 75vw;
+    .searchForm {
+        width: 55vw;
     }
 }
 @media (min-width: 320px) and (max-width: 1024px) and (orientation: portrait){
@@ -374,8 +380,12 @@ i.material-icons.likeIcon:hover {
     }
 }
 @media (max-width: 600px) {
-    .container {
+    .wrapper {
         margin: 0;
+        padding: 0;
+    }
+    .searchForm {
+        margin-left: 0;
     }
     .userLocationSubmit {
         padding: 2%;
@@ -385,7 +395,7 @@ i.material-icons.likeIcon:hover {
         margin: 0;
         display: none;
         width: 100%;
-        height: 20vh;
+        height: 30vh;
     }
     .navbar {
         margin-bottom: 0;
