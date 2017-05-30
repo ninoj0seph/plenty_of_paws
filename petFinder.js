@@ -134,12 +134,12 @@ function displayPet(petObject) {
     }
     nextShelterButton = $('<button>', {
         text: 'Next Shelter',
-        class: "btn btn-danger btn-block btn-block btn-lg shelterButton",
+        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-2 col-xs-12 shelterButton",
         click: nextShelter
     });
     previousShelterButton = $('<button>', {
         text: 'Previous Shelter',
-        class: "btn btn-danger btn-block btn-lg shelterButton",
+        class: "btn btn-danger btn-lg col-sm-5 col-xs-12 shelterButton",
         click: previousShelter
 
     });
