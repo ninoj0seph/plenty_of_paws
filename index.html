@@ -16,7 +16,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <a href='index.html'>
-                <img src="images/pop_logo.png" alt="Plenty of Paws Logo" class="pawLogo">
+                <img src="images/pop_logo.png" alt="Plenty of Paws Logo" class="paw-logo">
             </a>
         </div>
         <ul class="nav navbar-nav navbar-right pull-right">
@@ -27,48 +27,45 @@
 <!-- blur-container Adds a Blur Effect to Create Focus on the Cards -->
 <div class="blur-container"></div>
 
-<div class="wrapper col-lg-8 col-lg-offset-2 col-xs-12">
-    <div class="row col-sm-8 col-xs-9 searchForm">
-        <div class="animalSelection">
-            <div class="userLocationAndAnimalChoice">
+<div class="wrapper col-lg-10 col-lg-offset-1 col-xs-12">
+    <div class="row col-sm-8 col-xs-9 search-form">
+        <div class="animal-selection">
+            <div class="user-location-and-animal-choice">
                 <p>I'm in/near </p>
-                <input class="form-control userLocation" type="text" placeholder="Zip Code/City, State">
+                <input class="form-control user-location" type="text" placeholder="Zip Code/City, State">
                 <p>I'm looking to adopt a </p>
-                <div class="buttonContainer">
-                    <button type="button" class="btn btn-default outline animalType userLocationSubmit">Dog</button>
-                    <button type="button" class="btn btn-default outline animalType userLocationSubmit ">Cat</button>
+                <div class="button-container">
+                    <button type="button" class="btn btn-default animal-type user-location-submit">Dog</button>
+                    <button type="button" class="btn btn-default animal-type user-location-submit">Cat</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="mapSection col-xs-12">
+    <div class="map-section col-xs-12">
         <div id="map">
             <!-- Google Maps is appended here-->
             <!-- initially display: none-->
         </div>
     </div>
 
-    <div class="animalSection">
-        <div id="petInfo">
+    <div class="animal-section">
+        <div id="pet-info">
             <!-- Used for displaying the message about the shelter not having any of those animals -->
             <!-- Also contains the buttons for next and previous shelter -->
         </div>
-        <div class="row">
-            <div class="animalShelterInformation row">
+        <div class="shelter-contact col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="animal-shelter-information">
                 <!-- Shelter information will be appended here -->
             </div>
         </div>
-        <div class="row">
-            <div class="animalCards col-lg-8 col-lg-offset-2 col-xs-8 col-xs-offset-2 row">
-                <!-- Shelter animals will be appended here -->
-            </div>
+        <div class="animal-cards">
+            <!-- Shelter animals will be appended here -->
         </div>
-
-        <div class="walmart row">
+        <div class="walmart">
             <!-- The .walmart div has "display: none" initially;  -->
-            <button class="walmartSuggestion">Get suggestions</button>
-            <div class="walmartProducts row">
+            <button class="walmart-suggestion btn btn-default">Get Suggestions for Snacks and Toys</button>
+            <div class="walmartProducts col-xs-11">
                 <!-- Walmart Product images are appended here  -->
             </div>
         </div>

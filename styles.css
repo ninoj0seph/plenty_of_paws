@@ -2,6 +2,13 @@ body {
     margin: 0;
     background-color: #e2e1e0;
 }
+.wrapper {
+    z-index: 2;
+    position: absolute;
+}
+
+/* Background Styling */
+
 .blur-container{
     z-index: 0;
     position: fixed;
@@ -38,39 +45,10 @@ body {
     -ms-filter: blur(5px);
     filter: blur(5px);
 }
-.wrapper {
-    z-index: 2;
-    position: absolute;
 
-}
-.userLocationAndAnimalChoice > p {
-    font-size: 3.5vmax;
-    font-family: 'Baloo Bhaina', Helvetica, sans-serif;
-}
-.navbar {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
-}
-.btn.btn-default {
-    color: #FFF;
-    background-color: #673AB7;
-    border-color: #673AB7;
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-}
-.btn.btn-default:hover {
-    color: #FFF;
-    background-color: #4c2b88;
-    border-color: #4c2b88;
-    transition-duration: 1s;
-}
-.userLocationAndAnimalChoice {
-    margin: 1em auto;
-}
-/* Nav */
-img.pawLogo{
+/* Navbar Styling */
+
+img.paw-logo{
     height: 65%;
     position: absolute;
     top: 50%;
@@ -78,6 +56,8 @@ img.pawLogo{
     transform: translateY(-50%);
 }
 .navbar, .navbar-default {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
     border-radius: 0;
     font-size: 40px;
     font-weight: bold;
@@ -103,17 +83,51 @@ img.pawLogo{
 .navbar-default .navbar-nav>li>a:hover {
     color: #ddcaff;
 }
-.compName {
-    text-align: center;
-    font-weight: bold;
-    font-size: 2em;
-    color: #02a8f3;
+
+/* Animal Selection Screen */
+
+.user-location-and-animal-choice > p {
+    font-size: 3.5vmax;
+    font-family: 'Baloo Bhaina', Helvetica, sans-serif;
 }
-.searchForm {
+.btn.btn-default {
+    color: #FFF;
+    background-color: #673AB7;
+    border-color: #673AB7;
+    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+}
+.btn.btn-default:hover {
+    color: #FFF;
+    background-color: #4c2b88;
+    border-color: #4c2b88;
+    transition-duration: 1s;
+}
+.search-form {
     position: absolute;
     top: 10vh;
 }
-/* Main */
+.form-control.user-location {
+    margin: 2% 0;
+    padding: 5%;
+    font-size: 2vmax;
+}
+.button-container {
+    width: 100%;
+}
+.btn.user-location-submit {
+    padding: 3% 7%;
+    font-family: 'Dosis', Helvetica, sans-serif;
+    width: 49%;
+    text-transform: uppercase;
+    font-size: 2em;
+    margin: 0;
+    border: none;
+}
+
+/* Map Styling */
+
 #map {
     height: 27vh;
     display: none;
@@ -121,33 +135,23 @@ img.pawLogo{
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
 }
-.mapSection {
+.map-section {
     padding: 0;
 }
-.petProfile {
-    margin: 5%;
+.gm-style-cc {
+    display: none;
 }
-.petName {
-    font-weight: bold;
-    color: #2d165a;
-    font-style: italic;
+.gm-style .gm-style-iw {
+    font-size: 1.8em !important;
+    font-weight: 600 !important;
+    font-family: 'Dosis', Helvetica, sans-serif !important;
 }
-.mainContent {
-    font-family: 'Dosis', Helvetica, sans-serif;
-    text-align: center;
-    margin: 0 auto;
-    padding: 12px;
-    width: 80vw;
-}
-/* Next button */
-.nextButton .previousButton {
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    width: 30vw;
-    padding: 2%;
-    margin: 2em;
-    text-transform: uppercase;
+
+/* Next and Previous Shelter Buttons */
+
+.shelterButton {
+    margin-top: 2%;
+    margin-bottom: 2%; /* Margin shorthand cancels Bootstrap offset styling */
 }
 .btn.btn-danger {
     background-color: #02A8F3;
@@ -164,195 +168,92 @@ img.pawLogo{
     background-color: #006591;
     border-color: #006591;
 }
-/* Heart */
-.heartContainer {
-    background-color: #2F3E9E;
-    border-radius: 4px;
-    height: 5vw;
-    position: relative;
-    padding: 2% 4%;
-    margin: 0 auto;
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-}
-.heartContainer:hover {
-    background-color: #e91e63;
-}
-.heartContainer > img {
-    width: 3.5vw;
+
+/* Walmart Styling */
+
+.walmart {
+    font-family: 'Dosis', Helvetica, sans-serif;
+    display: none;
+    background-color: rgba(0,0,0,0);
     position: absolute;
-    top: 18%;
-    left: 46%;
-}
-
-/* Animal picture class */
-.animalPicture {
-    display: inline;
-    margin: 0 auto;
-    width: 140%;
-}
-.imgContainer {
-    margin: 0 auto;
-    width: 20vw;
-    height: 20vw;
-    position: relative;
-    border-radius: 50%;
-    overflow: hidden;
-    -webkit-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
-    box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
-}
-/* Styling for search bar input */
-.form-control.userLocation {
-    margin: 2% 0;
-    padding: 5%;
-    font-size: 2vmax;
-}
-.buttonContainer {
-    width: 100%;
-}
-
-.btn.userLocationSubmit {
-    padding: 3% 7%;
-    font-family: 'Dosis', Helvetica, sans-serif;
-    width: 49%;
-    text-transform: uppercase;
-    font-size: 2em;
-    margin: 0;
-    border: none;
-}
-/* Walmart styles */
-.walmart{
-    font-family: 'Dosis', Helvetica, sans-serif;
+    bottom: 0;
+    height: 5vh;
+    width: 100vw;
 }
 .walmart div{
-
     background-color: #ffffff;
     margin-top: 12px;
     background-color: rgba(0,0,0,0);/* rgba values taken from inspector after removing background color property */
 }
-
-.gm-style-cc {
-    display: none;
-}
-
 .walmart > div {
-    width: 25vw;
     height: 25vh;
     margin: 1em auto;
     background-color: rgba(0,0,0,0);
-}
-
-.card {
-    font-family: Roboto, Helvetica, sans-serif;
-    width: 25em;
-    height: 25em;
-    color: #FAFAFA;
-    background-color: white;
-    box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    margin: 1em;
-    display: inline-block;
-    border-radius: 0.75em;
-    vertical-align: top;
-    padding-left: 0px; /*Suppresses bootstrap misaligning the images*/
-
-}
-/* Increased box shadow for when the user hovers over the card */
-.card:hover {
-    box-shadow: 0 0.3em 0.6em rgba(0,0,0,0.25), 0 3em 3em rgba(0,0,0,0.22);
-}
-.cardTitle {
-    font-size: 2em;
-    font-family: Roboto, Helvetica, sans-serif;
-    margin-left: 1em;
-    margin-bottom: 1em;
-}
-.cardSubHead {
-    font-family: Roboto,sans-serif;
-    font-size: 1.5em;
-    padding-left: 0.1em;
-}
-.cardMedia {
-    background-size: 100% 100%;
-    width: 25em;
-    height: 25em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /*border-top-left-radius: 0.75em;*/
-    /*border-top-right-radius: 0.75em;*/
-    border-radius: 0.75em;
-}
-i.material-icons.likeIcon {
-    color: #2F3E9E;
-    font-size: 48px;
-    margin-right: 0.5em;
-    margin-top: 0.5em;
-    align-self: center;
-}
-i.material-icons.likeIcon:hover {
-    color: #E91E63;
-    cursor: pointer;
-}
-/*Styling for the material icons. Taken from google.github.io/material-design-icons/ */
-.material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-}
-.animalShelterInformation {
-    font-family: Dosis, sans-serif;
-    font-size: 4vmax;
     text-align: center;
 }
-.petInfoExtended {
-    font-family: 'Roboto', Helvetica, sans-serif;
-    font-size: 1em;
-    width: 25em;
-    color: black;
+
+
+/* Pet Card Styling */
+
+.card {
+    height: 40vmax;
+    font-family: Roboto, Helvetica, sans-serif;
     background-color: white;
     box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    padding: 0; /* suppresses bootstrap misalignment */
+    margin-bottom: 10%;
+}
+.card:hover {
+    box-shadow: 0 0.3em 0.6em rgba(0,0,0,0.25), 0 3em 3em rgba(0,0,0,0.22);/* Increased box shadow for when the user hovers over the card */
+}
+.card-title {
+    font-size: 1.5em;
+    font-family: 'Dosis', Helvetica, sans-serif;
+    background-color: rgba(50,50,50,.6);
+    color: #fff;
+    width: 100%;
+    text-align: center;
+}
+.card-media {
+    background-size: 100% 100%;
+    height: 40vmax;
+    display: flex;
+    flex-direction: column;
+}
+.pet-info-extended {
+    font-family: 'Roboto', Helvetica, sans-serif;
+    font-size: 1.3em;
+    color: #000000;
+    background-color: #fff;
     margin: 0 0 1em 0;
     padding: 1em;
     display: none;
-    border-radius: 0.75em;
     position: absolute;
+    z-index: 2;
 }
-/* Next and previous shelter buttons*/
-.shelterButton {
-    margin-top: 2%;
+
+/* Shelter Contact Information */
+
+.animal-shelter-information, .no-more-animals {
+    font-family: Dosis, Helvetica, sans-serif;
+    font-size: 4vmax;
+    text-align: center;
 }
-.animalCards > div {
-    margin: 1em;
+.shelter-legibility {
+    background-color: rgba(236,236,255,.6);
+    margin-bottom: 3%;
 }
-.walmart {
-    display: none;
-    background-color: rgba(0,0,0,0);
+.shelter-legibility, .pet-info-extended {
+    -webkit-box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
+    -moz-box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
+    box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
 }
+
+/* Media Queries */
+
 @media (orientation: landscape){
-    .searchForm {
+    .search-form {
         width: 55vw;
     }
 }
@@ -365,15 +266,24 @@ i.material-icons.likeIcon:hover {
         background-size: cover;
     }
 }
+@media (min-width: 767px) and (max-width: 1980px) {
+    .card {
+        margin-right: 4%;
+        margin-left: 4%; /* Margin shorthand cancels Bootstrap offset styling */
+    }
+    .card, .card-media {
+        height: 20vmax;
+    }
+}
 @media (max-width: 600px) {
     .wrapper {
         margin: 0;
         padding: 0;
     }
-    .searchForm {
+    .search-form {
         margin-left: 0;
     }
-    .userLocationSubmit {
+    .user-location-submit {
         padding: 2%;
     }
     #map {
@@ -385,7 +295,7 @@ i.material-icons.likeIcon:hover {
     .navbar {
         margin-bottom: 0;
     }
-    .pawLogo {
+    .paw-logo {
         left: 5%;
     }
 }
@@ -393,7 +303,7 @@ i.material-icons.likeIcon:hover {
     #map {
         height: 40vh;
     }
-    .searchForm {
+    .search-form {
         margin-left: 0;
     }
     .wrapper {
@@ -403,37 +313,15 @@ i.material-icons.likeIcon:hover {
     .navbar {
         margin-bottom: 0;
     }
-}
-@media (min-width: 1196px) and (max-width: 1980px) {
-    .searchForm {
-        margin-left: -27%;
+    .card, .card-media {
+        height: 65vmax;
     }
 }
-
-/*
-These media queries appear unnecessary, but I would appreciate confirmation before deleting them.
-*/
-/*@media (max-width: 768px) {*/
-    /*.animalShelterInformation {*/
-        /*font-size: 1.75em;*/
-    /*}*/
-    /*.shelterButton {*/
-        /*font-size: 1.50em;*/
-    /*}*/
-/*}*/
-/*@media (min-width: 992px), (max-width: 991px) and (min-width: 768px) {*/
-    /*.animalShelterInformation {*/
-        /*font-size: 1.75em;*/
-    /*}*/
-    /*.shelterButton {*/
-        /*font-size: 1.50em;*/
-    /*}*/
-/*}*/
-/*@media (max-width: 991px) and (min-width: 768px) {*/
-    /*.animalShelterInformation {*/
-        /*font-size: 1.75em;*/
-    /*}*/
-    /*.shelterButton {*/
-        /*font-size: 1.50em;*/
-    /*}*/
-/*}*/
+@media (min-width: 1200px) and (max-width: 1980px) {
+    .search-form {
+        margin-left: -11%;
+    }
+    .animal-shelter-information {
+        font-size: 3vmax;
+    }
+}
