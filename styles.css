@@ -41,8 +41,7 @@ body {
 .wrapper {
     z-index: 2;
     position: absolute;
-    #top: 30%;
-    #width: 100%;
+
 }
 .userLocationAndAnimalChoice > p {
     font-size: 3.5vmax;
@@ -116,7 +115,7 @@ img.pawLogo{
 }
 /* Main */
 #map {
-    height: 25vw;
+    height: 27vh;
     display: none;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
@@ -229,14 +228,12 @@ img.pawLogo{
     font-family: 'Dosis', Helvetica, sans-serif;
 }
 .walmart div{
-    display: inline-block;
+
     background-color: #ffffff;
     margin-top: 12px;
+    background-color: rgba(0,0,0,0);/* rgba values taken from inspector after removing background color property */
 }
-.walmart.img{
-    width: 50%;
-    height: 50%;
-}
+
 .gm-style-cc {
     display: none;
 }
@@ -245,10 +242,7 @@ img.pawLogo{
     width: 25vw;
     height: 25vh;
     margin: 1em auto;
-}
-.thumbnail {
-    height: 200px;
-    width: 200px;
+    background-color: rgba(0,0,0,0);
 }
 
 .card {
@@ -364,6 +358,7 @@ i.material-icons.likeIcon:hover {
 
 .walmart {
     display: none;
+    background-color: rgba(0,0,0,0);
 }
 @media (orientation: landscape){
     .searchForm {
@@ -395,7 +390,7 @@ i.material-icons.likeIcon:hover {
         margin: 0;
         display: none;
         width: 100%;
-        height: 30vh;
+        height: 22vh;
     }
     .navbar {
         margin-bottom: 0;
@@ -404,7 +399,26 @@ i.material-icons.likeIcon:hover {
         left: 5%;
     }
 }
-
+@media (max-width: 750px) and (orientation: landscape){
+    #map {
+        height: 40vh;
+    }
+    .searchForm {
+        margin-left: 0;
+    }
+    .wrapper {
+        padding: 0;
+        margin: 0;
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
+}
+@media (min-width: 1196px) and (max-width: 1980px) {
+    .searchForm {
+        margin-left: -27%;
+    }
+}
 
 /*
 These media queries appear unnecessary, but I would appreciate confirmation before deleting them.

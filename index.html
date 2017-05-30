@@ -27,8 +27,8 @@
 <!-- blur-container Adds a Blur Effect to Create Focus on the Cards -->
 <div class="blur-container"></div>
 
-<div class="wrapper col-xs-12">
-    <div class="row col-xs-9 searchForm">
+<div class="wrapper col-lg-8 col-lg-offset-2 col-xs-12">
+    <div class="row col-sm-8 col-xs-9 searchForm">
         <div class="animalSelection">
             <div class="userLocationAndAnimalChoice">
                 <p>I'm in/near </p>
@@ -42,14 +42,14 @@
         </div>
     </div>
 
-    <div class="mapSection col-lg-8 col-md-8 col-sm-12 col-xs-12">
+    <div class="mapSection col-xs-12">
         <div id="map">
             <!-- Google Maps is appended here-->
             <!-- initially display: none-->
         </div>
     </div>
 
-    <div class="animalSection paper row col-lg-8 col-lg-offset-2 col-xs-8 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-offset-2">
+    <div class="animalSection">
         <div id="petInfo" class="col-lg-8 col-lg-offset-2 col-xs-8 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-offset-2 row">
             <!-- Used for displaying the message about the shelter not having any of those animals -->
             <!-- Also contains the buttons for next and previous shelter -->
@@ -65,10 +65,12 @@
             </div>
         </div>
 
-    <!--<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
         <div class="walmart row">
             <!-- The .walmart div has "display: none" initially;  -->
             <button class="walmartSuggestion">Get suggestions</button>
+            <div class="walmartProducts row">
+                <!-- Walmart Product images are appended here  -->
+            </div>
         </div>
     </div>
 </div>
@@ -78,7 +80,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfXhvdIGOf0mubh1Z5zC3G9WScA_hGPFY"></script>
 <script src="googleMaps.js"> // Load google maps first since petFinder will need it later </script>
-<script src="api_config.js">// Configuration files. Please be sure to check that the file is properly ignored before pushing </script>
+<script src="api/api_config.js">// Configuration files. Please be sure to check that the file is properly ignored before pushing </script>
 <script src="walmart_api.js"> // Load walmart functions second (as of writing, walmart coming second is arbitrary </script>
 <script src ="petFinder.js"></script>
 
