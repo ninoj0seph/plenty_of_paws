@@ -69,6 +69,9 @@
         <div class="walmart row">
             <!-- The .walmart div has "display: none" initially;  -->
             <button class="walmartSuggestion">Get suggestions</button>
+            <div class="walmartProducts row">
+                <!-- Walmart Product images are appended here  -->
+            </div>
         </div>
     </div>
 </div>
@@ -78,7 +81,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfXhvdIGOf0mubh1Z5zC3G9WScA_hGPFY"></script>
 <script src="googleMaps.js"> // Load google maps first since petFinder will need it later </script>
-<script src="api_config.js">// Configuration files. Please be sure to check that the file is properly ignored before pushing </script>
+<script src="api/api_config.js">// Configuration files. Please be sure to check that the file is properly ignored before pushing </script>
 <script src="walmart_api.js"> // Load walmart functions second (as of writing, walmart coming second is arbitrary </script>
 <script src ="petFinder.js"></script>
 
