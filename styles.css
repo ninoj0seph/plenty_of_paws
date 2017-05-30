@@ -346,9 +346,10 @@ i.material-icons.likeIcon:hover {
     margin-left: 10em;
     margin-right: 10em;
     margin-top: 3em;
-    width: 10vw;
-    height: 5vh;
-    font-size: 1vh;
+    /*width: 10vw;*/
+    /*height: 5vh;*/
+    /*font-size: 1vh;*/
+
 }
 .animalCards > div {
     margin: 1em;
@@ -394,27 +395,31 @@ i.material-icons.likeIcon:hover {
     }
 }
 
-@media (max-width: 768px) {
-    .animalShelterInformation {
-        font-size: 1.75em;
-    }
-    .shelterButton {
-        font-size: 1.50em;
-    }
-}
-@media (min-width: 992px), (max-width: 991px) and (min-width: 768px) {
-    .animalShelterInformation {
-        font-size: 1.75em;
-    }
-    .shelterButton {
-        font-size: 1.50em;
-    }
-}
-@media (max-width: 991px) and (min-width: 768px) {
-    .animalShelterInformation {
-        font-size: 1.75em;
-    }
-    .shelterButton {
-        font-size: 1.50em;
-    }
-}
+
+/*
+These media queries appear unnecessary, but I would appreciate confirmation before deleting them.
+*/
+/*@media (max-width: 768px) {*/
+    /*.animalShelterInformation {*/
+        /*font-size: 1.75em;*/
+    /*}*/
+    /*.shelterButton {*/
+        /*font-size: 1.50em;*/
+    /*}*/
+/*}*/
+/*@media (min-width: 992px), (max-width: 991px) and (min-width: 768px) {*/
+    /*.animalShelterInformation {*/
+        /*font-size: 1.75em;*/
+    /*}*/
+    /*.shelterButton {*/
+        /*font-size: 1.50em;*/
+    /*}*/
+/*}*/
+/*@media (max-width: 991px) and (min-width: 768px) {*/
+    /*.animalShelterInformation {*/
+        /*font-size: 1.75em;*/
+    /*}*/
+    /*.shelterButton {*/
+        /*font-size: 1.50em;*/
+    /*}*/
+/*}*/
