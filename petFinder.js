@@ -140,7 +140,7 @@ function displayPet(petObject) {
     previousShelterButton = $('<button>', {
         text: 'Previous Shelter',
         class: "btn btn-danger shelterButton",
-        click: null
+        click: previousShelter
 
     });
 
@@ -224,7 +224,7 @@ const shelterFinder = function () {
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i]);
             }
-            shelterPets(shelterArray);
+            shelterPets();
             displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
             //suggestion.getItemInformation();
             //suggestion.findNearestStoreFromShelter();
@@ -232,17 +232,17 @@ const shelterFinder = function () {
     });
 };
 
-function getRandomShelterBasedOnAreaCode(shelterArray) {
+function getRandomShelterBasedOnAreaCode() {
     var randomShelterID = shelterArray[shelterCount];
     return shelterArray[shelterCount]["id"]["$t"];
 }
 
-const shelterPets = function () {
+const shelterPets = function (id = getRandomShelterBasedOnAreaCode(shelterArray)) {
     $.ajax({
         url: 'https://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
-            id: getRandomShelterBasedOnAreaCode(shelterArray)
+            id: id
         },
         dataType: 'json',
         success: function (result) {
@@ -291,6 +291,28 @@ const nextShelter = function () {
     }
     displayMap();
     shelterPets();
+};
+
+const previousShelter = function () {
+    petArray = [];
+    nextShelterButton.remove();
+    previousShelterButton.remove();
+    emptyAnimalDOM(); // Empty the DOM for all information about the animals
+    $('.walmartItem').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+
+    if (shelterCount > 0){
+        shelterCount--;
+    }
+    else if(shelterCount >= 4){
+        shelterCount = 0;
+        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        emptyAnimalDOM();
+        $(".animalCards").append(noMoreShelters);
+        // $('.noMoreShelters').on('click', resetEverything);
+        // return;
+    }
+    displayMap();
+    shelterPets(shelterArray[shelterCount]["id"]["$t"]);
 };
 
 /**
