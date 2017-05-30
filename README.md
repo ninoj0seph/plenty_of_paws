@@ -34,9 +34,12 @@ Hackathon project involving the combination of different data sources into an ap
 ***API Documentation***
 * [Walmart API](https://developer.walmartlabs.com/docs)
     * [Search](https://developer.walmartlabs.com/docs/read/Search_API)
-    
+* [Petfinder API](https://www.petfinder.com/developers/api-docs)
+* [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/)
 
 # Plenty of Paws v2
 Hackathon 2: Plenty of Paws v2
+
+
 
 
