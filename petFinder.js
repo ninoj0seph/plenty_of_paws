@@ -16,18 +16,19 @@ function setup(){
  * @params none
  */
 function attachClickHandlers(){
-    $(".animalType").on("click", assignAnimalType);
-    $(".animalType").on("click", getPets);
-    $(".animalType").on("click", newSearch);
-    $(".animalType").on("click", addCssBlur);
-    $(".walmartSuggestion").on("click", walmartSuggestionInstantiation);
+    $(".animal-type").on("click", assignAnimalType);
+    $(".animal-type").on("click", getPets);
+    $(".animal-type").on("click", newSearch);
+    $(".animal-type").on("click", addCssClasses);
+    $(".walmart-suggestion").on("click", walmartSuggestionInstantiation);
 }
 /**
- * addCssBlur - adds a class that has a blur effect on page load and created for consistency in the attachClickHandlers function
+ * addCssClasses - adds a class that has a blur effect on page load, a class for more legible shelter contact info, and created for consistency in the attachClickHandlers function
  * @params none
  */
-function addCssBlur(){
+function addCssClasses(){
     $('.blur-container').addClass("blur-filter");
+    $('.shelter-contact').addClass('shelter-legibility');
 }
 /**
  * walmartSuggestionInstantiation - creates a new instance of WalmartSuggestionInformation and created for consistency in the attachClickHandlers function
@@ -53,7 +54,7 @@ function randomBackground(){
 
 
 var newSearch = function () {
-    $('#petInfo').empty(); // remove the elements from the DOM and destroy click handlers
+    $('#pet-info').empty(); // remove the elements from the DOM and destroy click handlers
     shelterArray = []; // Empty the list of stored shelters
     petArray = []; // Empty the list of stored pets from that search
     (nextShelterButton !== null) ? (emptyAnimalDOM()) : (''); // Empty the animal dom only if the nextShelter button is there. If not, do nothing
@@ -92,20 +93,18 @@ function displayPet(petObject) {
     if (petObject.length > 0) {
 
         for (let i = 0; i < petObject.length; i++) {
-            let petCard = $("<div class='card col-lg-4 col-sm-3 col-xs-3'>");
-            let cardMedia = $("<div class='cardMedia img-fluid'>");
+            let petCard = $("<div class='card col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0'>");
+            let cardMedia = $("<div class='card-media img-fluid'>");
             let petName = petObject[i]["name"]["$t"];
-            let cardTitle = $("<div class='cardTitle'>").text(petName); // Make the petName the cardTitle
-            let cardActions = $("<div class='cardActions'>");
-            // let likeButton = $("<button class='likeButton'>");
-            let likeIcon = $("<i class='material-icons'>").text("favorite").addClass('likeIcon');
+            let cardTitle = $("<div class='card-title'>").text(petName); // Make the petName the cardTitle
+            let cardActions = $("<div class='card-actions'>");
             let petAge = petObject[i]["age"]["$t"];
-            let petAgeDiv = $("<div class=petAge>").text(petAge); // Pet age. Some have years, some just list a general age, e.g. "Adult"
+            let petAgeDiv = $("<div class=pet-age>").text(petAge); // Pet age. Some have years, some just list a general age, e.g. "Adult"
             let petGender = petObject[i]["sex"]["$t"];
-            let petGenderDiv = $("<div class=petAge>").text(petGender); // male/female
+            let petGenderDiv = $("<div class=pet-age>").text(petGender); // male/female
             let petDescription = petObject[i]["description"]["$t"];
-            let petDescriptionDiv = $("<div class=petDescription>").text(petDescription);
-            let petInfoDiv = $("<div class='petInfoExtended'>");
+            let petDescriptionDiv = $("<div class=pet-description>").text(petDescription);
+            let petInfoDiv = $("<div class='pet-info-extended col-xs-12'>");
             petInfoDiv.append(petAgeDiv, petGenderDiv, petDescriptionDiv);
             // When the user clicks the like icon, append the extended information onto the card
             cardMedia.on("click", function () {
@@ -122,29 +121,29 @@ function displayPet(petObject) {
             petCard.append(cardMedia);
             cardMedia.append(cardTitle);
             petCard.append(petInfoDiv); // Append the petInfoDiv to the card with display property of none
-            $(".animalCards").append(petCard);
+            $(".animal-cards").append(petCard);
         }
         // Append the shelter information to the animalShelterInformaiton div that sits above the animal cards
-        let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName col-lg-8 col-lg-offset-2 col-xs-8 col-xs-offset-2');
-        let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact col-lg-8 col-lg-offset-2 col-xs-8 col-xs-offset-2'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
-        $(".animalShelterInformation").append(shelterName, shelterContact);
+        let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
+        let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
+        $(".animal-shelter-information").append(shelterName, shelterContact);
     } else {
-        let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption`;
-        $("#petInfo").append($("<div class='noMoreAnimals'>").text(noMoreAnimals));
+        let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption, try clicking the Next Shelter button`;
+        $(".shelter-contact").append($("<div class='no-more-animals'>").text(noMoreAnimals));
     }
     nextShelterButton = $('<button>', {
         text: 'Next Shelter',
-        class: "btn btn-danger btn-block btn-block btn-lg shelterButton",
+        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-2 col-xs-8 col-xs-offset-2 shelterButton",
         click: nextShelter
     });
     previousShelterButton = $('<button>', {
         text: 'Previous Shelter',
-        class: "btn btn-danger btn-block btn-lg shelterButton",
+        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-0 col-xs-8 col-xs-offset-2 shelterButton",
         click: previousShelter
 
     });
 
-    $('#petInfo').append(previousShelterButton, nextShelterButton);
+    $('#pet-info').append(previousShelterButton, nextShelterButton);
 }
 
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
@@ -203,8 +202,8 @@ var shelterCount = 0;
  * dataObject @type
  */
 const shelterFinder = function () {
-    var userLocation = $(".userLocation").val();
-    var dataObject = {
+    let userLocation = $(".user-location").val();
+    let dataObject = {
         format: "json",
         key: "579d9f154b80d15e1daee8e8aca5ba7a",
         location: userLocation,
@@ -212,7 +211,7 @@ const shelterFinder = function () {
         count: 5
     };
     // Quick hard coded error handling for empty input fields
-    (userLocation.length < 4) ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
+    (userLocation.length < 4) ? (dataObject.location = "90210") : (dataObject.location = userLocation);
     let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
     $.ajax({
         url: shelterFinderURL,
@@ -267,7 +266,7 @@ const resetEverything = function () {
     $('.noMoreShelters').remove();
     $('.userLocation').val(''); // Empty the zip code when you reset everything
     let newSearch = $("<a href='index.html' class='btn'>").text("New Search?");
-    $(".animalCards").append(newSearch);
+    $(".animal-cards").append(newSearch);
     newSearch.on('click', toggleVisibility('newSearchRequested')); // hide the map, walmart, and animal cards
 };
 
@@ -276,7 +275,7 @@ const nextShelter = function () {
     nextShelterButton.remove();
     previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
-    $('.walmartItem').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+    $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
 
     if (shelterCount < 4){
         shelterCount++;
@@ -285,7 +284,7 @@ const nextShelter = function () {
         shelterCount = 0;
         let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
         emptyAnimalDOM();
-        $(".animalCards").append(noMoreShelters);
+        $(".animal-cards").append(noMoreShelters);
         // $('.noMoreShelters').on('click', resetEverything);
         // return;
     }
@@ -298,7 +297,7 @@ const previousShelter = function () {
     nextShelterButton.remove();
     previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
-    $('.walmartItem').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+    $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
 
     if (shelterCount > 0){
         shelterCount--;
@@ -307,7 +306,7 @@ const previousShelter = function () {
         shelterCount = 0;
         let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
         emptyAnimalDOM();
-        $(".animalCards").append(noMoreShelters);
+        $(".animal-cards").append(noMoreShelters);
         // $('.noMoreShelters').on('click', resetEverything);
         // return;
     }
@@ -319,8 +318,8 @@ const previousShelter = function () {
  * @name emptyAnimalDOM - remove all animal cards, shelter information, and notification text from the DOM
  */
 const emptyAnimalDOM = function() {
-    $('.animalCards').empty();
-    $('.animalShelterInformation').empty();
+    $('.animal-cards').empty();
+    $('.animal-shelter-information').empty();
     $('.noMoreAnimals').remove();
 };
 
@@ -330,7 +329,7 @@ const emptyAnimalDOM = function() {
  */
 
 function toggleVisibility(context) {
-    let animalSelection = $('.animalSelection'); // the div containing the form for the user to select an animal
+    let animalSelection = $('.animal-selection'); // the div containing the form for the user to select an animal
     let map = $('#map');
     let walmartDiv = $('.walmart');
     switch(context) {

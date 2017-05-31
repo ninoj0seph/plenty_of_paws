@@ -67,9 +67,9 @@ function WalmartSuggestionInformation() {
             success: function (walmartItemInfo) {
                 let randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length); // The success response (walmartItemInfo) contains an array of relevant products, so "randomProduct" is just a random one of the relevant items
                 let {mediumImage, name, stock, salePrice, productUrl} =  walmartItemInfo.items[randomProduct]; // pull off the mediumImage, name, stock, and salesPrice
-                let productDiv = $("<div class='walmartItem col-xs-4'>"); // div to hold the product image, name, availability, etc.
-                let productImage  = $("<img class='img-responsive'>").attr("src", mediumImage); // the mediumImage attribute of the response object contains the href string for the image
-                let productName = $("<a target='_blank'>").attr('href', `${productUrl}`).append($('<p>').text(name));
+                let productDiv = $("<div class='walmart-item col-sm-4 col-sm-offset-0 col-xs-10 col-xs-offset-1'>"); // div to hold the product image, name, availability, etc.
+                let productImage  = $("<img class='img-responsive col-xs-10 col-xs-offset-1'>").attr("src", mediumImage); // the mediumImage attribute of the response object contains the href string for the image
+                let productName = $("<a target='_blank'>").attr('href', `${productUrl}`).append($('<p>').text(name).addClass('col-xs-10 col-xs-offset-1'));
                 productDiv.append(productImage, productName); // append the product image followed by the product name to the product div
                 $('.walmartProducts').append(productDiv);
 
@@ -83,7 +83,7 @@ function WalmartSuggestionInformation() {
     this.manipulateDOMWithWalmartSuggestions = function () {
 
     }
-};
+}
 
 
 // const walmartSuggestions = new walmartSuggestionInformation(); // make a new instance of walmart suggestions
