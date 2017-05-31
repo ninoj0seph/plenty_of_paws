@@ -287,8 +287,13 @@ img.paw-logo{
 .animal-shelter-information, .no-more-animals {
     font-family: Dosis, Helvetica, sans-serif;
     font-size: 3vmax;
-    padding: 1%;
     text-align: center;
+}
+.no-more-animals {
+    padding-bottom: 2%;
+}
+.animal-shelter-information {
+    padding: 1%;
 }
 .shelter-legibility {
     background-color: rgba(236,236,255,.6);
