@@ -20,7 +20,10 @@ function attachClickHandlers(){
     $(".animal-type").on("click", getPets);
     $(".animal-type").on("click", newSearch);
     $(".animal-type").on("click", addCssClasses);
-    $(".walmart-suggestion").on("click", walmartSuggestionInstantiation);
+    $(".walmart-suggestion").on("click", () => {
+        walmartSuggestionInstantiation();
+        $(".walmart-suggestion").css('display', 'none'); // Hide the walmart button after the first click
+    });
 }
 /**
  * addCssClasses - adds a class that has a blur effect on page load, a class for more legible shelter contact info, and created for consistency in the attachClickHandlers function
@@ -315,6 +318,7 @@ const nextShelter = function () {
     previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
     $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+    $('.walmart-suggestion').css('display', 'inline-block'); // Show the walmart button when they click for next/previous shelter
 
     if (shelterCount < 4){
         shelterCount++;
@@ -337,6 +341,7 @@ const previousShelter = function () {
     previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
     $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+    $('.walmart-suggestion').css('display', 'inline-block'); // Show the walmart button when they click for next/previous shelter
 
     if (shelterCount > 0){
         shelterCount--;
