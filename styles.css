@@ -1,138 +1,161 @@
 body {
     margin: 0;
+    background-color: #e2e1e0;
 }
-/* Modal */
-.modalContainer p {
-    font-size: 2em;
-    margin: 2% 0;
-    font-family: 'Baloo Bhaina',Helvetica,sans-serif;
+.wrapper {
+    z-index: 2;
+    position: absolute;
 }
-.navbar, .modal-content {
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
+
+/* Background Styling */
+
+.blur-container{
+    z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
-.btn.btn-default {
-    color: #FFF;
-    background-color: #3E50B4;
-    border-color: #3E50B4;
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
+.cat-bg {
+    background: url('images/kitty.png')no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-.btn.btn-default:hover {
-    color: #FFF;
-    background-color: #202b71;
-    border-color: #202b71;
-    transition-duration: 1s;
+.puppy-bg {
+    background: url('images/doggo.png')no-repeat 30% fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-#homeModal {
-    padding: 0 !important;
-    display: block;
-}
-.modal-content {
+.dog-bg {
     background: url('images/puppy.jpg')no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
-.modal.in .modal-dialog {
-    width: 100%;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+.blur-filter {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
 }
-.modal-content {
-    height: 100%;
-    min-height: 100%;
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
-}
-.modalContainer {
-    width: 50vw;
-    margin: 0 auto;
-}
-/* Nav */
-img.pawLogo{
-    height: 70%;
+
+/* Navbar Styling */
+
+img.paw-logo{
+    height: 65%;
     position: absolute;
     top: 50%;
+    left: .5%;
     transform: translateY(-50%);
 }
 .navbar, .navbar-default {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
     border-radius: 0;
     font-size: 40px;
     font-weight: bold;
-    text-align: center;
-}
-.navbar-header {
-    position: relative;
-}
-.navbar.navbar-default {
-    background-color: #3E50B4;
-    border-color: #3E50B4;
-}
-.navbar-default .navbar-nav>li {
-    text-transform: uppercase;
-}
-.navbar-default .navbar-nav>li>a {
-    color: #C4C9E8 !important;
-}
-.navbar-default .navbar-nav>li>a:hover {
-    color: #777;
-}
-.compName {
-    text-align: center;
-    font-weight: bold;
-    font-size: 2em;
-    color: #02a8f3;
-}
-/* Main */
-#map {
-    width: 100%;
-    height: 25vw;
+    z-index: 2;
     -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
 }
-.petProfile {
-    margin: 5%;
+.navbar.navbar-default {
+    background-color: #673ab7;
+    border: none;
 }
-.petName {
-    font-weight: bold;
-    color: #2d165a;
-    font-style: italic;
+.navbar-default .navbar-nav>li {
+    text-transform: uppercase;
+    padding: 2% 0;
 }
-.mainContent  {
-    font-family: 'Dosis', Helvetica, sans-serif;
-    font-size: 1.2em;
-    text-align: center;
-    position: relative;
-    height: 100%;
-    margin: 0 auto;
-    padding: 12px;
-    width: 80vw;
-    border-radius: 4px;
-    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+.navbar-default .navbar-nav>li:hover {
+    background-color: #3d226c;
 }
-/* Next button */
-.nextButton {
+.navbar-default .navbar-nav>li>a {
+    color: #fff;
+}
+.navbar-default .navbar-nav>li>a:hover {
+    color: #ddcaff;
+}
+
+/* Animal Selection Screen */
+
+.user-location-and-animal-choice > p {
+    font-size: 3.5vmax;
+    font-family: 'Baloo Bhaina', Helvetica, sans-serif;
+}
+.btn.btn-default {
+    color: #FFF;
+    background-color: #673AB7;
+    border-color: #673AB7;
     -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
     box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    padding: 5% 7%;
-    width: 15vw;
-    margin: 2em;
+}
+.btn.btn-default:hover {
+    color: #FFF;
+    background-color: #4c2b88;
+    border-color: #4c2b88;
+    transition-duration: 1s;
+}
+.search-form {
+    position: absolute;
+    top: 10vh;
+}
+.form-control.user-location {
+    margin: 2% 0;
+    padding: 5%;
+    font-size: 2vmax;
+}
+.button-container {
+    width: 100%;
+}
+.btn.user-location-submit {
+    padding: 3% 7%;
+    font-family: 'Dosis', Helvetica, sans-serif;
+    width: 49%;
     text-transform: uppercase;
+    font-size: 2em;
+    margin: 0;
+    border: none;
+}
+
+/* Map Styling */
+
+#map {
+    height: 27vh;
+    display: none;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.75);
+}
+.map-section {
+    padding: 0;
+}
+.gm-style-cc {
+    display: none;
+}
+.gm-style .gm-style-iw {
+    font-size: 1.8em !important;
+    font-weight: 600 !important;
+    font-family: 'Dosis', Helvetica, sans-serif !important;
+}
+
+/* Next and Previous Shelter Buttons */
+
+.shelterButton {
+    margin-top: 1%;
+    margin-bottom: 2%; /* Margin shorthand cancels bootstrap offset styling */
 }
 .btn.btn-danger {
     background-color: #02A8F3;
     border-color: #02A8F3;
-    margin-bottom: 3%;
 }
 .btn.btn-danger:hover {
     color: #FFF;
@@ -145,250 +168,168 @@ img.pawLogo{
     background-color: #006591;
     border-color: #006591;
 }
-/* Heart */
-.heartContainer {
-    background-color: #2F3E9E;
-    border-radius: 4px;
-    height: 5vw;
-    position: relative;
-    padding: 2% 4%;
-    margin: 0 auto;
-    -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-    box-shadow: 0 2px 3px 0 rgba(0,0,0,0.75);
-}
-.heartContainer:hover {
-    background-color: #e91e63;
-}
-.heartContainer > img {
-    width: 3.5vw;
-    position: absolute;
-    top: 18%;
-    left: 46%;
-}
-/* Carousel */
-.carousel-inner{
-    font-size: 1.5em;
-}
-/* Animal picture class */
-.animalPicture {
-    display: inline;
-    margin: 0 auto;
-    width: 140%;
-}
-.imgContainer {
-    margin: 0 auto;
-    width: 20vw;
-    height: 20vw;
-    position: relative;
-    border-radius: 50%;
-    overflow: hidden;
-    -webkit-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
-    box-shadow: 0 2px 5px 1px rgba(0,0,0,0.75);
-}
-/* Styling for search bar input */
-.form-control.userLocation {
-    margin: 2% 0;
-    padding: 5%;
-}
-.buttonContainer {
-    width: 50vw;
-    margin: 0 auto;
-}
-.btn.userLocationSubmit {
-    padding: 3% 7%;
-    font-family: 'Dosis',Helvetica, sans-serif;
-    width: 24vw;
-    text-transform: uppercase;
-    font-size: 2em;
-}
-.carousel{
-    padding-top: 20px;
-    margin: 0 auto;
-    height: 100%;
-}
-a.right.carousel-control, a.left.carousel-control {
-    background-image: none;
-}
-.glyphicon-chevron-left, .glyphicon-chevron-right {
-    color: #02a8f3;
-}
-/* Walmart styles */
-.walmart{
-    margin: 1em auto;
+
+/* Walmart Styling */
+
+.walmart {
     font-family: 'Dosis', Helvetica, sans-serif;
-    font-size: 1em;
-    height: 50%;
-    width: 90vw;
-    padding: 12px;
-    border-radius: 4px;
-    box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.75);
+    display: none;
+    background-color: rgba(0,0,0,0);
+    position: absolute;
+    bottom: 0;
+    height: 5vh;
 }
 .walmart div{
-    display: inline-block;
     background-color: #ffffff;
-    margin-top: 12px;
+    background-color: rgba(0,0,0,0);/* rgba values taken from inspector after removing background color property */
+    font-size: 1.2em;
+    margin-bottom: 10%;
 }
-.walmart.img{
-    width: 50%;
-    height: 50%;
-}
-@media (max-width: 600px) {
-    .mainContent {
-        width: 100vw;
-    }
-    .buttonContainer, .form-control.userLocation, #map, #petCarousel {
-        width: 100%;
-    }
-    #map {
-        border-radius: 0;
-        margin: 0;
-    }
-    .nextButton {
-        float: none;
-        width: 50vw;
-        margin: 0;
-    }
-}
-
 .walmart > div {
-    width: 25vw;
     height: 25vh;
     margin: 1em auto;
-}
-
-.thumbnail {
-    height: 200px;
-    width: 200px;
-}
-
-body {
-    background: #e2e1e0;
-}
-.card {
-
-    font-family: Roboto, sans-serif;
-    width: 25em;
-    height: 25em;
-    color: #FAFAFA;
-    background-color: white;
-    box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    margin: 1em;
-    display: inline-block;
-    border-radius: 0.75em;
-    vertical-align: top;
-
-}
-/* Increased box shadow for when the user hovers over the card */
-.card:hover {
-    box-shadow: 0 0.3em 0.6em rgba(0,0,0,0.25), 0 3em 3em rgba(0,0,0,0.22);
-}
-
-.cardTitle {
-    font-size: 2em;
-    font-family: Roboto, sans-serif;
-    margin-left: 1em;
-    margin-bottom: 1em;
-
-}
-
-.cardSubHead {
-    font-family: Roboto,sans-serif;
-    font-size: 1.5em;
-    padding-left: 0.1em;
-}
-
-.cardMedia {
-
-    background-size: 100% 100%;
-    width: 25em;
-    height: 25em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /*border-top-left-radius: 0.75em;*/
-    /*border-top-right-radius: 0.75em;*/
-    border-radius: 0.75em;
-}
-
-
-i.material-icons.likeIcon {
-    color: #2F3E9E;
-    font-size: 48px;
-    margin-right: 0.5em;
-    margin-top: 0.5em;
-    align-self: center;
-}
-
-i.material-icons.likeIcon:hover {
-    color: #E91E63;
-    cursor: pointer;
-
-}
-
-
-/*Styling for the material icons. Taken from google.github.io/material-design-icons/ */
-.material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-
-    /* Support for IE. */
-    font-feature-settings: 'liga';
-}
-
-
-.paper {
-    margin: 1em auto;
-    box-shadow: 0.875em 0.875em 1.75em rgba(0,0,0,0.25), 0.625em 0.625em 0.625em rgba(0,0,0,0.22);
-    width: 90vw;
-    border-radius: 1em;
-}
-
-.animalShelterInformation {
-    font-family: Roboto, sans-serif;
-    font-size: 4em;
+    background-color: rgba(0,0,0,0);
     text-align: center;
 }
-
-/* Up the font size to make the text more legible */
-input.form-control.userLocation {
-    font-size: 2em;
+.walmart-suggestion {
+    font-size: 1.5em;
+    width: 16em;
+    position: fixed;
+    left: -1%;
+    bottom: 0;
+    z-index: 2;
 }
 
-.petInfoExtended {
-    font-family: Roboto, sans-serif;
-    font-size: 1em;
-    width: 25em;
-    color: black;
+/* Pet Card Styling */
+
+.card {
+    height: 40vmax;
+    font-family: Roboto, Helvetica, sans-serif;
     background-color: white;
     box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    margin: 0em 0em 1em 0em;
+    padding: 0; /* suppresses bootstrap misalignment */
+    margin-bottom: 10%;
+}
+.card:hover {
+    box-shadow: 0 0.3em 0.6em rgba(0,0,0,0.25), 0 3em 3em rgba(0,0,0,0.22);/* Increased box shadow for when the user hovers over the card */
+}
+.card-title {
+    font-size: 1.5em;
+    font-family: 'Dosis', Helvetica, sans-serif;
+    background-color: rgba(43,0,67,.6);
+    color: #fff;
+    width: 100%;
+    text-align: center;
+}
+.card-media {
+    background-size: 100% 100%;
+    height: 40vmax;
+    display: flex;
+    flex-direction: column;
+}
+.pet-info-extended {
+    font-family: 'Roboto', Helvetica, sans-serif;
+    font-size: 1.3em;
+    color: #000000;
+    background-color: #fff;
+    margin: 0 0 1em 0;
     padding: 1em;
     display: none;
-    border-radius: 0.75em;
     position: absolute;
+    z-index: 2;
 }
 
-.animalCards > div {
-    margin: 1em;
+/* Shelter Contact Information */
+
+.animal-shelter-information, .no-more-animals {
+    font-family: Dosis, Helvetica, sans-serif;
+    font-size: 3vmax;
+    text-align: center;
+}
+.shelter-legibility {
+    background-color: rgba(236,236,255,.6);
+    margin-bottom: 3%;
+    margin-top: 5%; /* Margin shorthand cancels bootstrap offset styling */
+}
+.shelter-legibility, .pet-info-extended {
+    -webkit-box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
+    -moz-box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
+    box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
+}
+
+/* Media Queries */
+
+@media (orientation: landscape){
+    .search-form {
+        width: 55vw;
+    }
+}
+@media (min-width: 320px) and (max-width: 1024px) and (orientation: portrait){
+    .blur-container.puppy-bg {
+        background: url('images/doggo.png')no-repeat 30% fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+}
+@media (min-width: 767px) and (max-width: 1980px) {
+    .card {
+        margin-right: 4%;
+        margin-left: 4%; /* Margin shorthand cancels Bootstrap offset styling */
+    }
+    .card, .card-media {
+        height: 20vmax;
+    }
+}
+@media (max-width: 600px) {
+    .wrapper {
+        margin: 0;
+        padding: 0;
+    }
+    .search-form {
+        margin-left: 0;
+    }
+    .user-location-submit {
+        padding: 2%;
+    }
+    #map {
+        margin: 0;
+        display: none;
+        width: 100%;
+        height: 22vh;
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
+    .paw-logo {
+        left: 5%;
+    }
+    .walmart-item {
+        width: 62vw;
+    }
+}
+@media (max-width: 750px) and (orientation: landscape){
+    #map {
+        height: 40vh;
+    }
+    .search-form {
+        margin-left: 0;
+    }
+    .wrapper {
+        padding: 0;
+        margin: 0;
+    }
+    .navbar {
+        margin-bottom: 0;
+    }
+    .card, .card-media {
+        height: 65vmax;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1980px) {
+    .search-form {
+        margin-left: -11%;
+    }
 }

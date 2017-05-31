@@ -1,29 +1,71 @@
 $(document).ready(function() {
-    var petObject = null;
-    $('#homeModal').modal('show');
-    //$(".animalType").on("click", getRandomPet);
-    $(".animalType").on("click", assignAnimalType);
-    $(".animalType").on("click", getPets);
-    //$("#homeModal").on("click", resetEverything);
-    $(".animalType").on("click", newSearch);
-    $(".walmart").hide();
-
+    setup();
 });
 
-
-
+/**
+ * setup - setup calls and consolidates the functions necessary for when the page loads
+ * @params none
+ */
+function setup(){
+    var petObject = null;
+    randomBackground();
+    attachClickHandlers();
+}
+/**
+ * attachClickHandlers - consolidates and attaches the event handlers
+ * @params none
+ */
+function attachClickHandlers(){
+    $(".animal-type").on("click", assignAnimalType);
+    $(".animal-type").on("click", getPets);
+    $(".animal-type").on("click", newSearch);
+    $(".animal-type").on("click", addCssClasses);
+    $(".walmart-suggestion").on("click", walmartSuggestionInstantiation);
+}
+/**
+ * addCssClasses - adds a class that has a blur effect on page load, a class for more legible shelter contact info, and created for consistency in the attachClickHandlers function
+ * @params none
+ */
+function addCssClasses(){
+    $('.blur-container').addClass("blur-filter");
+    $('.shelter-contact').addClass('shelter-legibility');
+}
+/**
+ * walmartSuggestionInstantiation - creates a new instance of WalmartSuggestionInformation and created for consistency in the attachClickHandlers function
+ * @params none
+ */
+function walmartSuggestionInstantiation(){
+    const walmartAPI = new WalmartSuggestionInformation(); // make a new instance from the WalmartSuggestionInformation constructor
+    walmartAPI.getItemInformation(); // use the getItemInformation method to make the network request for the information.
+}
+/**
+ * randomBackground - randomly selects a class that is responsible for a background image and styling
+ * @params none
+ */
+function randomBackground(){
+    let chosenBg = Math.round(Math.random()*2);
+    let bg = $('.blur-container');
+    let bgClasses = ["cat-bg", "dog-bg", "puppy-bg"];
+    if(chosenBg >= bgClasses.length || chosenBg < 0){
+        bg.css('background-color', '#E2E1E0');
+    }
+    bg.addClass(bgClasses[chosenBg]);
+}
 
 
 var newSearch = function () {
-
-    $('#petInfo').empty();
-    shelterArray = [];
-    petArray = [];
+    $('#pet-info').empty(); // remove the elements from the DOM and destroy click handlers
+    shelterArray = []; // Empty the list of stored shelters
+    petArray = []; // Empty the list of stored pets from that search
     (nextShelterButton !== null) ? (emptyAnimalDOM()) : (''); // Empty the animal dom only if the nextShelter button is there. If not, do nothing
 };
 
+// While there may be a configuration that does not require
+// the userSelectedAnimal, nextShelterButton, and previousShelterButton variables to be in the global
+// name space,  a global scoping configuration is functional for the purposes of polishing the UI.
 var userSelectedAnimal = null;
 var nextShelterButton = null;
+var previousShelterButton = null;
 /**
  * assignAnimalType - gets the text of the button pressed to know the animal* @name assign
  * @params none
@@ -37,69 +79,32 @@ function assignAnimalType() {
  */
 function getPets(){
     //var userSelectedAnimal = $(this).text();
+    // hide the input form after the user searches for it
+    toggleVisibility('animalSearch');
+    window.location.hash = '#search'; // set the hash to search so the routing back to the index.html for multiple searches can work will minimal rework
     shelterFinder();
 }
-/**
- * @name createMap - Makes map from the values of the latitude and longitude keys
- * @params {object} obj
- */
-function createMap(obj){
-    $("#map").googleMap({
-        zoom: 14,
-        coords: [obj.latitude,obj.longitude] // Map center (optional)
-    });
-    $("#map").addMarker({
-        coords: [obj.latitude,obj.longitude],
-        title: obj.address.name,
-        text: obj.address.text
-    });
-}
-/**
- * @name infoForMap - gets latitude and longitude information from the shelterArray. Stores the latitude and longitude of the shelter in a key:value pair
- * @params - none
- * @return coordObj {object}
- */
-function infoForMap(){
-    var coordObj = {
-        address : {
-            state : shelterArray[shelterCount].state['$t'],
-            city : shelterArray[shelterCount].city['$t'],
-            name : shelterArray[shelterCount].name['$t']
-        },
-        latitude : parseFloat(shelterArray[shelterCount].latitude['$t']),
-        longitude : parseFloat(shelterArray[shelterCount].longitude['$t'])
-    };
-    coordObj.address.text = coordObj.address.city + ', ' + coordObj.address.state;
-    return coordObj;
-}
-/**
- * @name - displayMap - function for displaying the map from the coordinates returned by infoForMap. Calls createMap with parameter of coordinates
- * @params - none
- */
-function displayMap(){
-    var coordinates = infoForMap();
-    createMap(coordinates);
-}
 
-
+/**
+ @name displayPet - function to append the DOM to display the animal's profile
+ @params petObject => response["petfinder"]["pets"]
+ */
 function displayPet(petObject) {
     if (petObject.length > 0) {
 
         for (let i = 0; i < petObject.length; i++) {
-            let petCard = $("<div class='card'>");
-            let cardMedia = $("<div class='cardMedia'>");
+            let petCard = $("<div class='card col-xs-10 col-xs-offset-1 col-sm-3 col-sm-offset-0'>");
+            let cardMedia = $("<div class='card-media img-fluid'>");
             let petName = petObject[i]["name"]["$t"];
-            let cardTitle = $("<div class='cardTitle'>").text(petName); // Make the petName the cardTitle
-            let cardActions = $("<div class='cardActions'>");
-            // let likeButton = $("<button class='likeButton'>");
-            let likeIcon = $("<i class='material-icons'>").text("favorite").addClass('likeIcon');
+            let cardTitle = $("<div class='card-title'>").text(petName); // Make the petName the cardTitle
+            let cardActions = $("<div class='card-actions'>");
             let petAge = petObject[i]["age"]["$t"];
-            let petAgeDiv = $("<div class=petAge>").text(petAge); // Pet age. Some have years, some just list a general age, e.g. "Adult"
+            let petAgeDiv = $("<div class=pet-age>").text(petAge); // Pet age. Some have years, some just list a general age, e.g. "Adult"
             let petGender = petObject[i]["sex"]["$t"];
-            let petGenderDiv = $("<div class=petAge>").text(petGender); // male/female
+            let petGenderDiv = $("<div class=pet-age>").text(petGender); // male/female
             let petDescription = petObject[i]["description"]["$t"];
-            let petDescriptionDiv = $("<div class=petDescription>").text(petDescription);
-            let petInfoDiv = $("<div class='petInfoExtended'>");
+            let petDescriptionDiv = $("<div class=pet-description>").text(petDescription);
+            let petInfoDiv = $("<div class='pet-info-extended col-xs-12'>");
             petInfoDiv.append(petAgeDiv, petGenderDiv, petDescriptionDiv);
             // When the user clicks the like icon, append the extended information onto the card
             cardMedia.on("click", function () {
@@ -116,37 +121,32 @@ function displayPet(petObject) {
             petCard.append(cardMedia);
             cardMedia.append(cardTitle);
             petCard.append(petInfoDiv); // Append the petInfoDiv to the card with display property of none
-            $(".animalCards").append(petCard);
+            $(".animal-cards").append(petCard);
         }
         // Append the shelter information to the animalShelterInformaiton div that sits above the animal cards
         let shelterName = $("<div>").text(shelterArray[shelterCount]["name"]["$t"]).addClass('shelterName');
         let shelterContact = $("<div>").text(petObject[0]["contact"]["email"]["$t"]).addClass('petContact'); // for shelters, the email address is the same, so pick off the email address from the first animal in the array
-        $(".animalShelterInformation").append(shelterName, shelterContact);
+        $(".animal-shelter-information").append(shelterName, shelterContact);
     } else {
-        let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption`;
-        $("#petInfo").append($("<div class='noMoreAnimals'>").text(noMoreAnimals));
+        let noMoreAnimals = `This shelter does not have any ${userSelectedAnimal}s available for adoption, try clicking the Next Shelter button`;
+        $(".shelter-contact").append($("<div class='no-more-animals'>").text(noMoreAnimals));
     }
     nextShelterButton = $('<button>', {
         text: 'Next Shelter',
-        class: "btn btn-danger nextButton",
+        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-2 col-xs-8 col-xs-offset-2 shelterButton",
         click: nextShelter
     });
-    $('.mainContent').append(nextShelterButton);
+    previousShelterButton = $('<button>', {
+        text: 'Previous Shelter',
+        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-0 col-xs-8 col-xs-offset-2 shelterButton",
+        click: previousShelter
+
+    });
+
+    $('#pet-info').append(previousShelterButton, nextShelterButton);
 }
-/**
- @name displayPet - function to append the DOM to display the animal's profile
- @params petObject => response["petfinder"]["pets"]
- */
+
 var petDetails = ["name","age","description"]; // media.photos.photo[i] for images of dog
-
-var walmartStuff = function () {
-    $(".walmart").show(); // make walmart content visible on DOM
-    $(".walmart div").remove();
-    suggestion.getItemInformation();
-    // suggestion.findNearestStoreFromShelter();
-    server.walmartLocator(infoForMap());
-};
-
 
 /**
  * @name - displayRandomPet - function for displaying a random pet from somewhere in the petfinder database
@@ -201,16 +201,17 @@ var shelterCount = 0;
  * @params - none
  * dataObject @type
  */
-var shelterFinder = function () {
-    var dataObject = {
+const shelterFinder = function () {
+    let userLocation = $(".user-location").val();
+    let dataObject = {
         format: "json",
         key: "579d9f154b80d15e1daee8e8aca5ba7a",
-        location: $(".userLocation").val(),
+        location: userLocation,
         output: "full",
         count: 5
     };
     // Quick hard coded error handling for empty input fields
-    ($(".userLocation").val().length < 4) ? (dataObject.location = "90210") : (dataObject.locaction = $("userLocation").val());
+    (userLocation.length < 4) ? (dataObject.location = "90210") : (dataObject.location = userLocation);
     let shelterFinderURL = `https://api.petfinder.com/shelter.find?format=json&${dataObject["location"]}&${dataObject["output"]}&callback=?`;
     $.ajax({
         url: shelterFinderURL,
@@ -222,24 +223,25 @@ var shelterFinder = function () {
             for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
                 shelterArray.push(result.petfinder.shelters.shelter[i]);
             }
-            shelterPets(shelterArray);
-            displayMap();
-            suggestion.getItemInformation();
+            shelterPets();
+            displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
+            //suggestion.getItemInformation();
             //suggestion.findNearestStoreFromShelter();
         }
     });
 };
 
-function getRandomShelterBasedOnAreaCode(shelterArray) {
+function getRandomShelterBasedOnAreaCode() {
     var randomShelterID = shelterArray[shelterCount];
     return shelterArray[shelterCount]["id"]["$t"];
 }
-var shelterPets = function () {
+
+const shelterPets = function (id = getRandomShelterBasedOnAreaCode(shelterArray)) {
     $.ajax({
         url: 'https://api.petfinder.com/shelter.getPets?key=579d9f154b80d15e1daee8e8aca5ba7a&output=full&format=json&callback=?',
         type: 'GET',
         data: {
-            id: getRandomShelterBasedOnAreaCode(shelterArray)
+            id: id
         },
         dataType: 'json',
         success: function (result) {
@@ -255,103 +257,97 @@ var shelterPets = function () {
         }
     });
 };
-/*
- * instantiation of serverConstructor
- */
-var server = new serverConstructor();
-var suggestion = new suggestionConstructor();
 
-function suggestionConstructor() {
-    this.items = {
-        dog: ['food', 'treats', 'toy', 'collar+leash'],
-        cat: ['food,', 'bowl', 'litter+box', 'scratching+post']
-    };
-
-    this.getItemInformation = function () {
-        for (var i = 0; i < suggestion.items[userSelectedAnimal.toLowerCase()].length; i++) {
-            server.checkWalmart(userSelectedAnimal.toLowerCase(), suggestion.items[userSelectedAnimal.toLowerCase()][i]);
-        }
-    };
-}
-function serverConstructor() {
-    this.checkWalmart = function (passedAnimal, passedItem) {
-        const WALMART_URL = "http://api.walmartlabs.com/v1/search?query=";
-        $.ajax({
-            "url": `${WALMART_URL}${passedAnimal}${passedItem}+&format=json&apiKey=5pw9whbkctdk92vckbgewxky`,
-            "dataType": "jsonp",
-            "method": "get",
-            "success": function (walmartItemInfo) {
-                var randomProduct = Math.floor(Math.random() * walmartItemInfo.items.length);
-                var keys = ["mediumImage","name", "stock" , "salePrice"];
-                keys[0] = `<img src=${walmartItemInfo.items[randomProduct][keys[0]]}>`;
-                for(var i = 1; i  < keys.length; i++){
-                    keys[i] = `<div class="walmartTest">${walmartItemInfo.items[randomProduct][keys[i]]}</div>`;
-                }
-                $(".walmart").append("<div><a href=" + walmartItemInfo.items[randomProduct].productUrl + "><div class='thumbnail'>" + keys.join("<br>") + "</div></a></div>");
-
-            },
-            "error": function () {
-                console.log('network timeout');
-            }
-        });
-    };
-
-    this.walmartLocator = function (coordinates) {
-        let walmartLocatorURL = `http://api.walmartlabs.com/v1/stores?format=json&lat=${coordinates.latitude}&lon=${coordinates.longitude}&apiKey=5pw9whbkctdk92vckbgewxky`;
-        $.ajax({
-            url: walmartLocatorURL,
-            "dataType" : "jsonp",
-            "method" : "get",
-            "success" : function (walmartLocation) {
-                $(function() {
-                    $("#map").googleMap();
-                    for(var i = 0; i < 10; i++){
-                        $("#map").addMarker({
-                            coords: [parseFloat(walmartLocation[i].coordinates[1]), parseFloat(walmartLocation[i].coordinates[0])],
-                            title: walmartLocation[i].name,
-                            text:  walmartLocation[i].streetAddress + " " + walmartLocation[i].city + " " + walmartLocation[i].stateProvCode + " " + walmartLocation[i].zip
-                        });
-                    }
-                });
-            }
-        });
-    };
-}
-var resetEverything = function () {
+const resetEverything = function () {
     petArray = [];
     shelterArray = [];
     userSelectedAnimal = null;
     shelterCount = 0;
     $('.noMoreShelters').remove();
     $('.userLocation').val(''); // Empty the zip code when you reset everything
-    let newSearch = $("<a href='index.html/#homeModal' class='btn' data-toggle='modal'>").text("New Search?");
-    $(".animalCards").append(newSearch)
+    let newSearch = $("<a href='index.html' class='btn'>").text("New Search?");
+    $(".animal-cards").append(newSearch);
+    newSearch.on('click', toggleVisibility('newSearchRequested')); // hide the map, walmart, and animal cards
 };
 
-
-var nextShelter = function () {
+const nextShelter = function () {
     petArray = [];
+    nextShelterButton.remove();
+    previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
+    $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
 
     if (shelterCount < 4){
         shelterCount++;
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<div class='noMoreShelters'>").text("No more shelters in your area");
-        $(".animalCards").append(noMoreShelters);
-        resetEverything();
-        return;
+        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        emptyAnimalDOM();
+        $(".animal-cards").append(noMoreShelters);
+        // $('.noMoreShelters').on('click', resetEverything);
+        // return;
     }
     displayMap();
     shelterPets();
 };
 
-
-// jQuery methods empty the DOM for the animal information sections
-var emptyAnimalDOM = function() {
+const previousShelter = function () {
+    petArray = [];
     nextShelterButton.remove();
-    $('.animalCards').empty();
-    $('.animalShelterInformation').empty();
+    previousShelterButton.remove();
+    emptyAnimalDOM(); // Empty the DOM for all information about the animals
+    $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+
+    if (shelterCount > 0){
+        shelterCount--;
+    }
+    else if(shelterCount >= 4){
+        shelterCount = 0;
+        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        emptyAnimalDOM();
+        $(".animal-cards").append(noMoreShelters);
+        // $('.noMoreShelters').on('click', resetEverything);
+        // return;
+    }
+    displayMap();
+    shelterPets(shelterArray[shelterCount]["id"]["$t"]);
+};
+
+/**
+ * @name emptyAnimalDOM - remove all animal cards, shelter information, and notification text from the DOM
+ */
+const emptyAnimalDOM = function() {
+    $('.animal-cards').empty();
+    $('.animal-shelter-information').empty();
     $('.noMoreAnimals').remove();
 };
+
+/**
+ * @name toggleVisibility - hide and show components based on whether or not the user is searching
+ * @param context {type | string}
+ */
+
+function toggleVisibility(context) {
+    let animalSelection = $('.animal-selection'); // the div containing the form for the user to select an animal
+    let map = $('#map');
+    let walmartDiv = $('.walmart');
+    switch(context) {
+
+        case('animalSearch'):
+            animalSelection.css('display','none'); // hide the input form
+            map.css('display', 'block'); // make the map visible
+            walmartDiv.css('display', 'block'); // make the suggestion button visible
+            break;
+        case('newSearchRequested'):
+            map.css('display','none'); // hide the map
+            walmartDiv.css('display', 'none'); // hide the walmart div
+            emptyAnimalDOM(); // Clear out animal DOM
+            $('.newSearchButton').remove();
+            animalSelection.css('display','block');
+            break;
+        default:
+            console.log("toggle visibility default");
+
+    }
+}
