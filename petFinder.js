@@ -121,7 +121,7 @@ function displayPet(petObject) {
                 $(cardMedia).css("background-image", `url("${petObject[i]["media"]["photos"]["photo"][2]["$t"]}")`);
                 // $(petCard).css("background-image", `url("${petObject[i]["media"]["photos"]["photo"][2]["$t"]}")`);
             } else {
-                console.log("No photo found"); // TODO pick a default photo in case there is not a photo there
+                $(cardMedia).css("background-image", `url(images/No-image-found.jpg)`);
             }
             petCard.append(cardMedia);
             cardMedia.append(cardTitle);
@@ -326,7 +326,7 @@ const previousShelter = function () {
 const emptyAnimalDOM = function() {
     $('.animal-cards').empty();
     $('.animal-shelter-information').empty();
-    $('.noMoreAnimals').remove();
+    $('.no-more-animals').remove();
 };
 
 /**
