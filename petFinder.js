@@ -86,6 +86,42 @@ function getPets(){
 }
 
 /**
+ * @name descriptionFilter - Used to normalize the description text from the PetFinder API
+ * @param descriptionText {string}
+ * @returns {object}
+ */
+function descriptionFilter(descriptionText) {
+
+    // start with default values in case the regex returns null
+    let petDescription =  {
+        size: "Cuddleable",
+        demeanor: ["Loveable"]
+    };
+    // Matches (1 or more digit weights = [0-9]+) pound(s) or lb(s)
+    // with an optional period at the end of lb(s) in case of abbreviation
+    const descriptionRegEx = {
+        "size": new RegExp(/[0-9]+[\s]*(pound[s]?|lb[s]?[.]?)/,'i'),
+        "gentle": new RegExp(/(gentle)/, 'i'),
+        "calm": new RegExp(/(calm)/,'i'),
+        "lovingSweet": new RegExp(/(loving)|(sweet)/, 'i'),
+    };
+    const descriptionRegExKeys = Object.keys(descriptionRegEx); // For the for loop. Probably not the best
+    // Assign to a variable, so the test does not run multiple times in the ternary
+    let size = descriptionRegEx.size.exec(descriptionText); // exec returns an array, so we'll grab the result in the ternary
+    // Could probably do this ternary without doing the assignment, but clever code is not always maintainable code
+    // if the regex could not find a match, the *.exec method returns null
+    (size) ? (petDescription.size = size[0]) : (petDescription.size = "Unknown");
+
+    // There are only 4 options, but if the list expands something like this would work i < Object.keys(demeanorRegEx).length
+    for (let i = 1; i < 4 ; i++) {
+        let attribute = descriptionRegEx[descriptionRegExKeys[i]].exec(descriptionText); // Assign to variable to avoid recalculate
+        (attribute) ? (petDescription.demeanor.push(` ${attribute[0]}`)) : ('');
+    }
+
+    return petDescription;
+}
+
+/**
  @name displayPet - function to append the DOM to display the animal's profile
  @params petObject => response["petfinder"]["pets"]
  */
@@ -97,13 +133,16 @@ function displayPet(petObject) {
             let cardMedia = $("<div class='card-media img-fluid'>");
             let petName = petObject[i]["name"]["$t"];
             let cardTitle = $("<div class='card-title'>").text(petName); // Make the petName the cardTitle
-            let cardActions = $("<div class='card-actions'>");
             let petAge = petObject[i]["age"]["$t"];
             let petAgeDiv = $("<div class=pet-age>").text(petAge); // Pet age. Some have years, some just list a general age, e.g. "Adult"
             let petGender = petObject[i]["sex"]["$t"];
+            (petGender === "F") ? (petGender = "Female") : (petGender = "Male"); // Format the gender to more than just F/M
             let petGenderDiv = $("<div class=pet-age>").text(petGender); // male/female
-            let petDescription = petObject[i]["description"]["$t"];
-            let petDescriptionDiv = $("<div class=pet-description>").text(petDescription);
+            let petDescriptionObject = descriptionFilter(petObject[i]["description"]["$t"]); // pass the petDescription into the filter;
+            let petSize = $("<p>").text(`Size/Weight: ${petDescriptionObject.size}`);
+            let petDemeanor = $("<p>").text(`Demeanor: ${petDescriptionObject.demeanor}`);
+            let petDescriptionDiv = $("<div class=pet-description>");
+            petDescriptionDiv.append(petSize, petDemeanor);
             let petInfoDiv = $("<div class='pet-info-extended col-xs-12'>");
             petInfoDiv.append(petAgeDiv, petGenderDiv, petDescriptionDiv);
             // When the user clicks the like icon, append the extended information onto the card
