@@ -109,6 +109,11 @@ function displayPet(petObject) {
             // When the user clicks the like icon, append the extended information onto the card
             cardMedia.on("click", function () {
                 petInfoDiv.stop().slideToggle("slow");
+                cardMedia.toggleClass('pet-selected'); // Visual indication pet card is active with its description out
+            });
+            petInfoDiv.on('click', function(){
+                petInfoDiv.stop().slideToggle('slow'); // Causes pet info div to recede, helpful for longer descriptions
+                cardMedia.removeClass('pet-selected');
             });
             if (petObject[i]["media"]["photos"] !== undefined) {
                 // set the background image of the card media div = to the pet's image
@@ -133,12 +138,12 @@ function displayPet(petObject) {
     }
     nextShelterButton = $('<button>', {
         text: 'Next Shelter',
-        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-2 col-xs-8 col-xs-offset-2 shelterButton",
+        class: "btn btn-danger btn-lg col-xs-5 col-xs-offset-2 shelter-button",
         click: nextShelter
     });
     previousShelterButton = $('<button>', {
         text: 'Previous Shelter',
-        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-0 col-xs-8 col-xs-offset-2 shelterButton",
+        class: "btn btn-danger btn-lg col-xs-5 shelter-button",
         click: previousShelter
 
     });
@@ -270,12 +275,17 @@ const resetEverything = function () {
     newSearch.on('click', toggleVisibility('newSearchRequested')); // hide the map, walmart, and animal cards
 };
 
-const nextShelter = function () {
+const resetDOMElements = function() {
     petArray = [];
     nextShelterButton.remove();
     previousShelterButton.remove();
     emptyAnimalDOM(); // Empty the DOM for all information about the animals
     $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+    $('.no-more-animals').remove(); // Clears the appended no animals message and prevents appending it multiple times
+};
+
+const nextShelter = function () {
+    resetDOMElements();
 
     if (shelterCount < 4){
         shelterCount++;
@@ -293,11 +303,7 @@ const nextShelter = function () {
 };
 
 const previousShelter = function () {
-    petArray = [];
-    nextShelterButton.remove();
-    previousShelterButton.remove();
-    emptyAnimalDOM(); // Empty the DOM for all information about the animals
-    $('.walmart-item').remove(); // Clear all appended Walmart items from the DOM before showing the animals from the next shelter
+    resetDOMElements();
 
     if (shelterCount > 0){
         shelterCount--;

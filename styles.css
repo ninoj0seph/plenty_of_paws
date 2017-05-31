@@ -111,6 +111,7 @@ img.paw-logo{
 .form-control.user-location {
     margin: 2% 0;
     padding: 5%;
+    height: 6vh;
     font-size: 2vmax;
 }
 .button-container {
@@ -149,9 +150,10 @@ img.paw-logo{
 
 /* Next and Previous Shelter Buttons */
 
-.shelterButton {
+.shelter-button {
     margin-top: 1%;
-    margin-bottom: 2%; /* Margin shorthand cancels bootstrap offset styling */
+    margin-bottom: 4%; /* Margin shorthand cancels bootstrap offset styling */
+    padding: 3% 2%;
 }
 .btn.btn-danger {
     background-color: #02A8F3;
@@ -197,7 +199,7 @@ img.paw-logo{
     position: fixed;
     left: -1%;
     bottom: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Pet Card Styling */
@@ -206,8 +208,8 @@ img.paw-logo{
     height: 40vmax;
     font-family: Roboto, Helvetica, sans-serif;
     background-color: white;
-    box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 0.3em 0.9em rgba(0, 0, 0, 0.12), 0 0.3em 0.9em rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
     padding: 0; /* suppresses bootstrap misalignment */
     margin-bottom: 10%;
 }
@@ -233,11 +235,51 @@ img.paw-logo{
     font-size: 1.3em;
     color: #000000;
     background-color: #fff;
-    margin: 0 0 1em 0;
+    margin: 0 0 5em 0;
     padding: 1em;
     display: none;
     position: absolute;
     z-index: 2;
+}
+@-webkit-keyframes blink { /* Effect to s */
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:.7;
+    }
+    100% {
+        opacity:1;
+    }
+}
+@-moz-keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.pet-selected {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+
+    -webkit-animation-direction: alternate;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: blink;
+    -webkit-animation-timing-function: ease-in-out;
+
+    -moz-animation-direction: alternate;
+    -moz-animation-duration: 1s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-name: blink;
+    -moz-animation-timing-function: ease-in-out;
 }
 
 /* Shelter Contact Information */
@@ -245,6 +287,7 @@ img.paw-logo{
 .animal-shelter-information, .no-more-animals {
     font-family: Dosis, Helvetica, sans-serif;
     font-size: 3vmax;
+    padding: 1%;
     text-align: center;
 }
 .shelter-legibility {
@@ -281,6 +324,9 @@ img.paw-logo{
     }
     .card, .card-media {
         height: 20vmax;
+    }
+    .shelter-button {
+        padding: 1%;
     }
 }
 @media (max-width: 600px) {
