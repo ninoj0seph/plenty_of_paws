@@ -150,8 +150,8 @@ img.paw-logo{
 /* Next and Previous Shelter Buttons */
 
 .shelterButton {
-    margin-top: 2%;
-    margin-bottom: 2%; /* Margin shorthand cancels Bootstrap offset styling */
+    margin-top: 1%;
+    margin-bottom: 2%; /* Margin shorthand cancels bootstrap offset styling */
 }
 .btn.btn-danger {
     background-color: #02A8F3;
@@ -178,12 +178,12 @@ img.paw-logo{
     position: absolute;
     bottom: 0;
     height: 5vh;
-    width: 100vw;
 }
 .walmart div{
     background-color: #ffffff;
-    margin-top: 12px;
     background-color: rgba(0,0,0,0);/* rgba values taken from inspector after removing background color property */
+    font-size: 1.2em;
+    margin-bottom: 10%;
 }
 .walmart > div {
     height: 25vh;
@@ -191,7 +191,14 @@ img.paw-logo{
     background-color: rgba(0,0,0,0);
     text-align: center;
 }
-
+.walmart-suggestion {
+    font-size: 1.5em;
+    width: 16em;
+    position: fixed;
+    left: -1%;
+    bottom: 0;
+    z-index: 2;
+}
 
 /* Pet Card Styling */
 
@@ -210,7 +217,7 @@ img.paw-logo{
 .card-title {
     font-size: 1.5em;
     font-family: 'Dosis', Helvetica, sans-serif;
-    background-color: rgba(50,50,50,.6);
+    background-color: rgba(43,0,67,.6);
     color: #fff;
     width: 100%;
     text-align: center;
@@ -237,12 +244,13 @@ img.paw-logo{
 
 .animal-shelter-information, .no-more-animals {
     font-family: Dosis, Helvetica, sans-serif;
-    font-size: 4vmax;
+    font-size: 3vmax;
     text-align: center;
 }
 .shelter-legibility {
     background-color: rgba(236,236,255,.6);
     margin-bottom: 3%;
+    margin-top: 5%; /* Margin shorthand cancels bootstrap offset styling */
 }
 .shelter-legibility, .pet-info-extended {
     -webkit-box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
@@ -298,6 +306,9 @@ img.paw-logo{
     .paw-logo {
         left: 5%;
     }
+    .walmart-item {
+        width: 62vw;
+    }
 }
 @media (max-width: 750px) and (orientation: landscape){
     #map {
@@ -320,8 +331,5 @@ img.paw-logo{
 @media (min-width: 1200px) and (max-width: 1980px) {
     .search-form {
         margin-left: -11%;
-    }
-    .animal-shelter-information {
-        font-size: 3vmax;
     }
 }
