@@ -320,7 +320,7 @@ const previousShelter = function () {
 const emptyAnimalDOM = function() {
     $('.animal-cards').empty();
     $('.animal-shelter-information').empty();
-    $('.noMoreAnimals').remove();
+    $('.no-more-animals').remove();
 };
 
 /**
