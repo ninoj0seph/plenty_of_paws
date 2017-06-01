@@ -152,7 +152,6 @@ img.paw-logo{
 
 .shelter-button {
     margin-top: 1%;
-    margin-bottom: 4%; /* Margin shorthand cancels bootstrap offset styling */
     padding: 3% 2%;
 }
 .btn.btn-danger {
@@ -240,46 +239,6 @@ img.paw-logo{
     display: none;
     position: absolute;
     z-index: 2;
-}
-@-webkit-keyframes blink { /* Effect to s */
-    0% {
-        opacity:1;
-    }
-    50% {
-        opacity:.7;
-    }
-    100% {
-        opacity:1;
-    }
-}
-@-moz-keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: .7;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-.pet-selected {
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out;
-
-    -webkit-animation-direction: alternate;
-    -webkit-animation-duration: 1s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-name: blink;
-    -webkit-animation-timing-function: ease-in-out;
-
-    -moz-animation-direction: alternate;
-    -moz-animation-duration: 1s;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-name: blink;
-    -moz-animation-timing-function: ease-in-out;
 }
 
 /* Shelter Contact Information */
