@@ -175,12 +175,12 @@ function displayPet(petObject) {
     }
     nextShelterButton = $('<button>', {
         text: 'Next Shelter',
-        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-2 col-xs-8 col-xs-offset-2 shelterButton",
+        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-2 col-xs-8 col-xs-offset-2 shelter-button",
         click: nextShelter
     });
     previousShelterButton = $('<button>', {
         text: 'Previous Shelter',
-        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-0 col-xs-8 col-xs-offset-2 shelterButton",
+        class: "btn btn-danger btn-lg col-sm-5 col-sm-offset-0 col-xs-8 col-xs-offset-2 shelter-button",
         click: previousShelter
 
     });
