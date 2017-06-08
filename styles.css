@@ -111,6 +111,7 @@ img.paw-logo{
 .form-control.user-location {
     margin: 2% 0;
     padding: 5%;
+    height: 6vh;
     font-size: 2vmax;
 }
 .button-container {
@@ -149,9 +150,9 @@ img.paw-logo{
 
 /* Next and Previous Shelter Buttons */
 
-.shelterButton {
+.shelter-button {
     margin-top: 1%;
-    margin-bottom: 2%; /* Margin shorthand cancels bootstrap offset styling */
+    padding: 3% 2%;
 }
 .btn.btn-danger {
     background-color: #02A8F3;
@@ -197,7 +198,7 @@ img.paw-logo{
     position: fixed;
     left: -1%;
     bottom: 0;
-    z-index: 2;
+    z-index: 1;
 }
 
 /* Pet Card Styling */
@@ -206,8 +207,8 @@ img.paw-logo{
     height: 40vmax;
     font-family: Roboto, Helvetica, sans-serif;
     background-color: white;
-    box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 0.3em 0.9em rgba(0, 0, 0, 0.12), 0 0.3em 0.9em rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
     padding: 0; /* suppresses bootstrap misalignment */
     margin-bottom: 10%;
 }
@@ -233,7 +234,7 @@ img.paw-logo{
     font-size: 1.3em;
     color: #000000;
     background-color: #fff;
-    margin: 0 0 1em 0;
+    margin: 0 0 5em 0;
     padding: 1em;
     display: none;
     position: absolute;
@@ -246,6 +247,12 @@ img.paw-logo{
     font-family: Dosis, Helvetica, sans-serif;
     font-size: 3vmax;
     text-align: center;
+}
+.no-more-animals {
+    padding-bottom: 2%;
+}
+.animal-shelter-information {
+    padding: 1%;
 }
 .shelter-legibility {
     background-color: rgba(236,236,255,.6);
@@ -281,6 +288,9 @@ img.paw-logo{
     }
     .card, .card-media {
         height: 20vmax;
+    }
+    .shelter-button {
+        padding: 1%;
     }
 }
 @media (max-width: 600px) {
