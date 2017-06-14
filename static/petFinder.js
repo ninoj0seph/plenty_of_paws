@@ -325,11 +325,10 @@ const nextShelter = function () {
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        let noMoreShelters = $("<a href='index.html' class='noMoreShelters btn btn-outline-primary'>").text("No new shelters in your area. New Search?");
         emptyAnimalDOM();
-        $(".animal-cards").append(noMoreShelters);
-        // $('.noMoreShelters').on('click', resetEverything);
-        // return;
+        // $(".animal-cards").append(noMoreShelters);
+        $('.shelter-contact').append(noMoreShelters);
     }
     displayMap();
     shelterPets();
@@ -348,11 +347,10 @@ const previousShelter = function () {
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        let noMoreShelters = $("<a href='index.html' class='noMoreShelters btn btn-outline-primary'>").text("No new shelters in your area. New Search?");
         emptyAnimalDOM();
-        $(".animal-cards").append(noMoreShelters);
-        // $('.noMoreShelters').on('click', resetEverything);
-        // return;
+        // $(".animal-cards").append(noMoreShelters);
+        $('.shelter-contact').append(noMoreShelters);
     }
     displayMap();
     shelterPets(shelterArray[shelterCount]["id"]["$t"]);
@@ -364,6 +362,7 @@ const previousShelter = function () {
 const emptyAnimalDOM = function() {
     $('.animal-cards').empty();
     $('.animal-shelter-information').empty();
+    $('.noMoreShelters').remove(); // Remove the no more shelters link
     $('.no-more-animals').remove();
 };
 
