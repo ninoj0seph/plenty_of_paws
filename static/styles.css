@@ -258,6 +258,8 @@ img.paw-logo{
     background-color: rgba(236,236,255,.6);
     margin-bottom: 3%;
     margin-top: 5%; /* Margin shorthand cancels bootstrap offset styling */
+    text-align: center;
+    text-align: -webkit-center; /* Centers the 'No new shelters message' */
 }
 .shelter-legibility, .pet-info-extended {
     -webkit-box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
