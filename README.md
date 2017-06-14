@@ -16,11 +16,4 @@
 * [Petfinder API](https://www.petfinder.com/developers/api-docs)
 * [Google Maps JavaScript API](https://developers.google.com/maps/documentation/javascript/)
 
-# Plenty of Paws v2
-Hackathon 2: Plenty of Paws v2
-
-Link To Hack-a-thon Version: https://github.com/Kchalmers/C2.17_hackathon
-
-
-
-
+### [Click here to to see the original hack-a-thon version of plenty of paws](https://github.com/Kchalmers/C2.17_hackathon) 
