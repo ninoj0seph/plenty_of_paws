@@ -261,14 +261,18 @@ const shelterFinder = function () {
         data: dataObject,
         dataType: 'json',
         success: function (result) {
-            // console.log(result);
-            for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
-                shelterArray.push(result.petfinder.shelters.shelter[i]);
+            if (result.petfinder.header.status.message.$t === "Invalid geographical location") {
+                notifyUser(); // Append warning div to DOM
+                setTimeout( ()=>{
+                    window.location.replace(`${window.location.origin}${window.location.pathname}`); // Push the user back to the home screen
+                }, 5000); // Wait 5 seconds before redirecting them
+            } else {
+                for (var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
+                    shelterArray.push(result.petfinder.shelters.shelter[i]);
+                }
+                shelterPets();
+                displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
             }
-            shelterPets();
-            displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
-            //suggestion.getItemInformation();
-            //suggestion.findNearestStoreFromShelter();
         }
     });
 };
@@ -394,3 +398,14 @@ function toggleVisibility(context) {
 
     }
 }
+
+function notifyUser() {
+    let warningAlertDiv = $("<div class='alert alert-warning' style='text-align:center'>");
+    let warningText= "<strong>Could not find any shelters in that area. Redirecting you to the home page.</strong>";
+    $('#map').css('display','none');
+    $('.shelter-contact').css('display','none');
+    $('.walmart').css('display','none');
+    warningAlertDiv.append(warningText);
+    $('.map-section').append(warningAlertDiv);
+}
+
