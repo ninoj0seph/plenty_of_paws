@@ -69,7 +69,7 @@ function WalmartSuggestionInformation() {
                 let {mediumImage, name, stock, salePrice, productUrl} =  walmartItemInfo.items[randomProduct]; // pull off the mediumImage, name, stock, and salesPrice
                 let productDiv = $("<div class='walmart-item col-sm-4 col-sm-offset-0 col-xs-10 col-xs-offset-1'>"); // div to hold the product image, name, availability, etc.
                 let productImage  = $("<img class='img-responsive col-xs-10 col-xs-offset-1'>").attr("src", mediumImage); // the mediumImage attribute of the response object contains the href string for the image
-                let productName = $("<a target='_blank'>").attr('href', `${productUrl}`).append($('<p>').text(name).addClass('col-xs-10 col-xs-offset-1'));
+                let productName = $("<a target='_blank'>").attr('href', `${productUrl}`).append($('<p>').text(name).addClass('walmartItemText col-xs-10 col-xs-offset-1'));
                 productDiv.append(productImage, productName); // append the product image followed by the product name to the product div
                 $('.walmartProducts').append(productDiv);
 
