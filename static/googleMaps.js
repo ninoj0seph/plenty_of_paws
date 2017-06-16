@@ -19,9 +19,9 @@ function initMap(infoObj) {
 
     let iconImg;
     if(userSelectedAnimal === 'Dog'){
-        iconImg = 'images/dog_icon.png';
+        iconImg = './assets/dog_icon.png';
     } else {
-        iconImg = 'images/cat_icon.png';
+        iconImg = './assets/cat_icon.png';
     }
 
     let map = new google.maps.Map(document.getElementById('map'), mapOptions);

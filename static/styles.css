@@ -18,21 +18,21 @@ body {
     height: 100%;
 }
 .cat-bg {
-    background: url('images/kitty.png')no-repeat center center fixed;
+    background: url('./../assets/kitty.png')no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 .puppy-bg {
-    background: url('images/doggo.png')no-repeat 30% fixed;
+    background: url('./../assets/doggo.png')no-repeat 30% fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 .dog-bg {
-    background: url('images/puppy.jpg')no-repeat center center fixed;
+    background: url('./../assets/puppy.jpg')no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -265,6 +265,8 @@ img.paw-logo{
     background-color: rgba(236,236,255,.6);
     margin-bottom: 3%;
     margin-top: 5%; /* Margin shorthand cancels bootstrap offset styling */
+    text-align: center;
+    text-align: -webkit-center; /* Centers the 'No new shelters message' */
 }
 .shelter-legibility, .pet-info-extended {
     -webkit-box-shadow: 0 0.3em 0.9em rgba(0,0,0,0.12), 0 0.3em 0.9em rgba(0,0,0,0.24);
@@ -281,7 +283,7 @@ img.paw-logo{
 }
 @media (min-width: 320px) and (max-width: 1024px) and (orientation: portrait){
     .blur-container.puppy-bg {
-        background: url('images/doggo.png')no-repeat 30% fixed;
+        background: url('./../assets/doggo.png')no-repeat 30% fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

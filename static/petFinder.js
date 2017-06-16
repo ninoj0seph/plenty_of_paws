@@ -158,7 +158,7 @@ function displayPet(petObject) {
                 $(cardMedia).css("background-image", `url("${petObject[i]["media"]["photos"]["photo"][2]["$t"]}")`);
                 // $(petCard).css("background-image", `url("${petObject[i]["media"]["photos"]["photo"][2]["$t"]}")`);
             } else {
-                $(cardMedia).css("background-image", `url(images/No-image-found.jpg)`);
+                $(cardMedia).css("background-image", `url(./assets/No-image-found.jpg)`);
             }
             petCard.append(cardMedia);
             cardMedia.append(cardTitle);
@@ -261,14 +261,18 @@ const shelterFinder = function () {
         data: dataObject,
         dataType: 'json',
         success: function (result) {
-            // console.log(result);
-            for(var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
-                shelterArray.push(result.petfinder.shelters.shelter[i]);
+            if (result.petfinder.header.status.message.$t === "Invalid geographical location") {
+                notifyUser(); // Append warning div to DOM
+                setTimeout( ()=>{
+                    window.location.replace(`${window.location.origin}${window.location.pathname}`); // Push the user back to the home screen
+                }, 5000); // Wait 5 seconds before redirecting them
+            } else {
+                for (var i = 0; i < result.petfinder.shelters.shelter.length; i++) {
+                    shelterArray.push(result.petfinder.shelters.shelter[i]);
+                }
+                shelterPets();
+                displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
             }
-            shelterPets();
-            displayMap(); // displayMap really creates the map, and the toggleVisibility is really what makes it visible.
-            //suggestion.getItemInformation();
-            //suggestion.findNearestStoreFromShelter();
         }
     });
 };
@@ -325,11 +329,10 @@ const nextShelter = function () {
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        let noMoreShelters = $("<a href='index.html' class='noMoreShelters btn btn-outline-primary'>").text("No new shelters in your area. New Search?");
         emptyAnimalDOM();
-        $(".animal-cards").append(noMoreShelters);
-        // $('.noMoreShelters').on('click', resetEverything);
-        // return;
+        // $(".animal-cards").append(noMoreShelters);
+        $('.shelter-contact').append(noMoreShelters);
     }
     displayMap();
     shelterPets();
@@ -348,11 +351,10 @@ const previousShelter = function () {
     }
     else if(shelterCount >= 4){
         shelterCount = 0;
-        let noMoreShelters = $("<a href='index.html' class='btn' class='noMoreShelters btn btn-outline-primary'>").text("No more shelters in your area. New Search?");
+        let noMoreShelters = $("<a href='index.html' class='noMoreShelters btn btn-outline-primary'>").text("No new shelters in your area. New Search?");
         emptyAnimalDOM();
-        $(".animal-cards").append(noMoreShelters);
-        // $('.noMoreShelters').on('click', resetEverything);
-        // return;
+        // $(".animal-cards").append(noMoreShelters);
+        $('.shelter-contact').append(noMoreShelters);
     }
     displayMap();
     shelterPets(shelterArray[shelterCount]["id"]["$t"]);
@@ -364,6 +366,7 @@ const previousShelter = function () {
 const emptyAnimalDOM = function() {
     $('.animal-cards').empty();
     $('.animal-shelter-information').empty();
+    $('.noMoreShelters').remove(); // Remove the no more shelters link
     $('.no-more-animals').remove();
 };
 
@@ -395,3 +398,14 @@ function toggleVisibility(context) {
 
     }
 }
+
+function notifyUser() {
+    let warningAlertDiv = $("<div class='alert alert-warning' style='text-align:center'>");
+    let warningText= "<strong>Could not find any shelters in that area. Redirecting you to the home page.</strong>";
+    $('#map').css('display','none');
+    $('.shelter-contact').css('display','none');
+    $('.walmart').css('display','none');
+    warningAlertDiv.append(warningText);
+    $('.map-section').append(warningAlertDiv);
+}
+
