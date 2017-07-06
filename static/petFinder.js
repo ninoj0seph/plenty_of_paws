@@ -158,7 +158,7 @@ function displayPet(petObject) {
                 $(cardMedia).css("background-image", `url("${petObject[i]["media"]["photos"]["photo"][2]["$t"]}")`);
                 // $(petCard).css("background-image", `url("${petObject[i]["media"]["photos"]["photo"][2]["$t"]}")`);
             } else {
-                $(cardMedia).css("background-image", `url(./assets/No-image-found.jpg)`);
+                $(cardMedia).css("background-image", `url(./assets/images/No-image-found.jpg)`);
             }
             petCard.append(cardMedia);
             cardMedia.append(cardTitle);
@@ -261,6 +261,7 @@ const shelterFinder = function () {
         data: dataObject,
         dataType: 'json',
         success: function (result) {
+            console.log(shelterFinderURL);
             if (result.petfinder.header.status.message.$t === "Invalid geographical location") {
                 notifyUser(); // Append warning div to DOM
                 setTimeout( ()=>{

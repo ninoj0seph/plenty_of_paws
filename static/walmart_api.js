@@ -13,7 +13,7 @@
 function WalmartSuggestionInformation() {
     // We decided on a fixed number of items to be queried for each animal delivered consistent results
     // user input requires validation, normalization, and sanitization
-    this.BASE_WALMART_QUERY_URL = `https://api.walmartlabs.com/v1/search?apiKey=${walmartApiKey}&query=`;
+    this.BASE_WALMART_QUERY_URL = `https://api.walmartlabs.com/v1/search?apiKey=5pw9whbkctdk92vckbgewxky&query=`;
 
     // Use an array of objects for the product URLs related to the animal
     this.catQueries = [
