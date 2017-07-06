@@ -6,3 +6,7 @@ $TOKEN_TYPE = "Bearer";
 
 // ******** PETFINDER CREDENTIALS ********
 $PETFINDER_API_KEY = '579d9f154b80d15e1daee8e8aca5ba7a';
+
+// GOOGLE PLACES API
+$GOOGLE_PLACES = 'AIzaSyDWkdzd3P9Oj7RQl5xmeUMtawUgO-OR9l4';
+
