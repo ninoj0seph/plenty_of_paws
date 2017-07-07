@@ -292,7 +292,7 @@ const shelterPets = function (id = getRandomShelterBasedOnAreaCode(shelterArray)
         },
         dataType: 'json',
         success: function (result) {
-            // console.log("shelterPets", result);
+            console.log("shelterPets", result);
             if(result.petfinder.pets.pet !== undefined) {
                 for (var i = 0; i < result.petfinder.pets.pet.length; i++) {
                     if (result.petfinder.pets.pet[i].animal.$t == userSelectedAnimal) {

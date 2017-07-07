@@ -1,7 +1,8 @@
 <?php
 require 'assets/requires/Petfinder.php';
 
-print_r(Petfinder::getShelters());
+$petFinder = new Petfinder();
+$petFinder->initialize();
 
 
 
